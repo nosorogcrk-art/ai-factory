@@ -1,0 +1,2081 @@
+{
+  "timestamp": "2026-04-05 11:55:50",
+  "statistics": {
+    "total_branches": 21,
+    "total_containers": 53,
+    "containers_with_passport": 53,
+    "containers_with_tests": 19,
+    "containers_with_dockerfile": 39,
+    "docker_containers_running": 35,
+    "docker_containers_healthy": 34,
+    "docker_containers_unhealthy": 0
+  },
+  "branches": [
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR0",
+      "name": "BR0",
+      "containers": [
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR0/C0.6",
+          "name": "C0.6",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C0.6",
+            "branch": "BR0",
+            "name": "Chaos Monkey",
+            "responsible": "ГЕРМЕС",
+            "status": "planned",
+            "has_dockerfile": true,
+            "has_tests": false,
+            "healthcheck": false,
+            "version": 0.1,
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": false,
+          "files": [
+            "__init__.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR0/C0.1",
+          "name": "C0.1",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C0.1",
+            "branch": "BR0",
+            "responsible": "ГЕРМЕС",
+            "status": "planned",
+            "name": "C0.1",
+            "dependencies": []
+          },
+          "has_code": false,
+          "has_tests": false,
+          "has_dockerfile": false,
+          "has_requirements": false,
+          "files": [],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR0/C0.2",
+          "name": "C0.2",
+          "has_passport": true,
+          "passport_data": {
+            "responsible": "ГЕРМЕС",
+            "id": "C0.2",
+            "branch": "BR0",
+            "status": "planned",
+            "name": "C0.2",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": false,
+          "has_requirements": false,
+          "files": [
+            "scanner.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR0/C0.5",
+          "name": "C0.5",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C0.5",
+            "branch": "BR0",
+            "name": "System Mapper",
+            "responsible": "ГЕРМЕС",
+            "status": "implemented",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.2,
+            "dependencies": [
+              "BR18"
+            ]
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "container_scanner.py",
+            "branch_scanner.py",
+            "patch_scanner.py",
+            "logger.py",
+            "map_generator.py",
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_container_scanner.py",
+            "tests/test_branch_scanner.py",
+            "tests/test_api.py",
+            "tests/test_map_generator.py"
+          ],
+          "test_files": [
+            "tests/test_container_scanner.py",
+            "tests/test_branch_scanner.py",
+            "tests/test_api.py",
+            "tests/test_map_generator.py"
+          ]
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR0/C0.4",
+          "name": "C0.4",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C0.4",
+            "branch": "BR0",
+            "name": "Registry",
+            "responsible": "ГЕРМЕС",
+            "status": "implemented",
+            "has_dockerfile": true,
+            "has_tests": false,
+            "healthcheck": true,
+            "version": 1.1,
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "models.py",
+            "__init__.py",
+            "storage.py",
+            "main.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR0/C0.3",
+          "name": "C0.3",
+          "has_passport": true,
+          "passport_data": {
+            "responsible": "ГЕРМЕС",
+            "id": "C0.3",
+            "branch": "BR0",
+            "status": "planned",
+            "name": "C0.3",
+            "dependencies": []
+          },
+          "has_code": false,
+          "has_tests": false,
+          "has_dockerfile": false,
+          "has_requirements": false,
+          "files": [],
+          "test_files": []
+        }
+      ],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR1",
+      "name": "BR1",
+      "containers": [
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR1/C1.2",
+          "name": "C1.2",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C1.2",
+            "branch": "BR1",
+            "responsible": "ДЕДАЛ",
+            "status": "Утверждён",
+            "name": "C1.2",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "services.py",
+            "models.py",
+            "__init__.py",
+            "repositories.py",
+            "decomposer.py",
+            "main.py",
+            "tests/test_services.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_services.py",
+            "tests/test_api.py"
+          ]
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR1/C1.3",
+          "name": "C1.3",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C1.3",
+            "branch": "BR1",
+            "responsible": "ДЕДАЛ",
+            "status": "planned",
+            "name": "Self-Audit (Самоаудит)",
+            "dependencies": []
+          },
+          "has_code": false,
+          "has_tests": false,
+          "has_dockerfile": false,
+          "has_requirements": false,
+          "files": [],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR1/C1.1",
+          "name": "C1.1",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C1.1",
+            "branch": "BR1",
+            "responsible": "ДЕДАЛ",
+            "status": "planned",
+            "name": "Cognitive Engine (Когнитивный движок)",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "main.py"
+          ],
+          "test_files": []
+        }
+      ],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR2",
+      "name": "BR2",
+      "containers": [
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR2/C2.5",
+          "name": "C2.5",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C2.5",
+            "branch": "BR2",
+            "responsible": "МНЕМОСИНА",
+            "status": "planned",
+            "name": "Source Quality Filter (Фильтр качества источников)",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": false,
+          "has_requirements": true,
+          "files": [
+            "test_filter.py",
+            "source_filter.py",
+            "BR2/C2.4/source_config.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR2/C2.2",
+          "name": "C2.2",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C2.2",
+            "branch": "BR2",
+            "responsible": "МНЕМОСИНА",
+            "status": "planned",
+            "name": "C2.2",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "embedding_model.py",
+            "indexer.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR2/C2.3",
+          "name": "C2.3",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C2.3",
+            "branch": "BR2",
+            "responsible": "МНЕМОСИНА",
+            "status": "planned",
+            "name": "Semantic Search (Семантический поиск)",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "embedding_model.py",
+            "semantic_search.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR2/C2.4",
+          "name": "C2.4",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C2.4",
+            "branch": "BR2",
+            "responsible": "МНЕМОСИНА",
+            "status": "planned",
+            "name": "External Knowledge Collector (Сборщик внешних знаний)",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": false,
+          "has_requirements": true,
+          "files": [
+            "github_collector.py",
+            "external_to_indexer.py",
+            "source_config.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR2/C2.1",
+          "name": "C2.1",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C2.1",
+            "branch": "BR2",
+            "responsible": "МНЕМОСИНА",
+            "status": "planned",
+            "name": "Vector Store (Векторное хранилище)",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "embedding_model.py",
+            "init_vector_store.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR2/C2.6",
+          "name": "C2.6",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C2.6",
+            "branch": "BR2",
+            "name": "Project Memory",
+            "responsible": "МНЕМОСИНА",
+            "status": "implemented",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.1,
+            "dependencies": [
+              "BR18"
+            ]
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "services.py",
+            "models.py",
+            "repositories.py",
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_services.py",
+            "tests/__init__.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_services.py",
+            "tests/test_api.py"
+          ]
+        }
+      ],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR3",
+      "name": "BR3",
+      "containers": [
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR3/C3.1",
+          "name": "C3.1",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C3.1",
+            "branch": "BR3",
+            "responsible": "АРХИ",
+            "status": "planned",
+            "name": "Standards Lab (Лаборатория стандартов)",
+            "dependencies": []
+          },
+          "has_code": false,
+          "has_tests": false,
+          "has_dockerfile": false,
+          "has_requirements": false,
+          "files": [],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR3/C3.2",
+          "name": "C3.2",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C3.2",
+            "branch": "BR3",
+            "responsible": "АРХИ",
+            "status": "planned",
+            "name": "Pipeline Configurator (Настройщик конвейера)",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "generate_task_model.py",
+            "main.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR3/C3.4",
+          "name": "C3.4",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C3.4",
+            "branch": "BR3",
+            "responsible": "АРХИ",
+            "status": "planned",
+            "name": "C3.4",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": false,
+          "has_requirements": false,
+          "files": [
+            "citations_agent.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR3/C3.3",
+          "name": "C3.3",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C3.3",
+            "branch": "BR3",
+            "responsible": "АРХИ",
+            "status": "planned",
+            "name": "Training Simulator (Тренировочный симулятор)",
+            "dependencies": []
+          },
+          "has_code": false,
+          "has_tests": false,
+          "has_dockerfile": false,
+          "has_requirements": false,
+          "files": [],
+          "test_files": []
+        }
+      ],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR4",
+      "name": "BR4",
+      "containers": [
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR4/C4.1",
+          "name": "C4.1",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C4.1",
+            "branch": "BR4",
+            "name": "Project Dashboard",
+            "responsible": "АРХИ / ГЕФЕСТ",
+            "status": "implemented",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.1,
+            "dependencies": [
+              "BR18",
+              "BR0"
+            ]
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "services.py",
+            "models.py",
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_services.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_services.py",
+            "tests/test_api.py"
+          ]
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR4/C4.4",
+          "name": "C4.4",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C4.4",
+            "branch": "BR4",
+            "responsible": "АРХИ / ГЕФЕСТ",
+            "status": "planned",
+            "name": "C4.4",
+            "dependencies": []
+          },
+          "has_code": false,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": false,
+          "files": [],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR4/C4.3",
+          "name": "C4.3",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C4.3",
+            "branch": "BR4",
+            "name": "Command Console",
+            "responsible": "АРХИ / ГЕФЕСТ",
+            "status": "implemented",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.1,
+            "dependencies": [
+              "BR7",
+              "BR18"
+            ]
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "services.py",
+            "models.py",
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_services.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_services.py",
+            "tests/test_api.py"
+          ]
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR4/C4.2",
+          "name": "C4.2",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C4.2",
+            "branch": "BR4",
+            "status": "planned",
+            "name": "Graph Visualizer (Визуализатор графов)",
+            "dependencies": [],
+            "responsible": "АРХИ / ГЕФЕСТ"
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "graph_builder.py",
+            "main.py"
+          ],
+          "test_files": []
+        }
+      ],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR5",
+      "name": "BR5",
+      "containers": [],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR6",
+      "name": "BR6",
+      "containers": [
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR6/C6.3",
+          "name": "C6.3",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C6.3",
+            "branch": "BR6",
+            "responsible": "РЕВА",
+            "status": "planned",
+            "name": "Token Guard (Страж токенов)",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "models.py",
+            "limits.py",
+            "database.py",
+            "main.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR6/C6.2",
+          "name": "C6.2",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C6.2",
+            "branch": "BR6",
+            "responsible": "РЕВА",
+            "status": "planned",
+            "name": "Semantic Auditor (Семантический аудитор)",
+            "dependencies": []
+          },
+          "has_code": false,
+          "has_tests": false,
+          "has_dockerfile": false,
+          "has_requirements": false,
+          "files": [],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR6/C6.1",
+          "name": "C6.1",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C6.1",
+            "branch": "BR6",
+            "responsible": "РЕВА",
+            "status": "planned",
+            "name": "Chaos Monkey (Хаос-обезьяна)",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "chaos_monkey.py"
+          ],
+          "test_files": []
+        }
+      ],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR7",
+      "name": "BR7",
+      "containers": [
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR7/C7.1",
+          "name": "C7.1",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C7.1",
+            "branch": "BR7",
+            "responsible": "АРГУС",
+            "status": "planned",
+            "name": "Identity Core (Ядро идентичности)",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": false,
+          "has_requirements": true,
+          "files": [
+            "swarm_manager.py",
+            "handover.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR7/C7.4",
+          "name": "C7.4",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C7.4",
+            "branch": "BR7",
+            "responsible": "АРГУС",
+            "status": "planned",
+            "name": "Skill Integrator (Интегратор навыков)",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "models.py",
+            "skill_integrator.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR7/C7.3",
+          "name": "C7.3",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C7.3",
+            "branch": "BR7",
+            "responsible": "АРГУС",
+            "status": "planned",
+            "name": "Specialist Swarm (Рой специалистов)",
+            "dependencies": []
+          },
+          "has_code": false,
+          "has_tests": false,
+          "has_dockerfile": false,
+          "has_requirements": false,
+          "files": [],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR7/C7.2",
+          "name": "C7.2",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C7.2",
+            "branch": "BR7",
+            "responsible": "АРГУС",
+            "status": "planned",
+            "name": "SAD Logic (Протоколы передачи ответственности)",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "prompt_builder.py",
+            "handover.py",
+            "api.py"
+          ],
+          "test_files": []
+        }
+      ],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR8",
+      "name": "BR8",
+      "containers": [],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR9",
+      "name": "BR9",
+      "containers": [
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR9/C9.4",
+          "name": "C9.4",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C9.4",
+            "branch": "BR9",
+            "responsible": "АРХИ",
+            "status": "Утверждён",
+            "name": "C9.4",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "services.py",
+            "models.py",
+            "__init__.py",
+            "repositories.py",
+            "main.py",
+            "tests/test_services.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_services.py",
+            "tests/test_api.py"
+          ]
+        }
+      ],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR10",
+      "name": "BR10",
+      "containers": [
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR10/C10.3",
+          "name": "C10.3",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C10.3",
+            "branch": "BR10",
+            "name": "Packager",
+            "responsible": "ГЕФЕСТ",
+            "status": "implemented",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.1,
+            "dependencies": [
+              "C10.1",
+              "BR2",
+              "BR7"
+            ]
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "doc_builder.py",
+            "release_notes.py",
+            "services.py",
+            "models.py",
+            "packager.py",
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_services.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_services.py",
+            "tests/test_api.py"
+          ]
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR10/C10.2",
+          "name": "C10.2",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C10.2",
+            "branch": "BR10",
+            "responsible": "ГЕФЕСТ / РЕВА",
+            "status": "implemented",
+            "name": "Стенд Приемки",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.2,
+            "dependencies": [
+              "C17.4"
+            ]
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "services.py",
+            "models.py",
+            "repositories.py",
+            "main.py",
+            "tests/test_test_stand.py",
+            "tests/test_run_tests.py",
+            "tests/test_skills.py"
+          ],
+          "test_files": [
+            "tests/test_test_stand.py",
+            "tests/test_run_tests.py",
+            "tests/test_skills.py"
+          ]
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR10/C10.1",
+          "name": "C10.1",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C10.1",
+            "branch": "BR10",
+            "responsible": "ГЕФЕСТ",
+            "status": "planned",
+            "name": "Интегратор",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "build.py",
+            "services.py",
+            "models.py",
+            "__init__.py",
+            "versioning.py",
+            "repositories.py",
+            "main.py",
+            "tests/test_services.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_services.py",
+            "tests/test_api.py"
+          ]
+        }
+      ],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR11",
+      "name": "BR11",
+      "containers": [],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR12",
+      "name": "BR12",
+      "containers": [],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR13",
+      "name": "BR13",
+      "containers": [],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR14",
+      "name": "BR14",
+      "containers": [],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR15",
+      "name": "BR15",
+      "containers": [],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR16",
+      "name": "BR16",
+      "containers": [],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR17",
+      "name": "BR17",
+      "containers": [
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR17/C17.2",
+          "name": "C17.2",
+          "has_passport": true,
+          "passport_data": {
+            "responsible": "ДЕДАЛ",
+            "id": "C17.2",
+            "branch": "BR17",
+            "status": "implemented",
+            "name": "Skill Version Control",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.0,
+            "dependencies": [
+              "C17.1"
+            ]
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "models.py",
+            "database.py",
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_api.py"
+          ]
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR17/C17.5",
+          "name": "C17.5",
+          "has_passport": true,
+          "passport_data": {
+            "responsible": "ДЕДАЛ",
+            "id": "C17.5",
+            "branch": "BR17",
+            "status": "implemented",
+            "name": "Skill Publisher",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.0,
+            "dependencies": [
+              "C17.1",
+              "C17.2",
+              "C17.4"
+            ]
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "services.py",
+            "models.py",
+            "repositories.py",
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_api.py"
+          ]
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR17/C17.4",
+          "name": "C17.4",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C17.4",
+            "branch": "BR17",
+            "responsible": "ДЕДАЛ",
+            "status": "implemented",
+            "name": "Skill Tester",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.5,
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "services.py",
+            "models.py",
+            "repositories.py",
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_api.py"
+          ]
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR17/C17.3",
+          "name": "C17.3",
+          "has_passport": true,
+          "passport_data": {
+            "responsible": "ДЕДАЛ",
+            "id": "C17.3",
+            "branch": "BR17",
+            "status": "implemented",
+            "name": "Skill Graph",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.0,
+            "dependencies": [
+              "C17.1"
+            ]
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "graph_builder.py",
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_api.py"
+          ]
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR17/C17.1",
+          "name": "C17.1",
+          "has_passport": true,
+          "passport_data": {
+            "responsible": "ДЕДАЛ",
+            "id": "C17.1",
+            "branch": "BR17",
+            "status": "implemented",
+            "name": "Skill Registry",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.2,
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "models.py",
+            "database.py",
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_api.py"
+          ]
+        }
+      ],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR18",
+      "name": "BR18",
+      "containers": [
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR18/C18.1",
+          "name": "C18.1",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C18.1",
+            "branch": "BR18",
+            "status": "implemented",
+            "name": "Log Aggregator",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.0,
+            "dependencies": [],
+            "responsible": "ГЕРМЕС"
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "main.py",
+            "test_main.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR18/C18.3",
+          "name": "C18.3",
+          "has_passport": true,
+          "passport_data": {
+            "responsible": "unknown",
+            "id": "C18.3",
+            "branch": "BR18",
+            "status": "planned",
+            "name": "C18.3",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "models.py",
+            "storage.py",
+            "main.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR18/C18.4",
+          "name": "C18.4",
+          "has_passport": true,
+          "passport_data": {
+            "responsible": "unknown",
+            "id": "C18.4",
+            "branch": "BR18",
+            "status": "planned",
+            "name": "C18.4",
+            "dependencies": []
+          },
+          "has_code": false,
+          "has_tests": false,
+          "has_dockerfile": false,
+          "has_requirements": false,
+          "files": [],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR18/C18.5",
+          "name": "C18.5",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C18.5",
+            "branch": "BR18",
+            "status": "planned",
+            "name": "C18.5",
+            "dependencies": [],
+            "responsible": "ГЕРМЕС"
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": false,
+          "files": [
+            "main.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR18/C18.2",
+          "name": "C18.2",
+          "has_passport": true,
+          "passport_data": {
+            "responsible": "ГЕРМЕС",
+            "id": "C18.2",
+            "branch": "BR18",
+            "status": "implemented",
+            "name": "C18.2",
+            "dependencies": [],
+            "has_tests": true,
+            "healthcheck": true,
+            "port": 8094
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "models.py",
+            "storage.py",
+            "main.py",
+            "test_main.py"
+          ],
+          "test_files": []
+        }
+      ],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR19",
+      "name": "BR19",
+      "containers": [
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR19/C19.4",
+          "name": "C19.4",
+          "has_passport": true,
+          "passport_data": {
+            "responsible": "ДЕДАЛ",
+            "id": "C19.4",
+            "branch": "BR19",
+            "status": "implemented",
+            "name": "A/B Tester",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.0,
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_api.py"
+          ]
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR19/C19.3",
+          "name": "C19.3",
+          "has_passport": true,
+          "passport_data": {
+            "responsible": "ДЕДАЛ",
+            "id": "C19.3",
+            "branch": "BR19",
+            "status": "implemented",
+            "name": "Skill Updater",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.0,
+            "dependencies": [
+              "C19.1",
+              "C17.1"
+            ]
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_api.py"
+          ]
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR19/C19.2",
+          "name": "C19.2",
+          "has_passport": true,
+          "passport_data": {
+            "responsible": "ДЕДАЛ",
+            "id": "C19.2",
+            "branch": "BR19",
+            "status": "implemented",
+            "name": "Prompt Optimizer",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.0,
+            "dependencies": [
+              "C19.1"
+            ]
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_api.py"
+          ]
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR19/C19.1",
+          "name": "C19.1",
+          "has_passport": true,
+          "passport_data": {
+            "responsible": "ДЕДАЛ",
+            "id": "C19.1",
+            "branch": "BR19",
+            "status": "implemented",
+            "name": "Log Analyzer",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.0,
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "embedding_model.py",
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_api.py"
+          ]
+        }
+      ],
+      "has_branch_md": true
+    },
+    {
+      "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR20",
+      "name": "BR20",
+      "containers": [
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR20/C20.1",
+          "name": "C20.1",
+          "has_passport": true,
+          "passport_data": {
+            "responsible": "ГЕФЕСТ",
+            "id": "C20.1",
+            "branch": "BR20",
+            "status": "implemented",
+            "name": "GitOps Core",
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.0,
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": true,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "services.py",
+            "models.py",
+            "repositories.py",
+            "main.py",
+            "tests/conftest.py",
+            "tests/test_api.py"
+          ],
+          "test_files": [
+            "tests/test_api.py"
+          ]
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR20/C20.4",
+          "name": "C20.4",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C20.4",
+            "branch": "BR20",
+            "responsible": "ГЕФЕСТ",
+            "status": "implemented",
+            "name": "Test Runner (Запускатель тестов)",
+            "dependencies": [],
+            "has_dockerfile": true,
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.0
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "app/__init__.py",
+            "app/main.py",
+            "app/tests/test_services.py",
+            "app/tests/__init__.py",
+            "app/tests/test_api.py",
+            "app/utils/__init__.py",
+            "app/repositories/test_repository.py",
+            "app/repositories/__init__.py",
+            "app/models/config.py",
+            "app/models/__init__.py",
+            "app/services/test_service.py",
+            "app/services/__init__.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR20/C20.3",
+          "name": "C20.3",
+          "has_passport": true,
+          "passport_data": {
+            "status": "implemented",
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.0,
+            "responsible": "ГЕФЕСТ",
+            "id": "C20.3",
+            "branch": "BR20",
+            "name": "Deployment Executor",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "app/main.py",
+            "app/tests/test_services.py",
+            "app/tests/test_repositories.py",
+            "app/tests/test_api.py",
+            "app/repositories/deployment_repository.py",
+            "app/models/deployment.py",
+            "app/services/rollback_service.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR20/C20.2",
+          "name": "C20.2",
+          "has_passport": true,
+          "passport_data": {
+            "status": "implemented",
+            "has_tests": true,
+            "healthcheck": true,
+            "version": 1.0,
+            "responsible": "ГЕФЕСТ",
+            "id": "C20.2",
+            "branch": "BR20",
+            "name": "Config Versioning",
+            "dependencies": []
+          },
+          "has_code": true,
+          "has_tests": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
+          "files": [
+            "app/__init__.py",
+            "app/main.py",
+            "app/tests/test_services.py",
+            "app/tests/__init__.py",
+            "app/tests/test_api.py",
+            "app/utils/__init__.py",
+            "app/repositories/config_repository.py",
+            "app/repositories/__init__.py",
+            "app/models/config.py",
+            "app/models/__init__.py",
+            "app/services/__init__.py",
+            "app/services/config_service.py"
+          ],
+          "test_files": []
+        },
+        {
+          "path": "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR20/C20.5",
+          "name": "C20.5",
+          "has_passport": true,
+          "passport_data": {
+            "id": "C20.5",
+            "branch": "BR20",
+            "responsible": "ГЕФЕСТ",
+            "status": "planned",
+            "name": "C20.5",
+            "dependencies": []
+          },
+          "has_code": false,
+          "has_tests": false,
+          "has_dockerfile": false,
+          "has_requirements": false,
+          "files": [],
+          "test_files": []
+        }
+      ],
+      "has_branch_md": true
+    }
+  ],
+  "docker_containers": [
+    {
+      "name": "ai-factory-test-runner-1",
+      "status": "Up 10 hours (unhealthy)",
+      "ports": "0.0.0.0:8204->8204/tcp, [::]:8204->8204/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-skill-registry-1",
+      "status": "Up 10 hours (healthy)",
+      "ports": "0.0.0.0:8088->8088/tcp, [::]:8088->8088/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-integrator-1",
+      "status": "Up 10 hours (healthy)",
+      "ports": "0.0.0.0:8096->8096/tcp, [::]:8096->8096/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-patch-architect-1",
+      "status": "Up 10 hours (healthy)",
+      "ports": "0.0.0.0:8085->8085/tcp, [::]:8085->8085/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-deployment-executor-1",
+      "status": "Up 10 hours (healthy)",
+      "ports": "0.0.0.0:8203->8203/tcp, [::]:8203->8203/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-log-aggregator-1",
+      "status": "Up 12 hours (unhealthy)",
+      "ports": "0.0.0.0:8193->8093/tcp, [::]:8193->8093/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-config-versioning-1",
+      "status": "Up 16 hours (healthy)",
+      "ports": "0.0.0.0:8202->8202/tcp, [::]:8202->8202/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-gitops-core-1",
+      "status": "Up 18 hours (unhealthy)",
+      "ports": "0.0.0.0:8105->8105/tcp, [::]:8105->8105/tcp, 0.0.0.0:8201->8201/tcp, [::]:8201->8201/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-skill-updater-1",
+      "status": "Up 21 hours (healthy)",
+      "ports": "0.0.0.0:8104->8104/tcp, [::]:8104->8104/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-prompt-optimizer-1",
+      "status": "Up 22 hours (healthy)",
+      "ports": "0.0.0.0:8102->8102/tcp, [::]:8102->8102/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-log-analyzer-1",
+      "status": "Up 24 hours (healthy)",
+      "ports": "0.0.0.0:8114->8101/tcp, [::]:8114->8101/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-ab-tester-1",
+      "status": "Up 33 hours (healthy)",
+      "ports": "0.0.0.0:8106->8106/tcp, [::]:8106->8106/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-skill-publisher-1",
+      "status": "Up 34 hours (healthy)",
+      "ports": "0.0.0.0:8113->8113/tcp, [::]:8113->8113/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-skill-graph-1",
+      "status": "Up 36 hours (healthy)",
+      "ports": "0.0.0.0:8090->8090/tcp, [::]:8090->8090/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-skill-version-control-1",
+      "status": "Up 36 hours (unhealthy)",
+      "ports": "0.0.0.0:8089->8089/tcp, [::]:8089->8089/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-test-stand-1",
+      "status": "Up 38 hours (healthy)",
+      "ports": "0.0.0.0:8092->8092/tcp, [::]:8092->8092/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-skill-tester-1",
+      "status": "Up 39 hours (healthy)",
+      "ports": "0.0.0.0:8109->8091/tcp, [::]:8109->8091/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-system-mapper-1",
+      "status": "Up 2 days (healthy)",
+      "ports": "0.0.0.0:8101->8098/tcp, [::]:8101->8098/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-indexer-1",
+      "status": "Up 8 days",
+      "ports": "",
+      "health": "unknown"
+    },
+    {
+      "name": "ai-factory-registry-manager-1",
+      "status": "Up 8 days (unhealthy)",
+      "ports": "8000/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-cognitive-engine-1",
+      "status": "Up 8 days (healthy)",
+      "ports": "0.0.0.0:8103->8103/tcp, [::]:8103->8103/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-handover-1",
+      "status": "Up 8 days (healthy)",
+      "ports": "0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-graph-visualizer-1",
+      "status": "Up 8 days (healthy)",
+      "ports": "0.0.0.0:8099->8099/tcp, [::]:8099->8099/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-pipeline-configurator-1",
+      "status": "Up 8 days (healthy)",
+      "ports": "0.0.0.0:8107->8092/tcp, [::]:8107->8092/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-cost-tracker-1",
+      "status": "Up 8 days (unhealthy)",
+      "ports": "0.0.0.0:8110->8095/tcp, [::]:8110->8095/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-registry-1",
+      "status": "Up 8 days (unhealthy)",
+      "ports": "0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-alert-manager-1",
+      "status": "Up 8 days (unhealthy)",
+      "ports": "0.0.0.0:8095->8095/tcp, [::]:8095->8095/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-token-guard-1",
+      "status": "Up 8 days (unhealthy)",
+      "ports": "0.0.0.0:8097->8097/tcp, [::]:8097->8097/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-metrics-dashboard-1",
+      "status": "Up 8 days (unhealthy)",
+      "ports": "0.0.0.0:8094->8094/tcp, [::]:8094->8094/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-skill-integrator-1",
+      "status": "Up 8 days (unhealthy)",
+      "ports": "0.0.0.0:8091->8090/tcp, [::]:8091->8090/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-dashboard-1",
+      "status": "Up 8 days (healthy)",
+      "ports": "0.0.0.0:8098->8094/tcp, [::]:8098->8094/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-command-console-1",
+      "status": "Up 8 days (healthy)",
+      "ports": "0.0.0.0:8100->8095/tcp, [::]:8100->8095/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-project-memory-1",
+      "status": "Up 8 days (healthy)",
+      "ports": "0.0.0.0:8108->8090/tcp, [::]:8108->8090/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-dialogue-manager-1",
+      "status": "Up 8 days (healthy)",
+      "ports": "0.0.0.0:8111->8099/tcp, [::]:8111->8099/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-dialogue-console-1",
+      "status": "Up 10 days (healthy)",
+      "ports": "0.0.0.0:8112->8112/tcp, [::]:8112->8112/tcp",
+      "health": "healthy"
+    }
+  ],
+  "health_checks": [
+    {
+      "container": "ai-factory-test-runner-1",
+      "port": 8204,
+      "url": "http://localhost:8204/health",
+      "status": "ok",
+      "response": {
+        "status": "healthy",
+        "timestamp": "2026-04-05T08:55:43.926834",
+        "version": "1.0"
+      }
+    },
+    {
+      "container": "ai-factory-skill-registry-1",
+      "port": 8088,
+      "url": "http://localhost:8088/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-integrator-1",
+      "port": 8096,
+      "url": "http://localhost:8096/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-patch-architect-1",
+      "port": 8085,
+      "url": "http://localhost:8085/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-deployment-executor-1",
+      "port": 8203,
+      "url": "http://localhost:8203/health",
+      "status": "ok",
+      "response": {
+        "status": "ok",
+        "deployment_count": 0,
+        "rollback_count": 0,
+        "database_status": "healthy",
+        "timestamp": "2026-04-05T08:55:44.527255"
+      }
+    },
+    {
+      "container": "ai-factory-log-aggregator-1",
+      "port": 8193,
+      "url": "http://localhost:8193/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-config-versioning-1",
+      "port": 8202,
+      "url": "http://localhost:8202/health",
+      "status": "ok",
+      "response": {
+        "status": "ok",
+        "version_count": 0,
+        "database_status": "healthy",
+        "timestamp": "2026-04-05T08:55:44.779018"
+      }
+    },
+    {
+      "container": "ai-factory-gitops-core-1",
+      "port": 8105,
+      "url": "http://localhost:8105/health",
+      "status": "error",
+      "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
+    },
+    {
+      "container": "ai-factory-skill-updater-1",
+      "port": 8104,
+      "url": "http://localhost:8104/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-prompt-optimizer-1",
+      "port": 8102,
+      "url": "http://localhost:8102/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-log-analyzer-1",
+      "port": 8114,
+      "url": "http://localhost:8114/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-ab-tester-1",
+      "port": 8106,
+      "url": "http://localhost:8106/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-skill-publisher-1",
+      "port": 8113,
+      "url": "http://localhost:8113/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-skill-graph-1",
+      "port": 8090,
+      "url": "http://localhost:8090/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-skill-version-control-1",
+      "port": 8089,
+      "url": "http://localhost:8089/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-test-stand-1",
+      "port": 8092,
+      "url": "http://localhost:8092/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-skill-tester-1",
+      "port": 8109,
+      "url": "http://localhost:8109/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-system-mapper-1",
+      "port": 8101,
+      "url": "http://localhost:8101/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-cognitive-engine-1",
+      "port": 8103,
+      "url": "http://localhost:8103/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-handover-1",
+      "port": 8080,
+      "url": "http://localhost:8080/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-graph-visualizer-1",
+      "port": 8099,
+      "url": "http://localhost:8099/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-pipeline-configurator-1",
+      "port": 8107,
+      "url": "http://localhost:8107/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-cost-tracker-1",
+      "port": 8110,
+      "url": "http://localhost:8110/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-registry-1",
+      "port": 8000,
+      "url": "http://localhost:8000/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-alert-manager-1",
+      "port": 8095,
+      "url": "http://localhost:8095/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-token-guard-1",
+      "port": 8097,
+      "url": "http://localhost:8097/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-metrics-dashboard-1",
+      "port": 8094,
+      "url": "http://localhost:8094/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-skill-integrator-1",
+      "port": 8091,
+      "url": "http://localhost:8091/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-dashboard-1",
+      "port": 8098,
+      "url": "http://localhost:8098/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-command-console-1",
+      "port": 8100,
+      "url": "http://localhost:8100/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-project-memory-1",
+      "port": 8108,
+      "url": "http://localhost:8108/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-dialogue-manager-1",
+      "port": 8111,
+      "url": "http://localhost:8111/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
+    },
+    {
+      "container": "ai-factory-dialogue-console-1",
+      "port": 8112,
+      "url": "http://localhost:8112/health",
+      "status": "error_404",
+      "response": null
+    }
+  ]
+}

@@ -1,0 +1,348 @@
+import os
+import json
+import uuid
+import sqlite3
+import logging
+import requests
+from datetime import datetime, timezone
+from pathlib import Path
+from fastapi import FastAPI, HTTPException, BackgroundTasks
+from pydantic import BaseModel
+
+# --- Конфигурация ---
+LOG_FILE = Path("01_ЦЕХ/01_ЖУРНАЛЫ/project_memory.log")
+LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+logging.basicConfig(
+    filename=LOG_FILE,
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+BR18_URL = os.getenv("BR18_URL", "http://log-aggregator:8093/api/logs")
+REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "5"))
+
+# --- Пути ---
+PROJECTS_ROOT = Path("01_ЦЕХ/ПРОЕКТЫ")
+DB_PATH = PROJECTS_ROOT / "projects.db"
+
+# --- Инициализация папок и БД ---
+PROJECTS_ROOT.mkdir(parents=True, exist_ok=True)
+
+def init_db():
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS projects (
+            id TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            description TEXT,
+            status TEXT DEFAULT 'active',
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+    conn.execute('CREATE INDEX IF NOT EXISTS idx_projects_status ON projects(status)')
+    conn.execute('CREATE INDEX IF NOT EXISTS idx_projects_name ON projects(name)')
+    conn.commit()
+    conn.close()
+    logger.info("Database initialized")
+
+init_db()
+
+# --- Вспомогательные функции ---
+def get_connection():
+    return sqlite3.connect(DB_PATH)
+
+def send_log_sync(event_type: str, details: dict):
+    """Синхронная отправка лога (вызывается в фоновой задаче)."""
+    try:
+        log_entry = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "service": "C2.6",
+            "event_type": event_type,
+            "details": details
+        }
+        requests.post(BR18_URL, json=log_entry, timeout=REQUEST_TIMEOUT)
+    except Exception as e:
+        logger.error(f"Failed to send log to BR18: {e}")
+
+def create_metadata_file(project_id: str, name: str, description: str = None, status: str = "active"):
+    """Создаёт metadata.json в папке проекта."""
+    try:
+        project_dir = PROJECTS_ROOT / project_id
+        project_dir.mkdir(parents=True, exist_ok=True)
+        metadata = {
+            "id": project_id,
+            "name": name,
+            "description": description,
+            "status": status,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        }
+        with open(project_dir / "metadata.json", "w", encoding="utf-8") as f:
+            json.dump(metadata, f, ensure_ascii=False, indent=2)
+        logger.info(f"Metadata file created for project {project_id}")
+    except Exception as e:
+        logger.error(f"Failed to create metadata for {project_id}: {e}")
+        raise
+
+def update_metadata_file(project_id: str, name: str = None, description: str = None, status: str = None):
+    """Обновляет metadata.json."""
+    try:
+        project_dir = PROJECTS_ROOT / project_id
+        if not project_dir.exists():
+            logger.warning(f"Project directory {project_id} does not exist, cannot update metadata")
+            return
+        metadata_path = project_dir / "metadata.json"
+        if not metadata_path.exists():
+            logger.warning(f"metadata.json missing for {project_id}, will recreate")
+            metadata = {}
+        else:
+            with open(metadata_path, "r", encoding="utf-8") as f:
+                metadata = json.load(f)
+        if name is not None:
+            metadata["name"] = name
+        if description is not None:
+            metadata["description"] = description
+        if status is not None:
+            metadata["status"] = status
+        metadata["updated_at"] = datetime.now(timezone.utc).isoformat()
+        with open(metadata_path, "w", encoding="utf-8") as f:
+            json.dump(metadata, f, ensure_ascii=False, indent=2)
+        logger.info(f"Metadata file updated for project {project_id}")
+    except Exception as e:
+        logger.error(f"Failed to update metadata for {project_id}: {e}")
+
+def row_to_response(row):
+    """Преобразует строку БД в ProjectResponse."""
+    return ProjectResponse(
+        id=row[0], name=row[1], description=row[2],
+        status=row[3], created_at=row[4], updated_at=row[5]
+    )
+
+def recover_projects():
+    """Сканирует папку проектов и восстанавливает записи в БД, если необходимо."""
+    conn = get_connection()
+    try:
+        cur = conn.cursor()
+        for project_dir in PROJECTS_ROOT.iterdir():
+            if not project_dir.is_dir():
+                continue
+            project_id = project_dir.name
+            metadata_path = project_dir / "metadata.json"
+            if not metadata_path.exists():
+                logger.warning(f"Project directory {project_id} has no metadata.json, skipping")
+                continue
+            try:
+                with open(metadata_path, "r", encoding="utf-8") as f:
+                    metadata = json.load(f)
+            except Exception as e:
+                logger.error(f"Error reading metadata for {project_id}: {e}")
+                continue
+
+            # Проверка соответствия ID папки и ID в metadata
+            if metadata.get("id") != project_id:
+                logger.warning(f"Project {project_id}: metadata.id={metadata.get('id')} does not match folder name. Using folder name.")
+                # Можно принять решение: игнорировать или переименовать. Пока используем folder name.
+
+            cur.execute("SELECT id FROM projects WHERE id = ?", (project_id,))
+            if cur.fetchone() is None:
+                # Восстанавливаем запись из metadata
+                cur.execute(
+                    "INSERT INTO projects (id, name, description, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
+                    (project_id, metadata.get("name"), metadata.get("description"),
+                     metadata.get("status", "active"), metadata.get("created_at"), metadata.get("updated_at"))
+                )
+                conn.commit()
+                logger.info(f"Recovered project {project_id} from filesystem")
+    except Exception as e:
+        logger.error(f"Error during project recovery: {e}")
+    finally:
+        conn.close()
+
+# --- Модели Pydantic ---
+class ProjectCreate(BaseModel):
+    name: str
+    description: str | None = None
+
+class ProjectUpdate(BaseModel):
+    name: str | None = None
+    description: str | None = None
+
+class ProjectResponse(BaseModel):
+    id: str
+    name: str
+    description: str | None = None
+    status: str
+    created_at: str
+    updated_at: str
+
+# --- FastAPI приложение ---
+app = FastAPI(title="Project Memory", version="0.1.0")
+
+@app.on_event("startup")
+def startup():
+    recover_projects()
+    logger.info("Project Memory started")
+
+@app.get("/health")
+async def health():
+    return {"status": "ok"}
+
+# --- Эндпоинты ---
+@app.post("/projects", status_code=201, response_model=ProjectResponse)
+async def create_project(req: ProjectCreate, background_tasks: BackgroundTasks):
+    conn = get_connection()
+    cur = conn.cursor()
+    # Проверка уникальности имени
+    cur.execute("SELECT id FROM projects WHERE name = ? AND status = 'active'", (req.name,))
+    if cur.fetchone():
+        conn.close()
+        raise HTTPException(status_code=409, detail="Project with this name already exists")
+
+    project_id = f"proj_{uuid.uuid4().hex[:8]}"
+    now = datetime.now(timezone.utc).isoformat()
+
+    cur.execute(
+        "INSERT INTO projects (id, name, description, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
+        (project_id, req.name, req.description, "active", now, now)
+    )
+    conn.commit()
+    conn.close()
+
+    # Создание папки и metadata.json
+    try:
+        create_metadata_file(project_id, req.name, req.description, "active")
+    except Exception:
+        # Если не удалось создать файл, откатываем БД (удаляем запись)
+        conn = get_connection()
+        cur = conn.cursor()
+        cur.execute("DELETE FROM projects WHERE id = ?", (project_id,))
+        conn.commit()
+        conn.close()
+        raise HTTPException(status_code=500, detail="Failed to create project directory")
+
+    background_tasks.add_task(
+        send_log_sync,
+        "project_created",
+        {"project_id": project_id, "name": req.name, "description": req.description}
+    )
+
+    return ProjectResponse(
+        id=project_id,
+        name=req.name,
+        description=req.description,
+        status="active",
+        created_at=now,
+        updated_at=now
+    )
+
+@app.get("/projects")
+async def list_projects(include_archived: bool = False, limit: int = 100, offset: int = 0):
+    conn = get_connection()
+    cur = conn.cursor()
+    if include_archived:
+        cur.execute(
+            "SELECT id, name, description, status, created_at, updated_at FROM projects ORDER BY created_at DESC LIMIT ? OFFSET ?",
+            (limit, offset)
+        )
+    else:
+        cur.execute(
+            "SELECT id, name, description, status, created_at, updated_at FROM projects WHERE status = 'active' ORDER BY created_at DESC LIMIT ? OFFSET ?",
+            (limit, offset)
+        )
+    rows = cur.fetchall()
+    conn.close()
+    return [row_to_response(r) for r in rows]
+
+@app.get("/projects/{project_id}")
+async def get_project(project_id: str, include_archived: bool = False):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT id, name, description, status, created_at, updated_at FROM projects WHERE id = ?",
+        (project_id,)
+    )
+    row = cur.fetchone()
+    conn.close()
+    if not row:
+        raise HTTPException(status_code=404, detail="Project not found")
+    if not include_archived and row[3] == "archived":
+        raise HTTPException(status_code=404, detail="Project not found")
+    return row_to_response(row)
+
+@app.patch("/projects/{project_id}")
+async def update_project(project_id: str, req: ProjectUpdate, background_tasks: BackgroundTasks):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT id, name, description, status, created_at, updated_at FROM projects WHERE id = ?", (project_id,))
+    row = cur.fetchone()
+    if not row:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Project not found")
+
+    current = {"id": row[0], "name": row[1], "description": row[2], "status": row[3], "created_at": row[4], "updated_at": row[5]}
+
+    # Проверка уникальности имени при смене
+    if req.name is not None and req.name != current["name"]:
+        cur.execute("SELECT id FROM projects WHERE name = ? AND status = 'active' AND id != ?", (req.name, project_id))
+        if cur.fetchone():
+            conn.close()
+            raise HTTPException(status_code=409, detail="Project with this name already exists")
+
+    new_name = req.name if req.name is not None else current["name"]
+    new_desc = req.description if req.description is not None else current["description"]
+
+    updated_at = datetime.now(timezone.utc).isoformat()
+    cur.execute(
+        "UPDATE projects SET name = ?, description = ?, updated_at = ? WHERE id = ?",
+        (new_name, new_desc, updated_at, project_id)
+    )
+    conn.commit()
+    conn.close()
+
+    # Обновляем metadata.json
+    update_metadata_file(project_id, name=new_name, description=new_desc)
+
+    background_tasks.add_task(
+        send_log_sync,
+        "project_updated",
+        {"project_id": project_id, "name": new_name, "description": new_desc}
+    )
+
+    return ProjectResponse(
+        id=current["id"],
+        name=new_name,
+        description=new_desc,
+        status=current["status"],
+        created_at=current["created_at"],
+        updated_at=updated_at
+    )
+
+@app.delete("/projects/{project_id}", status_code=204)
+async def delete_project(project_id: str, background_tasks: BackgroundTasks):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT status FROM projects WHERE id = ?", (project_id,))
+    row = cur.fetchone()
+    if not row:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Project not found")
+    if row[0] == "archived":
+        conn.close()
+        raise HTTPException(status_code=400, detail="Project already archived")
+
+    updated_at = datetime.now(timezone.utc).isoformat()
+    cur.execute("UPDATE projects SET status = 'archived', updated_at = ? WHERE id = ?", (updated_at, project_id))
+    conn.commit()
+    conn.close()
+
+    # Обновляем metadata.json
+    update_metadata_file(project_id, status="archived")
+
+    background_tasks.add_task(
+        send_log_sync,
+        "project_deleted",
+        {"project_id": project_id}
+    )
+    return None

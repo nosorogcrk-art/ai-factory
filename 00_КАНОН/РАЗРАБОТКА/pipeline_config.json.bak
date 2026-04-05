@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "stages": [
+    {"id": "L1_IDEA", "name": "Идея", "description": "Сбор первичных смыслов", "required": true, "allowed_roles": ["АРГУС"]},
+    {"id": "L2_PASSPORT", "name": "Паспорт ветки", "description": "Определение границ и целей", "required": true, "allowed_roles": ["АРХИ"]},
+    {"id": "L3_CONTAINERS", "name": "Контейнеры", "description": "Разбиение на функциональные узлы", "required": true, "allowed_roles": ["АРХИ"]},
+    {"id": "L4_PATCHES", "name": "Патчи", "description": "Атомарная нарезка", "required": true, "allowed_roles": ["АРГУС", "АРХИ"]},
+    {"id": "L5_SPEC", "name": "Спецификация", "description": "Создание детального ТЗ", "required": true, "allowed_roles": ["АРХИ", "ГЕФЕСТ"]},
+    {"id": "L6_CODE", "name": "Код", "description": "Написание кода", "required": true, "allowed_roles": ["ГЕФЕСТ"]},
+    {"id": "REVIEW", "name": "Ревью", "description": "Проверка кода Ревой", "required": true, "allowed_roles": ["РЕВА"]},
+    {"id": "REWORK", "name": "Доработка", "description": "Исправление замечаний", "required": false, "allowed_roles": ["ГЕФЕСТ"]},
+    {"id": "INTEGRATION", "name": "Интеграция", "description": "Сборка и тестирование", "required": true, "allowed_roles": ["ГЕРМЕС"]},
+    {"id": "DEPLOY", "name": "Деплой", "description": "Развёртывание", "required": false, "allowed_roles": ["ГЕРМЕС"]},
+    {"id": "ARCHIVE", "name": "Архивация", "description": "Перенос в архив", "required": true, "allowed_roles": ["МНЕМОСИНА"]}
+  ]
+}

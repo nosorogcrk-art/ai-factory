@@ -1,0 +1,1453 @@
+{
+  "P0.1.1": {
+    "file": "BR0/C0.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P0.1.1.md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P0.1.2": {
+    "file": "BR0/C0.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P0.1.2.md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P0.2.1": {
+    "file": "BR0/C0.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P0.2.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P0.2.2": {
+    "file": "BR0/C0.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P0.2.2 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P0.3.1": {
+    "file": "BR0/C0.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P0.3.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P0.3.2": {
+    "file": "BR0/C0.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P0.3.2 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P0.4.1": {
+    "file": "BR0/C0.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P0.4.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P0.4.2": {
+    "file": "BR0/C0.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P0.4.2 (LEVEL 5).md",
+    "dependencies": [
+      "P0.4.1"
+    ],
+    "status": "not_started"
+  },
+  "P0.4.3": {
+    "file": "BR0/C0.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P0.4.3 (LEVEL 5).md",
+    "dependencies": [
+      "P0.4.2"
+    ],
+    "status": "not_started"
+  },
+  "P0.4.4": {
+    "file": "BR0/C0.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P0.4.4 (LEVEL 5).md",
+    "dependencies": [
+      "P0.4.3"
+    ],
+    "status": "not_started"
+  },
+  "P0.4.5": {
+    "file": "BR0/C0.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P0.4.5 (LEVEL 5) – ОПЦИОНАЛЬНО.md",
+    "dependencies": [
+      "P0.4.2",
+      "P0.4.2",
+      "P0.4.3",
+      "P0.4.4"
+    ],
+    "status": "not_started"
+  },
+  "P1.1.1": {
+    "file": "BR1/C1.1/P1.1.1 Сборщик метрик.md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P1.1.2": {
+    "file": "BR1/C1.1/P1.1.2 Анализатор аномалий.md",
+    "dependencies": [
+      "P1.1.1",
+      "P1.1.4"
+    ],
+    "status": "not_started"
+  },
+  "P1.1.3": {
+    "file": "BR1/C1.1/P1.1.3 Генератор гипотез.md",
+    "dependencies": [
+      "P1.1.2",
+      "P2.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P1.1.4": {
+    "file": "BR1/C1.1/P1.1.4 Классификатор задач.md",
+    "dependencies": [
+      "P1.1.1",
+      "P2.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P1.1.5": {
+    "file": "BR1/C1.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P1.1.5 (LEVEL 5).md",
+    "dependencies": [
+      "P1.1.1"
+    ],
+    "status": "not_started"
+  },
+  "P1.1.6": {
+    "file": "BR1/C1.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P1.1.6 (LEVEL 5).md",
+    "dependencies": [
+      "P1.1.4"
+    ],
+    "status": "not_started"
+  },
+  "P1.1.7": {
+    "file": "BR1/C1.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P1.1.7 (LEVEL 5).md",
+    "dependencies": [
+      "P1.1.5",
+      "P1.1.2"
+    ],
+    "status": "not_started"
+  },
+  "P1.1.8": {
+    "file": "BR1/C1.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P1.1.8 (LEVEL 5).md",
+    "dependencies": [
+      "P1.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P1.1.9": {
+    "file": "BR1/C1.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P1.1.9 (LEVEL 5).md",
+    "dependencies": [
+      "P18.2.3",
+      "P19.2.5"
+    ],
+    "status": "not_started"
+  },
+  "P1.2.1": {
+    "file": "BR1/C1.2/P1.2.1 Декомпозитор.md",
+    "dependencies": [
+      "P1.2.1"
+    ],
+    "status": "not_started"
+  },
+  "P1.2.2": {
+    "file": "BR1/C1.2/P1.2.2 Генератор зависимостей.md",
+    "dependencies": [
+      "P1.2.1"
+    ],
+    "status": "not_started"
+  },
+  "P1.2.3": {
+    "file": "BR1/C1.2/P1.2.3 Создатель спецификаций.md",
+    "dependencies": [
+      "P1.2.1",
+      "P3.1.1"
+    ],
+    "status": "not_started"
+  },
+  "P1.2.4": {
+    "file": "BR1/C1.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P1.2.4 (LEVEL 5).md",
+    "dependencies": [
+      "P1.2.1"
+    ],
+    "status": "not_started"
+  },
+  "P1.2.5": {
+    "file": "BR1/C1.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P1.2.5 (LEVEL 5).md",
+    "dependencies": [
+      "P1.2.4",
+      "P1.2.2"
+    ],
+    "status": "not_started"
+  },
+  "P1.2.6": {
+    "file": "BR1/C1.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P1.2.6 (LEVEL 5).md",
+    "dependencies": [
+      "P1.2.5"
+    ],
+    "status": "not_started"
+  },
+  "P1.3.1": {
+    "file": "BR1/C1.3/P1.3.1 Сборщик метрик качества.md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P1.3.2": {
+    "file": "BR1/C1.3/P1.3.2 Анализатор промптов.md",
+    "dependencies": [
+      "P1.3.1",
+      "P7.1.2"
+    ],
+    "status": "not_started"
+  },
+  "P1.3.3": {
+    "file": "BR1/C1.3/P1.3.3 Инициатор улучшений.md",
+    "dependencies": [
+      "P1.3.2",
+      "P7.1.2"
+    ],
+    "status": "not_started"
+  },
+  "P1.3.4": {
+    "file": "BR1/C1.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P1.3.4 (LEVEL 5).md",
+    "dependencies": [
+      "P1.3.2"
+    ],
+    "status": "not_started"
+  },
+  "P1.3.5": {
+    "file": "BR1/C1.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P1.3.5 (LEVEL 5).md",
+    "dependencies": [
+      "P1.3.4"
+    ],
+    "status": "not_started"
+  },
+  "P1.3.6": {
+    "file": "BR1/C1.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P1.3.6 (LEVEL 5).md",
+    "dependencies": [
+      "P19.4.5"
+    ],
+    "status": "not_started"
+  },
+  "P10.1.1": {
+    "file": "BR10/C10.1/P10.1.1 Базовый интегратор.md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P10.1.2": {
+    "file": "BR10/C10.1/P10.1.2 Автоматическая сборка.md",
+    "dependencies": [
+      "P10.1.1"
+    ],
+    "status": "not_started"
+  },
+  "P10.1.3": {
+    "file": "BR10/C10.1/P10.1.3 Версионирование артефактов.md",
+    "dependencies": [
+      "P10.1.2"
+    ],
+    "status": "not_started"
+  },
+  "P10.1.4": {
+    "file": "BR10/C10.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P10.1.4 (LEVEL 5).md",
+    "dependencies": [
+      "P10.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P10.1.5": {
+    "file": "BR10/C10.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P10.1.5 (LEVEL 5).md",
+    "dependencies": [
+      "P17.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P10.2.1": {
+    "file": "BR10/C10.2/P10.2.1 Базовый стенд.md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P10.2.2": {
+    "file": "BR10/C10.2/P10.2.2 Интеграция с реестром задач.md",
+    "dependencies": [
+      "P10.2.1"
+    ],
+    "status": "not_started"
+  },
+  "P10.2.3": {
+    "file": "BR10/C10.2/P10.2.3 Метрики тестирования.md",
+    "dependencies": [
+      "P10.2.2"
+    ],
+    "status": "not_started"
+  },
+  "P10.2.4": {
+    "file": "BR10/C10.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P10.2.4 (LEVEL 5).md",
+    "dependencies": [
+      "P17.4.5"
+    ],
+    "status": "not_started"
+  },
+  "P10.3.1": {
+    "file": "BR10/C10.3/P10.3.1 Сборщик документации.md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P10.3.2": {
+    "file": "BR10/C10.3/P10.3.2 Генератор релиз-нотс.md",
+    "dependencies": [
+      "P10.3.1"
+    ],
+    "status": "not_started"
+  },
+  "P10.3.3": {
+    "file": "BR10/C10.3/P10.3.3 Упаковщик дистрибутива.md",
+    "dependencies": [
+      "P10.3.2"
+    ],
+    "status": "not_started"
+  },
+  "P10.3.4": {
+    "file": "BR10/C10.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P10.3.4 (LEVEL 5).md",
+    "dependencies": [
+      "P17.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P17.1.1": {
+    "file": "BR17/C17.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.1.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P17.1.2": {
+    "file": "BR17/C17.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.1.2 (LEVEL 5).md",
+    "dependencies": [
+      "P17.1.1"
+    ],
+    "status": "not_started"
+  },
+  "P17.1.3": {
+    "file": "BR17/C17.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.1.3 (LEVEL 5).md",
+    "dependencies": [
+      "P17.1.2"
+    ],
+    "status": "not_started"
+  },
+  "P17.1.4": {
+    "file": "BR17/C17.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.1.4 (LEVEL 5).md",
+    "dependencies": [
+      "P17.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P17.2.1": {
+    "file": "BR17/C17.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.2.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P17.2.2": {
+    "file": "BR17/C17.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.2.2 (LEVEL 5).md",
+    "dependencies": [
+      "P17.2.1"
+    ],
+    "status": "not_started"
+  },
+  "P17.2.3": {
+    "file": "BR17/C17.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.2.3 (LEVEL 5).md",
+    "dependencies": [
+      "P17.2.2"
+    ],
+    "status": "not_started"
+  },
+  "P17.2.4": {
+    "file": "BR17/C17.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.2.4 (LEVEL 5).md",
+    "dependencies": [
+      "P17.2.3"
+    ],
+    "status": "not_started"
+  },
+  "P17.3.2": {
+    "file": "BR17/C17.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.3.2 (LEVEL 5).md",
+    "dependencies": [
+      "P17.3.1"
+    ],
+    "status": "not_started"
+  },
+  "P17.3.3": {
+    "file": "BR17/C17.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.3.3 (LEVEL 5).md",
+    "dependencies": [
+      "P17.3.2"
+    ],
+    "status": "not_started"
+  },
+  "P17.3.4": {
+    "file": "BR17/C17.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.3.4 (LEVEL 5).md",
+    "dependencies": [
+      "P17.3.3"
+    ],
+    "status": "not_started"
+  },
+  "P17.4.1": {
+    "file": "BR17/C17.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.4.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P17.4.2": {
+    "file": "BR17/C17.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.4.2 (LEVEL 5).md",
+    "dependencies": [
+      "P17.4.1"
+    ],
+    "status": "not_started"
+  },
+  "P17.4.3": {
+    "file": "BR17/C17.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.4.3 (LEVEL 5).md",
+    "dependencies": [
+      "P17.4.2"
+    ],
+    "status": "not_started"
+  },
+  "P17.4.4": {
+    "file": "BR17/C17.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.4.4 (LEVEL 5).md",
+    "dependencies": [
+      "P17.4.3"
+    ],
+    "status": "not_started"
+  },
+  "P17.4.5": {
+    "file": "BR17/C17.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.4.5 (LEVEL 5).md",
+    "dependencies": [
+      "P17.4.4"
+    ],
+    "status": "not_started"
+  },
+  "P17.5.1": {
+    "file": "BR17/C17.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.5.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P17.5.2": {
+    "file": "BR17/C17.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.5.2 (LEVEL 5).md",
+    "dependencies": [
+      "P17.5.1"
+    ],
+    "status": "not_started"
+  },
+  "P17.5.3": {
+    "file": "BR17/C17.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.5.3 (LEVEL 5).md",
+    "dependencies": [
+      "P17.5.2"
+    ],
+    "status": "not_started"
+  },
+  "P17.5.4": {
+    "file": "BR17/C17.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.5.4 (LEVEL 5).md",
+    "dependencies": [
+      "P17.5.3"
+    ],
+    "status": "not_started"
+  },
+  "P17.5.5": {
+    "file": "BR17/C17.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.5.5 (LEVEL 5).md",
+    "dependencies": [
+      "P17.5.4"
+    ],
+    "status": "not_started"
+  },
+  "P17.5.6": {
+    "file": "BR17/C17.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P17.5.6 (LEVEL 5).md",
+    "dependencies": [
+      "P17.5.5"
+    ],
+    "status": "not_started"
+  },
+  "P18.1.1": {
+    "file": "BR18/C18.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.1.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P18.1.2": {
+    "file": "BR18/C18.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.1.2 (LEVEL 5).md",
+    "dependencies": [
+      "P18.1.1"
+    ],
+    "status": "not_started"
+  },
+  "P18.1.3": {
+    "file": "BR18/C18.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.1.3 (LEVEL 5).md",
+    "dependencies": [
+      "P18.1.2"
+    ],
+    "status": "not_started"
+  },
+  "P18.1.4": {
+    "file": "BR18/C18.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.1.4 (LEVEL 5) – ОПЦИОНАЛЬНО.md",
+    "dependencies": [
+      "P18.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P18.2.1": {
+    "file": "BR18/C18.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.2.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P18.2.2": {
+    "file": "BR18/C18.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.2.2 (LEVEL 5).md",
+    "dependencies": [
+      "P18.2.1"
+    ],
+    "status": "not_started"
+  },
+  "P18.2.3": {
+    "file": "BR18/C18.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.2.3 (LEVEL 5).md",
+    "dependencies": [
+      "P18.2.2"
+    ],
+    "status": "not_started"
+  },
+  "P18.2.4": {
+    "file": "BR18/C18.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.2.4 (LEVEL 5).md",
+    "dependencies": [
+      "P18.2.3"
+    ],
+    "status": "not_started"
+  },
+  "P18.2.5": {
+    "file": "BR18/C18.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.2.5 (LEVEL 5).md",
+    "dependencies": [
+      "P18.2.4"
+    ],
+    "status": "not_started"
+  },
+  "P18.3.1": {
+    "file": "BR18/C18.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.3.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P18.3.2": {
+    "file": "BR18/C18.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.3.2 (LEVEL 5).md",
+    "dependencies": [
+      "P18.3.1"
+    ],
+    "status": "not_started"
+  },
+  "P18.3.3": {
+    "file": "BR18/C18.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.3.3 (LEVEL 5).md",
+    "dependencies": [
+      "P18.3.2"
+    ],
+    "status": "not_started"
+  },
+  "P18.3.4": {
+    "file": "BR18/C18.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.3.4 (LEVEL 5).md",
+    "dependencies": [
+      "P18.3.3"
+    ],
+    "status": "not_started"
+  },
+  "P18.3.5": {
+    "file": "BR18/C18.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.3.5 (LEVEL 5).md",
+    "dependencies": [
+      "P18.3.4"
+    ],
+    "status": "not_started"
+  },
+  "P18.4.1": {
+    "file": "BR18/C18.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.4.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P18.4.2": {
+    "file": "BR18/C18.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.4.2 (LEVEL 5).md",
+    "dependencies": [
+      "P18.4.1"
+    ],
+    "status": "not_started"
+  },
+  "P18.4.3": {
+    "file": "BR18/C18.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.4.3 (LEVEL 5).md",
+    "dependencies": [
+      "P18.4.2"
+    ],
+    "status": "not_started"
+  },
+  "P18.4.4": {
+    "file": "BR18/C18.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.4.4 (LEVEL 5).md",
+    "dependencies": [
+      "P18.4.3"
+    ],
+    "status": "not_started"
+  },
+  "P18.4.5": {
+    "file": "BR18/C18.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.4.5 (LEVEL 5).md",
+    "dependencies": [
+      "P18.4.4"
+    ],
+    "status": "not_started"
+  },
+  "P18.4.6": {
+    "file": "BR18/C18.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.4.6 (LEVEL 5).md",
+    "dependencies": [
+      "P18.4.5"
+    ],
+    "status": "not_started"
+  },
+  "P18.5.1": {
+    "file": "BR18/C18.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.5.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P18.5.2": {
+    "file": "BR18/C18.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.5.2 (LEVEL 5).md",
+    "dependencies": [
+      "P18.5.1"
+    ],
+    "status": "not_started"
+  },
+  "P18.5.3": {
+    "file": "BR18/C18.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.5.3 (LEVEL 5).md",
+    "dependencies": [
+      "P18.5.2"
+    ],
+    "status": "not_started"
+  },
+  "P18.5.4": {
+    "file": "BR18/C18.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.5.4 (LEVEL 5).md",
+    "dependencies": [
+      "P18.5.3"
+    ],
+    "status": "not_started"
+  },
+  "P18.5.5": {
+    "file": "BR18/C18.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P18.5.5 (LEVEL 5).md",
+    "dependencies": [
+      "P18.5.4"
+    ],
+    "status": "not_started"
+  },
+  "P19.1.1": {
+    "file": "BR19/C19.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.1.1 (LEVEL 5) – ИСПРАВЛЕННАЯ.md",
+    "dependencies": [
+      "P18.1.1"
+    ],
+    "status": "not_started"
+  },
+  "P19.1.2": {
+    "file": "BR19/C19.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.1.2 (LEVEL 5) – ИСПРАВЛЕННАЯ.md",
+    "dependencies": [
+      "P19.1.1"
+    ],
+    "status": "not_started"
+  },
+  "P19.1.3": {
+    "file": "BR19/C19.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.1.3 (LEVEL 5) – ИСПРАВЛЕННАЯ.md",
+    "dependencies": [
+      "P19.1.2"
+    ],
+    "status": "not_started"
+  },
+  "P19.1.4": {
+    "file": "BR19/C19.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.1.4 (LEVEL 5) – ИСПРАВЛЕННАЯ.md",
+    "dependencies": [
+      "P19.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P19.2.1": {
+    "file": "BR19/C19.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.2.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P19.2.2": {
+    "file": "BR19/C19.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.2.2 (LEVEL 5).md",
+    "dependencies": [
+      "P19.2.1"
+    ],
+    "status": "not_started"
+  },
+  "P19.2.3": {
+    "file": "BR19/C19.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.2.3 (LEVEL 5).md",
+    "dependencies": [
+      "P19.2.2"
+    ],
+    "status": "not_started"
+  },
+  "P19.2.4": {
+    "file": "BR19/C19.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.2.4 (LEVEL 5).md",
+    "dependencies": [
+      "P19.2.3"
+    ],
+    "status": "not_started"
+  },
+  "P19.2.5": {
+    "file": "BR19/C19.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.2.5 (LEVEL 5).md",
+    "dependencies": [
+      "P19.2.4"
+    ],
+    "status": "not_started"
+  },
+  "P19.3.1": {
+    "file": "BR19/C19.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.3.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P19.3.2": {
+    "file": "BR19/C19.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.3.2 (LEVEL 5).md",
+    "dependencies": [
+      "P19.3.1"
+    ],
+    "status": "not_started"
+  },
+  "P19.3.3": {
+    "file": "BR19/C19.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.3.3 (LEVEL 5).md",
+    "dependencies": [
+      "P19.3.2"
+    ],
+    "status": "not_started"
+  },
+  "P19.3.4": {
+    "file": "BR19/C19.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.3.4 (LEVEL 5).md",
+    "dependencies": [
+      "P19.3.3"
+    ],
+    "status": "not_started"
+  },
+  "P19.3.5": {
+    "file": "BR19/C19.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.3.5 (LEVEL 5).md",
+    "dependencies": [
+      "P19.3.4"
+    ],
+    "status": "not_started"
+  },
+  "P19.4.1": {
+    "file": "BR19/C19.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.4.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P19.4.2": {
+    "file": "BR19/C19.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.4.2 (LEVEL 5).md",
+    "dependencies": [
+      "P19.4.1"
+    ],
+    "status": "not_started"
+  },
+  "P19.4.3": {
+    "file": "BR19/C19.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.4.3 (LEVEL 5).md",
+    "dependencies": [
+      "P19.4.2"
+    ],
+    "status": "not_started"
+  },
+  "P19.4.4": {
+    "file": "BR19/C19.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.4.4 (LEVEL 5).md",
+    "dependencies": [
+      "P19.4.3"
+    ],
+    "status": "not_started"
+  },
+  "P19.4.5": {
+    "file": "BR19/C19.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P19.4.5 (LEVEL 5).md",
+    "dependencies": [
+      "P19.4.4"
+    ],
+    "status": "not_started"
+  },
+  "P2.1.1": {
+    "file": "BR2/C2.1/P2.1.1 Инициализация векторной БД** (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P2.1.2": {
+    "file": "BR2/C2.1/P2.1.2 Индексатор документов** (LEVEL 5).md",
+    "dependencies": [
+      "P2.1.1",
+      "P2.0.1"
+    ],
+    "status": "not_started"
+  },
+  "P2.1.3": {
+    "file": "BR2/C2.1/P2.1.3 Семантический поиск** (LEVEL 5).md",
+    "dependencies": [
+      "P2.1.1"
+    ],
+    "status": "not_started"
+  },
+  "P2.2.1": {
+    "file": "BR2/C2.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P2.2.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P2.3.4": {
+    "file": "BR2/C2.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P2.3.4 (LEVEL 5).md",
+    "dependencies": [
+      "P2.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P2.4.1": {
+    "file": "BR2/C2.4/P2.4.1 Конфигуратор внешних источников.md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P2.4.2": {
+    "file": "BR2/C2.4/P2.4.2 Сборщик GitHub.md",
+    "dependencies": [
+      "P2.4.1"
+    ],
+    "status": "not_started"
+  },
+  "P2.4.3": {
+    "file": "BR2/C2.4/P2.4.3 Интеграция сборщика с индексатором.md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P2.4.4": {
+    "file": "BR2/C2.4/P2.4.4 Фильтр качества.md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P2.5.1": {
+    "file": "BR2/C2.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P2.5.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P2.5.2": {
+    "file": "BR2/C2.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P2.5.2 (LEVEL 5).md",
+    "dependencies": [
+      "P2.5.1"
+    ],
+    "status": "not_started"
+  },
+  "P2.5.3": {
+    "file": "BR2/C2.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P2.5.3 (LEVEL 5).md",
+    "dependencies": [
+      "P2.5.2"
+    ],
+    "status": "not_started"
+  },
+  "P2.5.4": {
+    "file": "BR2/C2.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P2.5.4 (LEVEL 5).md",
+    "dependencies": [
+      "P2.5.3"
+    ],
+    "status": "not_started"
+  },
+  "P20.1.1": {
+    "file": "BR20/C20.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.1.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P20.1.2": {
+    "file": "BR20/C20.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.1.2 (LEVEL 5).md",
+    "dependencies": [
+      "P20.1.1"
+    ],
+    "status": "not_started"
+  },
+  "P20.1.3": {
+    "file": "BR20/C20.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.1.3 (LEVEL 5).md",
+    "dependencies": [
+      "P20.1.2"
+    ],
+    "status": "not_started"
+  },
+  "P20.1.4": {
+    "file": "BR20/C20.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.1.4 (LEVEL 5).md",
+    "dependencies": [
+      "P20.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P20.1.5": {
+    "file": "BR20/C20.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.1.5 (LEVEL 5).md",
+    "dependencies": [
+      "P20.1.4"
+    ],
+    "status": "not_started"
+  },
+  "P20.2.1": {
+    "file": "BR20/C20.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.2.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P20.2.2": {
+    "file": "BR20/C20.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.2.2 (LEVEL 5).md",
+    "dependencies": [
+      "P20.2.1"
+    ],
+    "status": "not_started"
+  },
+  "P20.2.3": {
+    "file": "BR20/C20.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.2.3 (LEVEL 5).md",
+    "dependencies": [
+      "P20.2.2"
+    ],
+    "status": "not_started"
+  },
+  "P20.2.4": {
+    "file": "BR20/C20.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.2.4 (LEVEL 5).md",
+    "dependencies": [
+      "P20.2.3"
+    ],
+    "status": "not_started"
+  },
+  "P20.2.5": {
+    "file": "BR20/C20.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.2.5 (LEVEL 5).md",
+    "dependencies": [
+      "P20.2.4"
+    ],
+    "status": "not_started"
+  },
+  "P20.2.6": {
+    "file": "BR20/C20.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.2.6 (LEVEL 5).md",
+    "dependencies": [
+      "P20.2.5"
+    ],
+    "status": "not_started"
+  },
+  "P20.3.1": {
+    "file": "BR20/C20.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.3.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P20.3.2": {
+    "file": "BR20/C20.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.3.2 (LEVEL 5).md",
+    "dependencies": [
+      "P20.3.1"
+    ],
+    "status": "not_started"
+  },
+  "P20.3.3": {
+    "file": "BR20/C20.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.3.3 (LEVEL 5).md",
+    "dependencies": [
+      "P20.3.2"
+    ],
+    "status": "not_started"
+  },
+  "P20.3.4": {
+    "file": "BR20/C20.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.3.4 (LEVEL 5).md",
+    "dependencies": [
+      "P20.3.3"
+    ],
+    "status": "not_started"
+  },
+  "P20.3.5": {
+    "file": "BR20/C20.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.3.5 (LEVEL 5).md",
+    "dependencies": [
+      "P20.3.4"
+    ],
+    "status": "not_started"
+  },
+  "P20.4.1": {
+    "file": "BR20/C20.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.4.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P20.4.2": {
+    "file": "BR20/C20.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.4.2 (LEVEL 5).md",
+    "dependencies": [
+      "P20.4.1"
+    ],
+    "status": "not_started"
+  },
+  "P20.4.3": {
+    "file": "BR20/C20.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.4.3 (LEVEL 5).md",
+    "dependencies": [
+      "P20.4.2"
+    ],
+    "status": "not_started"
+  },
+  "P20.4.4": {
+    "file": "BR20/C20.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.4.4 (LEVEL 5).md",
+    "dependencies": [
+      "P20.4.3"
+    ],
+    "status": "not_started"
+  },
+  "P20.4.5": {
+    "file": "BR20/C20.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.4.5 (LEVEL 5).md",
+    "dependencies": [
+      "P20.4.4"
+    ],
+    "status": "not_started"
+  },
+  "P20.4.6": {
+    "file": "BR20/C20.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.4.6 (LEVEL 5).md",
+    "dependencies": [
+      "P20.4.5"
+    ],
+    "status": "not_started"
+  },
+  "P20.5.1": {
+    "file": "BR20/C20.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.5.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P20.5.2": {
+    "file": "BR20/C20.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.5.2 (LEVEL 5).md",
+    "dependencies": [
+      "P20.5.1"
+    ],
+    "status": "not_started"
+  },
+  "P20.5.3": {
+    "file": "BR20/C20.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.5.3 (LEVEL 5).md",
+    "dependencies": [
+      "P20.5.2"
+    ],
+    "status": "not_started"
+  },
+  "P20.5.4": {
+    "file": "BR20/C20.5/📄 СПЕЦИФИКАЦИЯ ПАТЧА P20.5.4 (LEVEL 5).md",
+    "dependencies": [
+      "P20.5.3"
+    ],
+    "status": "not_started"
+  },
+  "P3.1.1": {
+    "file": "BR3/C3.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.1.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P3.1.2": {
+    "file": "BR3/C3.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.1.2 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P3.1.3": {
+    "file": "BR3/C3.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.1.3 (LEVEL 5).md",
+    "dependencies": [
+      "P3.1.1",
+      "P3.1.2"
+    ],
+    "status": "not_started"
+  },
+  "P3.1.4": {
+    "file": "BR3/C3.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.1.4 (LEVEL 5).md",
+    "dependencies": [
+      "P3.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P3.1.5": {
+    "file": "BR3/C3.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.1.5 (LEVEL 5).md",
+    "dependencies": [
+      "P17.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P3.2.1": {
+    "file": "BR3/C3.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.2.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P3.2.2": {
+    "file": "BR3/C3.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.2.2 (LEVEL 5).md",
+    "dependencies": [
+      "P3.2.1"
+    ],
+    "status": "not_started"
+  },
+  "P3.2.3": {
+    "file": "BR3/C3.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.2.3 (LEVEL 5).md",
+    "dependencies": [
+      "P3.2.2"
+    ],
+    "status": "not_started"
+  },
+  "P3.2.4": {
+    "file": "BR3/C3.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.2.4 (LEVEL 5).md",
+    "dependencies": [
+      "P20.2.6"
+    ],
+    "status": "not_started"
+  },
+  "P3.3.1": {
+    "file": "BR3/C3.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.3.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P3.3.2": {
+    "file": "BR3/C3.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.3.2 (LEVEL 5).md",
+    "dependencies": [
+      "P3.3.1"
+    ],
+    "status": "not_started"
+  },
+  "P3.3.3": {
+    "file": "BR3/C3.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.3.3 (LEVEL 5).md",
+    "dependencies": [
+      "P3.3.2"
+    ],
+    "status": "not_started"
+  },
+  "P3.3.4": {
+    "file": "BR3/C3.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.3.4 (LEVEL 5).md",
+    "dependencies": [
+      "P7.4.5"
+    ],
+    "status": "not_started"
+  },
+  "P3.4.1": {
+    "file": "BR3/C3.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.4.1 (LEVEL 5).md",
+    "dependencies": [
+      "P2.0.1"
+    ],
+    "status": "not_started"
+  },
+  "P3.4.2": {
+    "file": "BR3/C3.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.4.2 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P3.4.3": {
+    "file": "BR3/C3.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.4.3 (LEVEL 5).md",
+    "dependencies": [
+      "P3.4.2"
+    ],
+    "status": "not_started"
+  },
+  "P3.4.4": {
+    "file": "BR3/C3.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.4.4 (LEVEL 5).md",
+    "dependencies": [
+      "P2.3.4",
+      "P3.4.2"
+    ],
+    "status": "not_started"
+  },
+  "P3.4.5": {
+    "file": "BR3/C3.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P3.4.5 (LEVEL 5).md",
+    "dependencies": [
+      "P3.4.4"
+    ],
+    "status": "not_started"
+  },
+  "P4.1.1": {
+    "file": "BR4/C4.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.1.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P4.1.2": {
+    "file": "BR4/C4.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.1.2 (LEVEL 5).md",
+    "dependencies": [
+      "P4.1.1"
+    ],
+    "status": "not_started"
+  },
+  "P4.1.3": {
+    "file": "BR4/C4.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.1.3 (LEVEL 5).md",
+    "dependencies": [
+      "P4.1.2"
+    ],
+    "status": "not_started"
+  },
+  "P4.1.4": {
+    "file": "BR4/C4.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.1.4 (LEVEL 5).md",
+    "dependencies": [
+      "P4.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P4.1.5": {
+    "file": "BR4/C4.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.1.5 (LEVEL 5).md",
+    "dependencies": [
+      "P4.1.4"
+    ],
+    "status": "not_started"
+  },
+  "P4.1.6": {
+    "file": "BR4/C4.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.1.6 (LEVEL 5).md",
+    "dependencies": [
+      "P4.1.5"
+    ],
+    "status": "not_started"
+  },
+  "P4.2.1": {
+    "file": "BR4/C4.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.2.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P4.2.2": {
+    "file": "BR4/C4.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.2.2 (LEVEL 5).md",
+    "dependencies": [
+      "P4.2.1"
+    ],
+    "status": "not_started"
+  },
+  "P4.2.3": {
+    "file": "BR4/C4.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.2.3 (LEVEL 5).md",
+    "dependencies": [
+      "P4.2.2"
+    ],
+    "status": "not_started"
+  },
+  "P4.2.4": {
+    "file": "BR4/C4.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.2.4 (LEVEL 5).md",
+    "dependencies": [
+      "P4.2.3"
+    ],
+    "status": "not_started"
+  },
+  "P4.2.5": {
+    "file": "BR4/C4.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.2.5 (LEVEL 5).md",
+    "dependencies": [
+      "P4.2.4"
+    ],
+    "status": "not_started"
+  },
+  "P4.2.6": {
+    "file": "BR4/C4.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.2.6 (LEVEL 5).md",
+    "dependencies": [
+      "P4.2.5"
+    ],
+    "status": "not_started"
+  },
+  "P4.2.7": {
+    "file": "BR4/C4.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.2.7 (LEVEL 5).md",
+    "dependencies": [
+      "P4.2.6"
+    ],
+    "status": "not_started"
+  },
+  "P4.3.1": {
+    "file": "BR4/C4.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.3.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P4.3.2": {
+    "file": "BR4/C4.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.3.2 (LEVEL 5).md",
+    "dependencies": [
+      "P4.3.1"
+    ],
+    "status": "not_started"
+  },
+  "P4.3.3": {
+    "file": "BR4/C4.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.3.3 (LEVEL 5).md",
+    "dependencies": [
+      "P4.3.2"
+    ],
+    "status": "not_started"
+  },
+  "P4.3.4": {
+    "file": "BR4/C4.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.3.4 (LEVEL 5).md",
+    "dependencies": [
+      "P4.3.3"
+    ],
+    "status": "not_started"
+  },
+  "P4.3.5": {
+    "file": "BR4/C4.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P4.3.5 (LEVEL 5).md",
+    "dependencies": [
+      "P4.3.4"
+    ],
+    "status": "not_started"
+  },
+  "P6.1.1": {
+    "file": "BR6/C6.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.1.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P6.1.2": {
+    "file": "BR6/C6.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.1.2 (LEVEL 5).md",
+    "dependencies": [
+      "P6.1.1"
+    ],
+    "status": "not_started"
+  },
+  "P6.1.3": {
+    "file": "BR6/C6.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.1.3 (LEVEL 5).md",
+    "dependencies": [
+      "P6.1.2"
+    ],
+    "status": "not_started"
+  },
+  "P6.1.4": {
+    "file": "BR6/C6.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.1.4 (LEVEL 5).md",
+    "dependencies": [
+      "P6.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P6.1.5": {
+    "file": "BR6/C6.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.1.5 (LEVEL 5).md",
+    "dependencies": [
+      "P6.1.4"
+    ],
+    "status": "not_started"
+  },
+  "P6.2.1": {
+    "file": "BR6/C6.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.2.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P6.2.2": {
+    "file": "BR6/C6.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.2.2 (LEVEL 5).md",
+    "dependencies": [
+      "P6.2.1"
+    ],
+    "status": "not_started"
+  },
+  "P6.2.3": {
+    "file": "BR6/C6.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.2.3 (LEVEL 5).md",
+    "dependencies": [
+      "P6.2.2"
+    ],
+    "status": "not_started"
+  },
+  "P6.2.4": {
+    "file": "BR6/C6.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.2.4 (LEVEL 5).md",
+    "dependencies": [
+      "P6.2.3"
+    ],
+    "status": "not_started"
+  },
+  "P6.2.5": {
+    "file": "BR6/C6.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.2.5 (LEVEL 5).md",
+    "dependencies": [
+      "P6.2.4"
+    ],
+    "status": "not_started"
+  },
+  "P6.3.1": {
+    "file": "BR6/C6.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.3.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P6.3.2": {
+    "file": "BR6/C6.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.3.2 (LEVEL 5).md",
+    "dependencies": [
+      "P6.3.1"
+    ],
+    "status": "not_started"
+  },
+  "P6.3.3": {
+    "file": "BR6/C6.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.3.3 (LEVEL 5).md",
+    "dependencies": [
+      "P6.3.2"
+    ],
+    "status": "not_started"
+  },
+  "P6.3.4": {
+    "file": "BR6/C6.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.3.4 (LEVEL 5).md",
+    "dependencies": [
+      "P6.3.3"
+    ],
+    "status": "not_started"
+  },
+  "P6.3.5": {
+    "file": "BR6/C6.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P6.3.5 (LEVEL 5).md",
+    "dependencies": [
+      "P6.3.4"
+    ],
+    "status": "not_started"
+  },
+  "P7.1.1": {
+    "file": "BR7/C7.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.1.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P7.1.2": {
+    "file": "BR7/C7.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.1.2 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P7.1.3": {
+    "file": "BR7/C7.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.1.3 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P7.1.4": {
+    "file": "BR7/C7.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.1.4 (LEVEL 5).md",
+    "dependencies": [
+      "P7.1.3"
+    ],
+    "status": "not_started"
+  },
+  "P7.1.5": {
+    "file": "BR7/C7.1/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.1.5 (LEVEL 5).md",
+    "dependencies": [
+      "P7.1.4"
+    ],
+    "status": "not_started"
+  },
+  "P7.2.1": {
+    "file": "BR7/C7.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.2.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P7.2.2": {
+    "file": "BR7/C7.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.2.2 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P7.2.3": {
+    "file": "BR7/C7.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.2.3 (LEVEL 5).md",
+    "dependencies": [
+      "P7.2.1",
+      "P7.2.2"
+    ],
+    "status": "not_started"
+  },
+  "P7.2.4": {
+    "file": "BR7/C7.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.2.4 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P7.2.5": {
+    "file": "BR7/C7.2/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.2.5 (LEVEL 5).md",
+    "dependencies": [
+      "P18.1.1",
+      "P7.2.4"
+    ],
+    "status": "not_started"
+  },
+  "P7.3.1": {
+    "file": "BR7/C7.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.3.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P7.3.2": {
+    "file": "BR7/C7.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.3.2 (LEVEL 5).md",
+    "dependencies": [
+      "P7.3.1"
+    ],
+    "status": "not_started"
+  },
+  "P7.3.3": {
+    "file": "BR7/C7.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.3.3 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P7.3.4": {
+    "file": "BR7/C7.3/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.3.4 (LEVEL 5).md",
+    "dependencies": [
+      "P7.3.2",
+      "P7.4.1"
+    ],
+    "status": "not_started"
+  },
+  "P7.4.1": {
+    "file": "BR7/C7.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.4.1 (LEVEL 5).md",
+    "dependencies": [],
+    "status": "not_started"
+  },
+  "P7.4.2": {
+    "file": "BR7/C7.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.4.2 (LEVEL 5).md",
+    "dependencies": [
+      "P7.4.1"
+    ],
+    "status": "not_started"
+  },
+  "P7.4.3": {
+    "file": "BR7/C7.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.4.3 (LEVEL 5).md",
+    "dependencies": [
+      "P7.4.2"
+    ],
+    "status": "not_started"
+  },
+  "P7.4.4": {
+    "file": "BR7/C7.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.4.4 (LEVEL 5).md",
+    "dependencies": [
+      "P17.3.1",
+      "P7.4.3",
+      "P17.3.1"
+    ],
+    "status": "not_started"
+  },
+  "P7.4.5": {
+    "file": "BR7/C7.4/📄 СПЕЦИФИКАЦИЯ ПАТЧА P7.4.5 (LEVEL 5).md",
+    "dependencies": [
+      "P17.5.5",
+      "P7.4.4"
+    ],
+    "status": "not_started"
+  }
+}

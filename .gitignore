@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+venv/
+env/
+.env
+*.log
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# Заводские временные папки
+01_ЦЕХ/01_ЖУРНАЛЫ/
+01_ЦЕХ/05_КАРАНТИН/
+data/
+SYSTEM_MAP.json
+SYSTEM_REGISTRY.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

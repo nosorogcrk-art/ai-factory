@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Command Console</title>
+    <style>
+        body { font-family: monospace; margin: 20px; background: #1e1e1e; color: #d4d4d4; }
+        h1 { color: #4ec9b0; }
+        input, button { font-family: monospace; font-size: 14px; padding: 8px; }
+        input { width: 60%; background: #3c3c3c; border: none; color: #d4d4d4; }
+        button { background: #0e639c; border: none; color: white; cursor: pointer; margin-left: 10px; }
+        .output { background: #1e1e1e; border: 1px solid #3c3c3c; padding: 10px; margin-top: 20px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <h1>📟 Command Console</h1>
+    <div>
+        <input type="text" id="command" placeholder="take TEST-001">
+        <button onclick="sendCommand()">Выполнить</button>
+    </div>
+    <div class="output" id="output">Ожидание команды...</div>
+    <script>
+        async function sendCommand() {
+            const input = document.getElementById('command');
+            const command = input.value.trim();
+            if (!command) return;
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = '⏳ Выполняется...';
+            try {
+                const res = await fetch('/api/command', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({command})
+                });
+                const data = await res.json();
+                const resultText = data.success ? '✅ ' + data.output : '❌ ' + (data.output || data.error);
+                outputDiv.innerHTML = `<div>➜ ${command}</div><div>${resultText}</div>`;
+            } catch (error) {
+                outputDiv.innerHTML = `<div>➜ ${command}</div><div>❌ ${error.message}</div>`;
+            }
+            input.value = '';
+        }
+        document.getElementById('command').addEventListener('keypress', e => { if (e.key === 'Enter') sendCommand(); });
+    </script>
+</body>
+</html>

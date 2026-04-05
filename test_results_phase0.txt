@@ -1,0 +1,77 @@
+=== C1.2 PATCH ARCHITECT TESTS ===
+============================= test session starts ==============================
+platform linux -- Python 3.12.13, pytest-8.3.5, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /app
+plugins: anyio-4.13.0, mock-3.14.0
+collecting ... collected 7 items
+
+tests/test_api.py::test_health PASSED                                    [ 14%]
+tests/test_api.py::test_decompose_success PASSED                         [ 28%]
+tests/test_api.py::test_decompose_empty_description PASSED               [ 42%]
+tests/test_api.py::test_decompose_service_error PASSED                   [ 57%]
+tests/test_services.py::test_decompose_task_success PASSED               [ 71%]
+tests/test_services.py::test_decompose_task_empty_description PASSED     [ 85%]
+tests/test_services.py::test_decompose_task_error_handling PASSED        [100%]
+
+============================== 7 passed in 0.45s ===============================
+
+=== C9.4 DIALOGUE MANAGER TESTS ===
+============================= test session starts ==============================
+platform linux -- Python 3.12.13, pytest-8.3.5, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /app
+plugins: mock-3.14.0, asyncio-0.25.3, anyio-4.12.1
+asyncio: mode=Mode.STRICT, asyncio_default_fixture_loop_scope=None
+collecting ... collected 4 items
+
+tests/test_api.py::test_health PASSED                                    [ 25%]
+tests/test_api.py::test_dialog_missing_project_id PASSED                 [ 50%]
+tests/test_api.py::test_dialog_success PASSED                            [ 75%]
+tests/test_services.py::test_process_dialog_success PASSED               [100%]
+
+=============================== warnings summary ===============================
+main.py:15
+  /app/main.py:15: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+../usr/local/lib/python3.12/site-packages/fastapi/applications.py:4495
+  /usr/local/lib/python3.12/site-packages/fastapi/applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+tests/test_services.py::test_process_dialog_success
+  /app/services.py:97: RuntimeWarning: coroutine 'AsyncMockMixin._execute_mock_call' was never awaited
+    resp.raise_for_status()
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 4 passed, 3 warnings in 0.18s =========================
+
+=== C10.1 INTEGRATOR TESTS ===
+============================= test session starts ==============================
+platform linux -- Python 3.12.13, pytest-8.3.5, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /app
+plugins: anyio-4.13.0, mock-3.14.0
+collecting ... collected 7 items
+
+02_ПРОДУКТ/РЕПО/tests/test_example.py::test_pass PASSED                  [ 14%]
+tests/test_api.py::test_health PASSED                                    [ 28%]
+tests/test_api.py::test_build_success PASSED                             [ 42%]
+tests/test_api.py::test_build_failure PASSED                             [ 57%]
+tests/test_services.py::test_build_patches_success PASSED                [ 71%]
+tests/test_services.py::test_build_patches_apply_fails PASSED            [ 85%]
+tests/test_services.py::test_build_patches_build_fails PASSED            [100%]
+
+============================== 7 passed in 0.42s ===============================

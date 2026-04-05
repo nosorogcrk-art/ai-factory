@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Пульт Цифровой Фабрики</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f0f0f0; }
+        h1 { color: #2c3e66; }
+        .tabs { overflow: hidden; margin-bottom: 20px; }
+        .tablink { background-color: #2c3e66; color: white; float: left; border: none; outline: none; cursor: pointer; padding: 10px 20px; font-size: 16px; margin-right: 5px; }
+        .tablink.active { background-color: #1a2a4a; }
+        .tabcontent { display: none; background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #ddd; }
+        th { background-color: #2c3e66; color: white; }
+        .status-implemented { color: green; font-weight: bold; }
+        .status-planned { color: orange; }
+        .healthy { color: green; }
+        .unhealthy { color: red; }
+        .running { color: green; }
+        .exited { color: red; }
+    </style>
+</head>
+<body>
+<h1>🏭 Пульт Цифровой Фабрики</h1>
+<div class="tabs">
+    <button class="tablink" onclick="openTab(event, 'Map')" id="defaultOpen">Карта завода</button>
+    <button class="tablink" onclick="openTab(event, 'Ports')">Карта портов</button>
+    <button class="tablink" onclick="openTab(event, 'Projects')">Проекты</button>
+    <button class="tablink" onclick="openTab(event, 'Logs')">Логи</button>
+</div>
+
+<div id="Map" class="tabcontent">
+    <div id="stats"></div>
+    <div id="branches"></div>
+    <div id="containers"></div>
+</div>
+
+<div id="Ports" class="tabcontent">
+    <div id="portsTable"></div>
+</div>
+
+<div id="Projects" class="tabcontent">
+    <p>Страница проектов – в разработке</p>
+</div>
+
+<div id="Logs" class="tabcontent">
+    <p>Страница логов – в разработке</p>
+</div>
+
+<script>
+async function loadMap() {
+    const response = await fetch('/map');
+    const data = await response.json();
+
+    document.getElementById('stats').innerHTML = `
+        <h2>📊 Статистика</h2>
+        <table><tr><th>Всего веток</th><td>${data.stats.total_branches}</td></tr>
+        <tr><th>Всего контейнеров</th><td>${data.stats.total_containers}</td></tr>
+        <tr><th>Всего патчей</th><td>${data.stats.total_patches}</td></tr>
+        <tr><th>Реализовано контейнеров</th><td>${data.stats.implemented_containers}</td></tr>
+        <tr><th>Контейнеров с тестами</th><td>${data.stats.containers_with_tests}</td></tr>
+        <tr><th>Контейнеров с healthcheck</th><td>${data.stats.containers_with_healthcheck}</td></tr>
+        </table>
+    `;
+
+    let branchesHtml = '<h2>📁 Ветки</h2><table><th>ID</th><th>Ответственный</th><th>Название</th><th>Контейнеров</th>';
+    for (let b of data.branches) {
+        branchesHtml += `<tr><td>${b.id}</td><td>${b.responsible}</td><td>${b.name}</td><td>${b.containers?.length || 0}</td></tr>`;
+    }
+    branchesHtml += '</table>';
+    document.getElementById('branches').innerHTML = branchesHtml;
+
+    let containersHtml = '<h2>📦 Контейнеры</h2><table><th>ID</th><th>Ветка</th><th>Статус</th><th>Тесты</th><th>Healthcheck</th>';
+    for (let c of data.containers) {
+        let statusClass = c.status === 'implemented' ? 'status-implemented' : 'status-planned';
+        let health = c.healthcheck ? (c.healthcheck === true ? '✅' : '❌') : '—';
+        containersHtml += `<tr><td>${c.id}</td><td>${c.branch}</td><td class="${statusClass}">${c.status}</td><td>${c.has_tests ? '✅' : '❌'}</td><td>${health}</td></tr>`;
+    }
+    containersHtml += '</table>';
+    document.getElementById('containers').innerHTML = containersHtml;
+}
+
+async function loadPorts() {
+    const response = await fetch('/ports');
+    const data = await response.json();
+    let html = '<h2>🔌 Карта портов</h2>';
+    html += '<table><th>Имя контейнера</th><th>ID</th><th>Статус</th><th>Порты (внешний → внутренний)</th><th>Конфиг</th>';
+    for (let c of data.containers) {
+        let portsStr = c.ports.map(p => `${p.external} → ${p.internal} (${p.protocol})`).join(', ') || 'нет';
+        let configStr = c.config.container_id ? `${c.config.container_id} (${c.config.branch})` : '—';
+        html += `<tr>
+            <td>${c.name}</td>
+            <td>${c.id_short}</td>
+            <td class="${c.status === 'running' ? 'running' : 'exited'}">${c.status}</td>
+            <td>${portsStr}</td>
+            <td>${configStr}</td>
+        </tr>`;
+    }
+    if (data.conflicts.length > 0) {
+        html += '<tr><td colspan="5"><strong>⚠️ Конфликты портов:</strong><ul>';
+        for (let conf of data.conflicts) {
+            html += `<li>Порт ${conf.port} занят контейнерами: ${conf.containers.join(', ')}</li>`;
+        }
+        html += '</ul></td></tr>';
+    }
+    html += '</table>';
+    document.getElementById('portsTable').innerHTML = html;
+}
+
+function openTab(evt, tabName) {
+    let i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+    if (tabName === 'Map') loadMap();
+    else if (tabName === 'Ports') loadPorts();
+}
+
+document.getElementById("defaultOpen").click();
+</script>
+</body>
+</html>

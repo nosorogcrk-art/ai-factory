@@ -1,0 +1,370 @@
+version: '3.8'
+
+networks:
+  factory-net:
+    driver: bridge
+
+volumes:
+  huggingface-cache:
+    name: ai-factory_huggingface-cache
+  vector-data:
+  logs-data:
+  registry-db:
+  skills-repo:
+  token-guard-data:
+  alert-data:
+
+services:
+  registry:
+    build: ./BR0/C0.4
+    ports:
+      - "8000:8000"
+    networks:
+      - factory-net
+    volumes:
+      - ./SYSTEM_REGISTRY.json:/app/SYSTEM_REGISTRY.json
+    environment:
+      - PORT=8000
+
+  log-aggregator:
+    build: ./BR18/C18.1
+    ports:
+      - "8093:8093"
+    networks:
+      - factory-net
+    volumes:
+      - logs-data:/data/logs
+    environment:
+      - PORT=8093
+      - LOG_DIR=/data/logs
+
+  metrics-dashboard:
+    build: ./BR18/C18.2
+    ports:
+      - "8094:8094"
+    networks:
+      - factory-net
+    environment:
+      - PORT=8094
+      - AGGREGATION_INTERVAL=10
+
+  vector-init:
+    build: ./BR2/C2.1
+    networks:
+      - factory-net
+    volumes:
+      - vector-data:/app/00_ПАМЯТЬ/ВЕКТОРЫ
+      - ./01_ЦЕХ/01_ЖУРНАЛЫ:/app/01_ЦЕХ/01_ЖУРНАЛЫ
+    environment:
+      - LOG_DIR=/app/01_ЦЕХ/01_ЖУРНАЛЫ
+      - VECTOR_STORE_DIR=/app/00_ПАМЯТЬ/ВЕКТОРЫ
+    restart: "no"
+
+  indexer:
+    build: ./BR2/C2.2
+    networks:
+      - factory-net
+    depends_on:
+      - registry
+      - log-aggregator
+    volumes:
+      - ./00_КАНОН:/app/00_КАНОН:ro
+      - ./01_ЦЕХ:/app/01_ЦЕХ:ro
+      - vector-data:/app/00_ПАМЯТЬ/ВЕКТОРЫ
+      - ./01_ЦЕХ/01_ЖУРНАЛЫ:/app/01_ЦЕХ/01_ЖУРНАЛЫ
+    environment:
+      - LOG_DIR=/app/01_ЦЕХ/01_ЖУРНАЛЫ
+      - VECTOR_STORE_DIR=/app/00_ПАМЯТЬ/ВЕКТОРЫ
+
+  semantic-search:
+    build: ./BR2/C2.3
+    ports:
+      - "5005:5005"
+    networks:
+      - factory-net
+    depends_on:
+      - indexer
+    volumes:
+      - vector-data:/app/00_ПАМЯТЬ/ВЕКТОРЫ
+      - ./01_ЦЕХ/01_ЖУРНАЛЫ:/app/01_ЦЕХ/01_ЖУРНАЛЫ
+      - ./00_КАНОН:/app/00_КАНОН:ro
+      - ./01_ЦЕХ:/app/01_ЦЕХ:ro
+    environment:
+      - PORT=5005
+
+  skill-registry:
+    build: ./BR17/C17.1
+    ports:
+      - "8088:8088"
+    networks:
+      - factory-net
+    volumes:
+      - registry-db:/data
+    environment:
+      - PORT=8088
+
+  skill-version-control:
+    build: ./BR17/C17.2
+    ports:
+      - "8089:8089"
+    networks:
+      - factory-net
+    volumes:
+      - skills-repo:/data/skills-repo
+    environment:
+      - PORT=8089
+
+  skill-graph:
+    build: ./BR17/C17.3
+    ports:
+      - "8090:8090"
+    networks:
+      - factory-net
+    depends_on:
+      - skill-registry
+    environment:
+      - PORT=8090
+      - SKILL_REGISTRY_URL=http://skill-registry:8088
+      - UPDATE_INTERVAL=3600
+
+  skill-integrator:
+    build: ./BR7/C7.4
+    ports:
+      - "8091:8090"
+    networks:
+      - factory-net
+    environment:
+      - PORT=8090
+
+  token-guard:
+    build: ./BR6/C6.3
+    ports:
+      - "8097:8097"
+    networks:
+      - factory-net
+    volumes:
+      - token-guard-data:/data
+    environment:
+      - PORT=8097
+    restart: unless-stopped
+
+  chaos-monkey:
+    build: ./BR6/C6.1
+    networks:
+      - factory-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - RECOVERY_TIMEOUT=120
+    privileged: true
+    restart: "no"
+    command: ["sleep", "infinity"]
+
+  alert-manager:
+    build: ./BR18/C18.3
+    ports:
+      - "8095:8095"
+    networks:
+      - factory-net
+    volumes:
+      - alert-data:/data
+    environment:
+      - PORT=8095
+  test-stand:
+    build: ./BR10/C10.2
+    ports:
+      - "8092:8092"
+    networks:
+      - factory-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - "/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/02_ПРОДУКТ:/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/02_ПРОДУКТ"  
+      - ./02_ПРОДУКТ:/app/02_ПРОДУКТ
+      - ./01_ЦЕХ/01_ЖУРНАЛЫ:/app/logs
+      - ${PWD}:${PWD}
+    environment:
+      - LOG_DIR=/app/logs
+      - PRODUCT_PATH=/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/02_ПРОДУКТ/РЕПО
+      - TEST_SUITE=tests
+      - DEFAULT_IMAGE=python:3.12-slim
+      - PORT=8092
+      - ENABLE_BR18=false
+      - MAX_JOBS=1000
+      - HOST_PROJECT_DIR=${PWD}
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - DAC_OVERRIDE
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8092/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  packager:
+    build: ./BR10/C10.3
+    networks:
+      - factory-net
+    volumes:
+      - ./02_ПРОДУКТ:/app/02_ПРОДУКТ
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    environment:
+      - LOG_DIR=/app/01_ЦЕХ/01_ЖУРНАЛЫ
+    command: ["python", "-c", "print('Packager ready')"]
+    restart: "no"
+  dashboard:
+    build: ./BR4/C4.1
+    ports:
+      - "8098:8098"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    environment:
+      - REGISTRY_URL=http://registry-manager:8000
+      - METRICS_URL=http://metrics-dashboard:8094
+      - SKILL_REGISTRY_URL=http://skill-registry:8088
+      - LOG_AGGREGATOR_URL=http://log-aggregator:8093
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8098/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  graph-visualizer:
+    build: ./BR4/C4.2
+    ports:
+      - "8099:8099"
+    networks:
+      - factory-net
+    volumes:
+      - ./00_КАНОН:/app/00_КАНОН:ro
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    environment:
+      - PORT=8099
+      - BR18_URL=http://log-aggregator:8093
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8099/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  handover:
+    build: ./BR7/C7.2
+    ports:
+      - "8080:8080"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./00_КАНОН:/app/00_КАНОН:ro
+    environment:
+      - PORT=8080
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  command-console:
+    build: ./BR4/C4.3
+    ports:
+      - "8100:8100"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    environment:
+      - PORT=8100
+      - BR18_URL=http://log-aggregator:8093
+      - HANDOVER_URL=http://handover:8080
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8100/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  registry-manager:
+    build: ./BR0/C0.4
+    ports:
+      - "8000:8000"
+    networks:
+      - factory-net
+    volumes:
+      - ./00_КАНОН:/app/00_КАНОН:ro
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./SYSTEM_REGISTRY.json:/app/SYSTEM_REGISTRY.json
+    environment:
+      - PORT=8000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  gitops-core:
+    build: ./BR20/C20.1
+    ports:
+      - "8105:8105"
+    networks:
+      - factory-net
+    volumes:
+      - ./data/git:/data/git
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    environment:
+      - PORT=8105
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8105/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  log-analyzer:
+    build: ./BR19/C19.1
+    ports:
+      - "8101:8101"
+    networks:
+      - factory-net
+    volumes:
+      - huggingface-cache:/root/.cache/huggingface
+      - logs-data:/data/logs:ro
+      - ./data:/data
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    environment:
+      - PORT=8101
+      - LOG_SOURCE_DIR=/data/logs
+      - DB_PATH=/data/analyzer.db
+      - POLL_INTERVAL=60
+      - LOG_RETENTION_DAYS=7
+    depends_on:
+      - log-aggregator
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8101/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+  log-analyzer-new:
+    image: ai-factory-log-analyzer:with-transformers
+    ports:
+      - "8101:8101"
+    networks:
+      - factory-net
+    volumes:
+      - logs-data:/data/logs:ro
+      - ./data:/data
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - huggingface-cache:/root/.cache/huggingface
+    environment:
+      - PORT=8101
+      - LOG_SOURCE_DIR=/data/logs
+      - DB_PATH=/data/analyzer.db
+      - POLL_INTERVAL=60
+      - LOG_RETENTION_DAYS=7
+      - CLUSTER_SAMPLE_LIMIT=10000
+      - MAX_CLUSTERS=20
+      - FIXED_CLUSTERS=0
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8101"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8101/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

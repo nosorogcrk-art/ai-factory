@@ -1,0 +1,26 @@
+{
+  "HEFEST": {
+    "hash": "052e30daf32e6786fae6ea209ced35352e3c39fbccd7443340edbecba317f3de",
+    "last_verified": "2026-03-21T19:24:44.897375"
+  },
+  "ARGUS": {
+    "hash": "0b78c8b57aa6c9ad3b5f86c11507122d51361cc0fd44d9f00dd9eebd912c40f6",
+    "last_verified": "2026-03-21T19:24:44.897460"
+  },
+  "REVA": {
+    "hash": "9bb1f94eb1fe439c3f278eb5915fe777b11426cf816d898e97ac946604a5a220",
+    "last_verified": "2026-03-21T19:24:44.897642"
+  },
+  "MNEMOSINA": {
+    "hash": "61f5ce6106e146263342e6c700372f2a12f325d46935be1ca727551987ff02c7",
+    "last_verified": "2026-03-21T19:24:44.897828"
+  },
+  "DAEDALUS": {
+    "hash": "45ca639e5cc0c8dcfbb3c31a04a87fdcdef3376f9601006a1a70787a7ae29535",
+    "last_verified": "2026-03-21T19:24:44.898106"
+  },
+  "HERMES": {
+    "hash": "a37b14699c0c1917260c2fbb380802d67f8ed24c2924b06ecb1c915925df7c77",
+    "last_verified": "2026-03-21T19:24:44.898281"
+  }
+}
