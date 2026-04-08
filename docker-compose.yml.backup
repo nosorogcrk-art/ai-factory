@@ -1,0 +1,678 @@
+networks:
+  factory-net:
+    driver: bridge
+
+services:
+  orchestrator:
+    build: ./BR0/C0.1
+    ports:
+      - "8100:8100"
+    networks:
+      - factory-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    environment:
+      - BR18_URL=http://log-aggregator:8093/api/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8100/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  project-memory:
+    build: ./BR2/C2.6
+    ports:
+      - "8108:8090"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./00_КАНОН:/app/00_КАНОН
+      - ./BR9:/app/BR9
+      - ./BR7:/app/BR7
+      - ./BR1:/app/BR1
+      - ./BR0:/app/BR0
+      - ./BR2:/app/BR2
+      - ./BR3:/app/BR3
+      - ./BR4:/app/BR4
+      - ./BR6:/app/BR6
+      - ./BR10:/app/BR10
+      - ./BR17:/app/BR17
+      - ./BR18:/app/BR18
+      - ./BR19:/app/BR19
+      - ./BR20:/app/BR20
+    environment:
+      - BR18_URL=http://log-aggregator:8093/api/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  dialogue-manager:
+    build: ./BR9/C9.4
+    ports:
+      - "8111:8099"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./data:/data
+    environment:
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - PROJECT_MEMORY_URL=http://project-memory:8090
+      - C12_URL=http://patch-architect:8085
+      - BR18_URL=http://log-aggregator:8093/api/logs
+      - DB_PATH=/data/dialogue_sessions.db
+      - SKILL_INTEGRATOR_URL=http://skill-integrator:8090
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8099/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  dialogue-console:
+    build: ./BR4/C4.4
+    ports:
+      - "8112:8112"
+    networks:
+      - factory-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8112/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  integrator:
+    build: ./BR10/C10.1
+    ports:
+      - "8096:8096"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./02_ПРОДУКТ:/app/02_ПРОДУКТ
+    environment:
+      - PORT=8096
+      - BR18_URL=http://log-aggregator:8093/api/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8096/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  patch-architect:
+    build: ./BR1/C1.2
+    ports:
+      - "8085:8085"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    environment:
+      - PORT=8085
+      - SKILL_INTEGRATOR_URL=http://skill-integrator:8090
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8085/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  dashboard:
+    build: ./BR4/C4.1
+    ports:
+      - "8098:8094"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    environment:
+      - BR18_URL=http://log-aggregator:8093/api/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8094/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  command-console:
+    build: ./BR4/C4.3
+    ports:
+      - "8107:8095"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    environment:
+      - BR18_URL=http://log-aggregator:8093/api/logs
+      - HANDOVER_URL=http://handover:8080
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8095/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  handover:
+    build: ./BR7/C7.2
+    ports:
+      - "8080:8080"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  cost-tracker:
+    build: ./BR18/C18.5
+    ports:
+      - "8110:8095"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8095/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  reality-observer:
+    build: ./BR0/C0.2
+    ports:
+      - "8192:8092"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./SYSTEM_REGISTRY.json:/app/SYSTEM_REGISTRY.json:ro
+      - ./01_ЦЕХ/05_КАРАНТИН:/app/01_ЦЕХ/05_КАРАНТИН
+      - ./01_ЦЕХ/01_ЖУРНАЛЫ:/app/01_ЦЕХ/01_ЖУРНАЛЫ
+    environment:
+      - BR18_URL=http://log-aggregator:8093/api/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8092/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  semantic-search:
+    build: ./BR2/C2.3
+    ports:
+      - "5005:5005"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5005/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  skill-graph:
+    build: ./BR17/C17.3
+    ports:
+      - "8090:8090"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  indexer:
+    build: ./BR2/C2.2
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./BR9:/app/BR9
+      - ./BR7:/app/BR7
+      - ./BR1:/app/BR1
+      - ./BR0:/app/BR0
+      - ./BR2:/app/BR2
+      - ./BR3:/app/BR3
+      - ./BR4:/app/BR4
+      - ./BR6:/app/BR6
+      - ./BR10:/app/BR10
+      - ./BR17:/app/BR17
+      - ./BR18:/app/BR18
+      - ./BR19:/app/BR19
+      - ./BR20:/app/BR20
+
+  log-analyzer:
+    build: ./BR19/C19.1
+    ports:
+      - "8114:8101"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8101/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  skill-updater:
+    build: ./BR19/C19.3
+    ports:
+      - "8104:8104"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./data/skill_updater:/data
+    environment:
+      - LOG_ANALYZER_URL=http://log-analyzer:8101
+      - SKILL_REGISTRY_URL=http://skill-registry:8088
+      - BR18_URL=http://log-aggregator:8093/api/logs
+      - ENABLE_BR18=true
+      - PORT=8104
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8104/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  ab-tester:
+    build: ./BR19/C19.4
+    ports:
+      - "8106:8106"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./data/ab_tester:/data
+    environment:
+      - BR18_URL=http://log-aggregator:8093/api/logs
+      - ENABLE_BR18=true
+      - DB_PATH=/data/ab_tester.db
+      - PORT=8106
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8106/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  gitops-core:
+    build: ./BR20/C20.1
+    ports:
+      - "8201:8201"
+      - "8105:8105"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8105/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  config-versioning:
+    build: ./BR20/C20.2
+    ports:
+      - "8202:8202"
+    networks:
+      - factory-net
+    volumes:
+      - ./data/config_versioning:/data
+    environment:
+      - BR18_URL=http://log-aggregator:8093/api/logs
+      - ENABLE_BR18=true
+      - PORT=8202
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8202/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  deployment-executor:
+    build: ./BR20/C20.3
+    ports:
+      - "8203:8203"
+    networks:
+      - factory-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data/deployment:/data
+    environment:
+      - BR18_URL=http://log-aggregator:8093/api/logs
+      - ENABLE_BR18=true
+      - PORT=8203
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8203/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  cognitive-engine:
+    build: ./BR1/C1.1
+    ports:
+      - "8103:8103"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    environment:
+      - HANDOVER_URL=http://handover:8080
+      - PROJECT_MEMORY_URL=http://project-memory:8090
+      - DAILY_ANALYSIS_HOUR=8
+      - DAILY_ANALYSIS_ENABLED=true
+      - REPORTS_DIR=/app/01_ЦЕХ/МЕТРИКИ/daedalus_reports
+      - USE_REVA_STUB=true
+      - REVA_REPORTS_PATH=/app/01_ЦЕХ/01_ЖУРНАЛЫ/reva_reports.json
+      - GITHUB_TOKEN=${GITHUB_TOKEN}  # опционально, можно оставить пустым
+      - GITHUB_API_ENABLED=true
+      - RSS_FEEDS=[{"url":"https://habr.com/ru/rss/hub/python/all/","name":"Habr Python"},{"url":"https://medium.com/feed/tag/ai","name":"Medium AI"}]
+      - ARXIV_ENABLED=true
+      - ARXIV_CATEGORIES=cs.AI,cs.SE,cs.LG
+      - EXTERNAL_CACHE_FILE=/app/01_ЦЕХ/МЕТРИКИ/external_cache.json
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8103/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  vector-init:
+    build: ./BR2/C2.1
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+
+  skill-registry:
+    build: ./BR17/C17.1
+    ports:
+      - "8088:8088"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./data/skills:/data
+    environment:
+      - BR18_URL=http://log-aggregator:8093/api/logs
+      - ENABLE_BR18=true
+      - PORT=8088
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8088/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  prompt-optimizer:
+    build: ./BR19/C19.2
+    ports:
+      - "8102:8102"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./data/prompt_optimizer:/data
+    environment:
+      - LOG_ANALYZER_URL=http://log-analyzer:8101
+      - BR18_URL=http://log-aggregator:8093/api/logs
+      - ENABLE_BR18=true
+      - PORT=8102
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8102/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  graph-visualizer:
+    build: ./BR4/C4.2
+    ports:
+      - "8099:8099"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8099/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  chaos-monkey:
+    build: ./BR0/C0.6
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+
+  token-guard:
+    build: ./BR0/C0.3
+    ports:
+      - "8097:8097"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8097/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  registry:
+    build: ./BR0/C0.4
+    ports:
+      - "8000:8000"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  skill-integrator:
+    build: ./BR7/C7.4
+    ports:
+      - "8091:8090"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./00_КАНОН:/app/00_КАНОН
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  alert-manager:
+    build: ./BR18/C18.3
+    ports:
+      - "8095:8095"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8095/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  registry-manager:
+    build: ./BR0/C0.1
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  metrics-dashboard:
+    build: ./BR18/C18.2
+    ports:
+      - "8094:8094"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8094/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  log-aggregator:
+    build: ./BR18/C18.1
+    ports:
+      - "8193:8093"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8093/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  skill-version-control:
+    build: ./BR17/C17.2
+    ports:
+      - "8089:8089"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./data/skills-repo:/data/skills-repo
+    environment:
+      - BR18_URL=http://log-aggregator:8093/api/logs
+      - ENABLE_BR18=true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8089/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  test-stand:
+    build: ./BR10/C10.2
+    ports:
+      - "8092:8092"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - SKILL_TESTER_URL=http://skill-tester:8091
+      - BR18_URL=http://log-aggregator:8093/api/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8092/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  packager:
+    build: ./BR10/C10.3
+    ports:
+      - "8093:8093"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./02_ПРОДУКТ:/app/02_ПРОДУКТ
+    environment:
+      - BR18_URL=http://log-aggregator:8093/api/logs
+      - PORT=8093
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8093/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  system-mapper:
+    build: ./BR0/C0.5
+    ports:
+      - "8101:8098"
+    networks:
+      - factory-net
+    volumes:
+      - .:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - PROJECT_ROOT=/data
+      - PORT=8098
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8098/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  skill-tester:
+    build: ./BR17/C17.4
+    ports:
+      - "8109:8091"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - PORT=8091
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8091/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  skill-publisher:
+    build: ./BR17/C17.5
+    ports:
+      - "8113:8113"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    environment:
+      - SKILL_REGISTRY_URL=http://skill-registry:8088
+      - SKILL_VERSION_CONTROL_URL=http://skill-version-control:8089
+      - SKILL_TESTER_URL=http://skill-tester:8091
+      - BR18_URL=http://log-aggregator:8093/api/logs
+      - ENABLE_BR18=true
+      - ENABLE_SKILL_TEST_CHECK=false
+      - PORT=8113
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8113/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  test-runner:
+    build: ./BR20/C20.4
+    ports:
+      - "8204:8204"
+    networks:
+      - factory-net
+    volumes:
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./data/test_runner:/data
+    environment:
+      - BR18_URL=http://log-aggregator:8093/api/logs
+      - ENABLE_BR18=true
+      - PORT=8204
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8204/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

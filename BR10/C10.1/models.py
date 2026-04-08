@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
 
 class BuildRequest(BaseModel):
@@ -12,3 +12,14 @@ class BuildRequest(BaseModel):
 class BuildResponse(BaseModel):
     status: str
     message: str
+
+
+class GenerateRequest(BaseModel):
+    spec_path: str
+    spec_content: Optional[str] = None
+
+
+class GenerateResponse(BaseModel):
+    status: str  # "generated" | "error"
+    message: str
+    files: List[str]

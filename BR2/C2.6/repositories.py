@@ -9,8 +9,67 @@ logger = logging.getLogger(__name__)
 DB_PATH = Path("01_ЦЕХ/ПРОЕКТЫ/projects.db")
 PROJECTS_ROOT = Path("01_ЦЕХ/ПРОЕКТЫ")
 
+def init_db():
+    """Инициализирует базу данных, создавая таблицы, если они не существуют."""
+    conn = sqlite3.connect(DB_PATH)
+    try:
+        # Таблица проектов
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS projects (
+                id TEXT PRIMARY KEY,
+                name TEXT NOT NULL,
+                description TEXT,
+                status TEXT DEFAULT 'active',
+                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
+        conn.execute('CREATE INDEX IF NOT EXISTS idx_projects_status ON projects(status)')
+        conn.execute('CREATE INDEX IF NOT EXISTS idx_projects_name ON projects(name)')
+        
+        # Таблица сообщений
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS project_messages (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                project_id TEXT NOT NULL,
+                role TEXT NOT NULL,
+                content TEXT NOT NULL,
+                timestamp TEXT,
+                message_type TEXT DEFAULT 'text',
+                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
+            )
+        ''')
+        conn.execute('CREATE INDEX IF NOT EXISTS idx_messages_project_id ON project_messages(project_id)')
+        conn.execute('CREATE INDEX IF NOT EXISTS idx_messages_created_at ON project_messages(created_at)')
+        conn.execute('CREATE INDEX IF NOT EXISTS idx_messages_timestamp ON project_messages(timestamp)')
+        
+        # Таблица артефактов
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS project_artifacts (
+                id TEXT PRIMARY KEY,
+                project_id TEXT NOT NULL,
+                artifact_type TEXT NOT NULL,
+                name TEXT NOT NULL,
+                filename TEXT NOT NULL,
+                version TEXT,
+                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
+            )
+        ''')
+        conn.execute('CREATE INDEX IF NOT EXISTS idx_artifacts_project_id ON project_artifacts(project_id)')
+        conn.execute('CREATE INDEX IF NOT EXISTS idx_artifacts_type ON project_artifacts(artifact_type)')
+        
+        conn.commit()
+        logger.info("Database initialized")
+    finally:
+        conn.close()
+
 def get_connection() -> sqlite3.Connection:
     """Возвращает соединение с базой данных."""
+    # Инициализируем базу данных при первом соединении
+    if not DB_PATH.exists():
+        init_db()
     return sqlite3.connect(DB_PATH)
 
 def project_exists(project_id: str) -> bool:

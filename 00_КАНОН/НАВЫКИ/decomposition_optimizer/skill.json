@@ -1,0 +1,10 @@
+{
+  "id": "SKILL-DECOMP-OPT-001",
+  "name": "decomposition_optimizer",
+  "version": "1.0",
+  "task_type": "decomposition_optimizer",
+  "description": "Анализирует реестр патчей и логи интегратора, возвращает правила для улучшения декомпозиции",
+  "allowed_for_swarm": false,
+  "created_at": "2026-04-08",
+  "author": "system"
+}

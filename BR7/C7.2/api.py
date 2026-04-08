@@ -1,12 +1,17 @@
-import os
 import json
 import logging
+import asyncio
 from pathlib import Path
 from fastapi import FastAPI, HTTPException, BackgroundTasks
 from pydantic import BaseModel
 import handover
+from argus_watcher import watch_projects
 
 app = FastAPI(title="Handover API")
+
+@app.on_event("startup")
+async def startup_event():
+    asyncio.create_task(watch_projects())
 
 LOG_FILE = Path("01_ЦЕХ/01_ЖУРНАЛЫ/handover_api.log")
 LOG_FILE.parent.mkdir(parents=True, exist_ok=True)

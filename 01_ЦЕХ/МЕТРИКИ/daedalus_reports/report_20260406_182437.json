@@ -1,0 +1,33 @@
+{
+  "period_start": "2026-04-05 18:24:34.901277",
+  "period_end": "2026-04-06 18:24:34.901277",
+  "total_logs_analyzed": 1500,
+  "error_count": 33,
+  "error_types": {
+    "timeout": 15,
+    "connection_error": 8,
+    "validation_error": 3,
+    "permission_denied": 2,
+    "resource_not_found": 5
+  },
+  "containers_with_issues": [
+    "C0.1",
+    "C6.2",
+    "C7.1",
+    "C10.1"
+  ],
+  "generated_hypotheses": [
+    "Увеличить таймауты в контейнерах с частыми timeout ошибками",
+    "Улучшить обработку сетевых ошибок и добавить retry логику",
+    "Провести аудит качества кода в контейнерах с наибольшим количеством ошибок"
+  ],
+  "recommendations": [
+    "Проверить конфигурацию таймаутов в C0.1 и C6.2",
+    "Добавить exponential backoff для сетевых запросов",
+    "Запустить статический анализ для C0.1, C6.2, C7.1"
+  ],
+  "analysis_duration_seconds": 2.9059646129608154,
+  "evidence": {},
+  "reva_feedback": [],
+  "github_evidence": {}
+}

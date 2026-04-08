@@ -1,8 +1,6 @@
-import os
 import logging
 from pathlib import Path
 from fastapi import FastAPI, HTTPException, status
-from pydantic import BaseModel
 import models
 import services
 
@@ -19,6 +17,15 @@ logger = logging.getLogger(__name__)
 app = FastAPI(title="Patch Architect", version="1.0.0")
 
 
+def send_log_to_br18(event_type: str, data: dict) -> None:
+    """
+    Заглушка для отправки логов в BR18 (Monitoring).
+    В будущем будет реализована интеграция с BR18.
+    """
+    logger.info(f"[BR18] {event_type}: {data}")
+    # TODO: реализовать HTTP-вызов к BR18
+
+
 @app.get("/health")
 async def health() -> dict:
     return {"status": "ok"}
@@ -33,21 +40,25 @@ async def decompose(request: models.DecomposeRequest) -> models.DecomposeRespons
         )
 
     try:
-        patches = services.decompose_task(request.description, request.context)
-        return models.DecomposeResponse(patches=patches)
+        logger.info(f"Decompose request: {request.description[:100]}...")
+        result = await services.decompose_task(request.description, request.context)
+        
+        # Отправляем событие в BR18
+        send_log_to_br18("decompose_success", {
+            "description": request.description[:200],
+            "patches": result.get("patches", []),
+            "branches": result.get("branches", []),
+            "context": request.context
+        })
+        
+        return models.DecomposeResponse(patches=result.get("patches", []), branches=result.get("branches", []))
     except Exception as e:
         logger.error(f"Decomposition failed: {e}")
+        send_log_to_br18("decompose_error", {
+            "error": str(e),
+            "description": request.description[:200]
+        })
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Internal error during decomposition"
         )
-
-
-class DecomposeRequest(BaseModel):
-    description: str
-    context: dict = {}
-
-
-@app.post("/api/decompose")
-async def decompose(req: DecomposeRequest):
-    return {"patches": ["IMP-001"], "status": "ok"}

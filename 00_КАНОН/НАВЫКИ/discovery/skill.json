@@ -1,0 +1,10 @@
+{
+  "id": "SKILL-DISCOVERY-001",
+  "name": "Опрос пользователя по 5 блокам",
+  "version": "1.0",
+  "task_type": "discovery",
+  "description": "Проводит структурированный опрос для сбора требований (L1→L2).",
+  "allowed_for_swarm": false,
+  "created_at": "2026-04-06",
+  "author": "Архитектор"
+}

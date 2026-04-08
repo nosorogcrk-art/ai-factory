@@ -1,4 +1,3 @@
-import pytest
 from fastapi.testclient import TestClient
 from main import app
 
@@ -11,8 +10,20 @@ def test_health():
 
 
 def test_dialog_missing_project_id():
+    """Test that dialog returns 400 when project_id is missing"""
     response = client.post("/api/dialog", json={"message": "Hello"})
-    assert response.status_code == 422
+    assert response.status_code == 422  # Validation error from Pydantic
+    data = response.json()
+    assert "detail" in data
+
+
+def test_dialog_project_not_found(mocker):
+    """Test that dialog returns 400 when project does not exist in C2.6"""
+    mocker.patch("services.process_dialog", return_value=("Проект не найден. Сначала создайте проект через интерфейс.", False, None, None))
+    response = client.post("/api/dialog", json={"project_id": "non_existent", "message": "Hello"})
+    assert response.status_code == 400
+    data = response.json()
+    assert data["detail"] == "Project not found"
 
 
 def test_dialog_success(mocker):

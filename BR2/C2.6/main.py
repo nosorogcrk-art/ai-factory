@@ -9,6 +9,7 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 import services
 import models
+import repositories
 
 app = FastAPI(title="Project Memory", version="0.3.0")
 
@@ -51,6 +52,9 @@ async def send_log_to_br18(event_type: str, details: dict, background_tasks: Bac
 
 @app.on_event("startup")
 def startup():
+    # Инициализируем базу данных
+    repositories.init_db()
+    # Восстанавливаем проекты из файловой системы
     services.recover_projects()
     threading.Thread(target=services.reindex_all_projects, daemon=True).start()
 

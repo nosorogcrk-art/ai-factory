@@ -1,6 +1,8 @@
 import os
 import json
 import subprocess
+import logging
+import sys
 from datetime import datetime
 from collections import defaultdict
 from pathlib import Path
@@ -9,10 +11,25 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from map_generator import generate_map, save_map
 
+# Настройка логирования
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
 app = FastAPI(title="System Mapper", version="1.2.0")
 
 SYSTEM_MAP_PATH = Path("SYSTEM_MAP.json")
-STATIC_DIR = Path("static")
+# Жёстко закодированный путь к статическим файлам
+STATIC_DIR = Path("/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR0/C0.5/static")
+print(f"DEBUG: STATIC_DIR = {STATIC_DIR}", file=sys.stderr)
+print(f"DEBUG: STATIC_DIR exists = {STATIC_DIR.exists()}", file=sys.stderr)
+if STATIC_DIR.exists():
+    index_path = STATIC_DIR / "index.html"
+    print(f"DEBUG: index.html exists = {index_path.exists()}", file=sys.stderr)
+
+# Монтируем статические файлы
+print(f"DEBUG MOUNT: Mounting static files from: {STATIC_DIR}", file=sys.stderr)
+print(f"DEBUG MOUNT: Static directory exists: {STATIC_DIR.exists()}", file=sys.stderr)
+app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 def load_cached_map():
     if SYSTEM_MAP_PATH.exists():
@@ -44,11 +61,25 @@ async def get_map(refresh: bool = False):
 @app.get("/view", response_class=HTMLResponse)
 async def view_map():
     """Человеко-читаемая страница карты завода."""
-    index_path = STATIC_DIR / "index.html"
+    # Жёстко закодированный путь к index.html
+    index_path = Path("/Users/a1/Dev/ЗАВОД_АГЕНТОВ/ai-factory/BR0/C0.5/static/index.html")
+    
+    # Отладочная информация - используем logger
+    logger.info(f"DEBUG view_map: index_path = {index_path}")
+    logger.info(f"DEBUG view_map: index_path exists = {index_path.exists()}")
+    
     if index_path.exists():
-        with open(index_path, 'r', encoding='utf-8') as f:
-            return HTMLResponse(content=f.read())
-    return HTMLResponse(content="<h1>View not available</h1>", status_code=404)
+        try:
+            with open(index_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+                logger.info(f"DEBUG view_map: Successfully read index.html, length: {len(content)}")
+                return HTMLResponse(content=content)
+        except Exception as e:
+            logger.error(f"DEBUG view_map: Error reading index.html: {e}")
+            return HTMLResponse(content=f"<h1>Error reading file: {e}</h1>", status_code=500)
+    else:
+        logger.error(f"DEBUG view_map: index.html not found at {index_path}")
+        return HTMLResponse(content="<h1>View not available</h1>", status_code=404)
 
 @app.get("/branches")
 async def get_branches():
@@ -61,6 +92,10 @@ async def get_containers():
 @app.get("/patches")
 async def get_patches():
     return load_cached_map().get('patches', [])
+
+@app.get("/projects")
+async def get_projects():
+    return load_cached_map().get('projects', [])
 
 @app.get("/stats")
 async def get_stats():

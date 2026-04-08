@@ -12,6 +12,7 @@ from typing import Dict, Any
 from branch_scanner import scan_branches, get_root_dir
 from container_scanner import scan_containers
 from patch_scanner import scan_patches
+from project_scanner import scan_projects, get_projects_stats
 from logger import logger
 
 def get_output_path() -> Path:
@@ -25,11 +26,15 @@ def generate_map(root_dir: Path = None) -> Dict[str, Any]:
     branches = scan_branches(root_dir)
     containers = scan_containers(root_dir)
     patches = scan_patches(root_dir)
+    projects = scan_projects(root_dir)
 
     total_containers = len(containers)
     implemented_containers = sum(1 for c in containers if c.get('status') == 'implemented')
     containers_with_tests = sum(1 for c in containers if c.get('has_tests'))
     containers_with_healthcheck = sum(1 for c in containers if c.get('healthcheck'))
+
+    # Статистика проектов
+    projects_stats = get_projects_stats(projects)
 
     stats = {
         'total_branches': len(branches),
@@ -38,6 +43,7 @@ def generate_map(root_dir: Path = None) -> Dict[str, Any]:
         'implemented_containers': implemented_containers,
         'containers_with_tests': containers_with_tests,
         'containers_with_healthcheck': containers_with_healthcheck,
+        **projects_stats  # Добавляем статистику проектов
     }
 
     map_data = {
@@ -46,6 +52,7 @@ def generate_map(root_dir: Path = None) -> Dict[str, Any]:
         'branches': branches,
         'containers': containers,
         'patches': patches,
+        'projects': projects,
         'stats': stats,
     }
     logger.info(f"Map generated: {stats}")

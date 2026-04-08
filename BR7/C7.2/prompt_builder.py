@@ -5,7 +5,6 @@ prompt_builder.py – сервис выдачи промптов с контро
 Используется агентами для получения актуальных системных инструкций.
 """
 
-import os
 import json
 import hashlib
 import logging

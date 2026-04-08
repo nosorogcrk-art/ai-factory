@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-05 11:55:50",
+  "timestamp": "2026-04-05 19:56:54",
   "statistics": {
     "total_branches": 21,
     "total_containers": 53,
     "containers_with_passport": 53,
     "containers_with_tests": 19,
-    "containers_with_dockerfile": 39,
-    "docker_containers_running": 35,
-    "docker_containers_healthy": 34,
+    "containers_with_dockerfile": 40,
+    "docker_containers_running": 3,
+    "docker_containers_healthy": 3,
     "docker_containers_unhealthy": 0
   },
   "branches": [
@@ -67,16 +67,21 @@
             "responsible": "ГЕРМЕС",
             "id": "C0.2",
             "branch": "BR0",
-            "status": "planned",
-            "name": "C0.2",
-            "dependencies": []
+            "status": "implemented",
+            "version": "1.0.0",
+            "name": "C0.2 Reality Observer",
+            "dependencies": [],
+            "has_tests": true,
+            "healthcheck": true
           },
           "has_code": true,
           "has_tests": false,
-          "has_dockerfile": false,
-          "has_requirements": false,
+          "has_dockerfile": true,
+          "has_requirements": true,
           "files": [
-            "scanner.py"
+            "scanner.py",
+            "quarantine.py",
+            "main.py"
           ],
           "test_files": []
         },
@@ -93,7 +98,9 @@
             "has_dockerfile": true,
             "has_tests": true,
             "healthcheck": true,
-            "version": 1.2,
+            "version": 1.3,
+            "memory_indexed": true,
+            "requires_e2e_llm_tests": false,
             "dependencies": [
               "BR18"
             ]
@@ -379,7 +386,9 @@
             "has_dockerfile": true,
             "has_tests": true,
             "healthcheck": true,
-            "version": 1.1,
+            "version": 1.2,
+            "memory_indexed": true,
+            "requires_e2e_llm_tests": true,
             "dependencies": [
               "BR18"
             ]
@@ -804,7 +813,10 @@
             "responsible": "АРХИ",
             "status": "Утверждён",
             "name": "C9.4",
-            "dependencies": []
+            "dependencies": [],
+            "has_tests": true,
+            "healthcheck": true,
+            "requires_e2e_llm_tests": true
           },
           "has_code": true,
           "has_tests": true,
@@ -1564,503 +1576,25 @@
   ],
   "docker_containers": [
     {
-      "name": "ai-factory-test-runner-1",
-      "status": "Up 10 hours (unhealthy)",
-      "ports": "0.0.0.0:8204->8204/tcp, [::]:8204->8204/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-skill-registry-1",
-      "status": "Up 10 hours (healthy)",
-      "ports": "0.0.0.0:8088->8088/tcp, [::]:8088->8088/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-integrator-1",
-      "status": "Up 10 hours (healthy)",
-      "ports": "0.0.0.0:8096->8096/tcp, [::]:8096->8096/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-patch-architect-1",
-      "status": "Up 10 hours (healthy)",
-      "ports": "0.0.0.0:8085->8085/tcp, [::]:8085->8085/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-deployment-executor-1",
-      "status": "Up 10 hours (healthy)",
-      "ports": "0.0.0.0:8203->8203/tcp, [::]:8203->8203/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-log-aggregator-1",
-      "status": "Up 12 hours (unhealthy)",
-      "ports": "0.0.0.0:8193->8093/tcp, [::]:8193->8093/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-config-versioning-1",
-      "status": "Up 16 hours (healthy)",
-      "ports": "0.0.0.0:8202->8202/tcp, [::]:8202->8202/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-gitops-core-1",
-      "status": "Up 18 hours (unhealthy)",
-      "ports": "0.0.0.0:8105->8105/tcp, [::]:8105->8105/tcp, 0.0.0.0:8201->8201/tcp, [::]:8201->8201/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-skill-updater-1",
-      "status": "Up 21 hours (healthy)",
-      "ports": "0.0.0.0:8104->8104/tcp, [::]:8104->8104/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-prompt-optimizer-1",
-      "status": "Up 22 hours (healthy)",
-      "ports": "0.0.0.0:8102->8102/tcp, [::]:8102->8102/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-log-analyzer-1",
-      "status": "Up 24 hours (healthy)",
-      "ports": "0.0.0.0:8114->8101/tcp, [::]:8114->8101/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-ab-tester-1",
-      "status": "Up 33 hours (healthy)",
-      "ports": "0.0.0.0:8106->8106/tcp, [::]:8106->8106/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-skill-publisher-1",
-      "status": "Up 34 hours (healthy)",
-      "ports": "0.0.0.0:8113->8113/tcp, [::]:8113->8113/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-skill-graph-1",
-      "status": "Up 36 hours (healthy)",
-      "ports": "0.0.0.0:8090->8090/tcp, [::]:8090->8090/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-skill-version-control-1",
-      "status": "Up 36 hours (unhealthy)",
-      "ports": "0.0.0.0:8089->8089/tcp, [::]:8089->8089/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-test-stand-1",
-      "status": "Up 38 hours (healthy)",
-      "ports": "0.0.0.0:8092->8092/tcp, [::]:8092->8092/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-skill-tester-1",
-      "status": "Up 39 hours (healthy)",
-      "ports": "0.0.0.0:8109->8091/tcp, [::]:8109->8091/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-system-mapper-1",
-      "status": "Up 2 days (healthy)",
-      "ports": "0.0.0.0:8101->8098/tcp, [::]:8101->8098/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-indexer-1",
-      "status": "Up 8 days",
-      "ports": "",
-      "health": "unknown"
-    },
-    {
-      "name": "ai-factory-registry-manager-1",
-      "status": "Up 8 days (unhealthy)",
-      "ports": "8000/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-cognitive-engine-1",
-      "status": "Up 8 days (healthy)",
-      "ports": "0.0.0.0:8103->8103/tcp, [::]:8103->8103/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-handover-1",
-      "status": "Up 8 days (healthy)",
-      "ports": "0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-graph-visualizer-1",
-      "status": "Up 8 days (healthy)",
-      "ports": "0.0.0.0:8099->8099/tcp, [::]:8099->8099/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-pipeline-configurator-1",
-      "status": "Up 8 days (healthy)",
-      "ports": "0.0.0.0:8107->8092/tcp, [::]:8107->8092/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-cost-tracker-1",
-      "status": "Up 8 days (unhealthy)",
-      "ports": "0.0.0.0:8110->8095/tcp, [::]:8110->8095/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-registry-1",
-      "status": "Up 8 days (unhealthy)",
-      "ports": "0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-alert-manager-1",
-      "status": "Up 8 days (unhealthy)",
-      "ports": "0.0.0.0:8095->8095/tcp, [::]:8095->8095/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-token-guard-1",
-      "status": "Up 8 days (unhealthy)",
-      "ports": "0.0.0.0:8097->8097/tcp, [::]:8097->8097/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-metrics-dashboard-1",
-      "status": "Up 8 days (unhealthy)",
-      "ports": "0.0.0.0:8094->8094/tcp, [::]:8094->8094/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-skill-integrator-1",
-      "status": "Up 8 days (unhealthy)",
-      "ports": "0.0.0.0:8091->8090/tcp, [::]:8091->8090/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-dashboard-1",
-      "status": "Up 8 days (healthy)",
-      "ports": "0.0.0.0:8098->8094/tcp, [::]:8098->8094/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-command-console-1",
-      "status": "Up 8 days (healthy)",
-      "ports": "0.0.0.0:8100->8095/tcp, [::]:8100->8095/tcp",
-      "health": "healthy"
-    },
-    {
-      "name": "ai-factory-project-memory-1",
-      "status": "Up 8 days (healthy)",
-      "ports": "0.0.0.0:8108->8090/tcp, [::]:8108->8090/tcp",
-      "health": "healthy"
-    },
-    {
       "name": "ai-factory-dialogue-manager-1",
-      "status": "Up 8 days (healthy)",
+      "status": "Up About a minute (healthy)",
       "ports": "0.0.0.0:8111->8099/tcp, [::]:8111->8099/tcp",
       "health": "healthy"
     },
     {
-      "name": "ai-factory-dialogue-console-1",
-      "status": "Up 10 days (healthy)",
-      "ports": "0.0.0.0:8112->8112/tcp, [::]:8112->8112/tcp",
+      "name": "ai-factory-reality-observer-1",
+      "status": "Up 46 minutes (unhealthy)",
+      "ports": "0.0.0.0:8192->8092/tcp, [::]:8192->8092/tcp",
+      "health": "healthy"
+    },
+    {
+      "name": "ai-factory-system-mapper-1",
+      "status": "Up About an hour (healthy)",
+      "ports": "0.0.0.0:8101->8098/tcp, [::]:8101->8098/tcp",
       "health": "healthy"
     }
   ],
   "health_checks": [
-    {
-      "container": "ai-factory-test-runner-1",
-      "port": 8204,
-      "url": "http://localhost:8204/health",
-      "status": "ok",
-      "response": {
-        "status": "healthy",
-        "timestamp": "2026-04-05T08:55:43.926834",
-        "version": "1.0"
-      }
-    },
-    {
-      "container": "ai-factory-skill-registry-1",
-      "port": 8088,
-      "url": "http://localhost:8088/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-integrator-1",
-      "port": 8096,
-      "url": "http://localhost:8096/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-patch-architect-1",
-      "port": 8085,
-      "url": "http://localhost:8085/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-deployment-executor-1",
-      "port": 8203,
-      "url": "http://localhost:8203/health",
-      "status": "ok",
-      "response": {
-        "status": "ok",
-        "deployment_count": 0,
-        "rollback_count": 0,
-        "database_status": "healthy",
-        "timestamp": "2026-04-05T08:55:44.527255"
-      }
-    },
-    {
-      "container": "ai-factory-log-aggregator-1",
-      "port": 8193,
-      "url": "http://localhost:8193/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-config-versioning-1",
-      "port": 8202,
-      "url": "http://localhost:8202/health",
-      "status": "ok",
-      "response": {
-        "status": "ok",
-        "version_count": 0,
-        "database_status": "healthy",
-        "timestamp": "2026-04-05T08:55:44.779018"
-      }
-    },
-    {
-      "container": "ai-factory-gitops-core-1",
-      "port": 8105,
-      "url": "http://localhost:8105/health",
-      "status": "error",
-      "error": "('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))"
-    },
-    {
-      "container": "ai-factory-skill-updater-1",
-      "port": 8104,
-      "url": "http://localhost:8104/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-prompt-optimizer-1",
-      "port": 8102,
-      "url": "http://localhost:8102/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-log-analyzer-1",
-      "port": 8114,
-      "url": "http://localhost:8114/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-ab-tester-1",
-      "port": 8106,
-      "url": "http://localhost:8106/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-skill-publisher-1",
-      "port": 8113,
-      "url": "http://localhost:8113/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-skill-graph-1",
-      "port": 8090,
-      "url": "http://localhost:8090/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-skill-version-control-1",
-      "port": 8089,
-      "url": "http://localhost:8089/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-test-stand-1",
-      "port": 8092,
-      "url": "http://localhost:8092/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-skill-tester-1",
-      "port": 8109,
-      "url": "http://localhost:8109/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-system-mapper-1",
-      "port": 8101,
-      "url": "http://localhost:8101/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-cognitive-engine-1",
-      "port": 8103,
-      "url": "http://localhost:8103/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-handover-1",
-      "port": 8080,
-      "url": "http://localhost:8080/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-graph-visualizer-1",
-      "port": 8099,
-      "url": "http://localhost:8099/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-pipeline-configurator-1",
-      "port": 8107,
-      "url": "http://localhost:8107/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-cost-tracker-1",
-      "port": 8110,
-      "url": "http://localhost:8110/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-registry-1",
-      "port": 8000,
-      "url": "http://localhost:8000/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-alert-manager-1",
-      "port": 8095,
-      "url": "http://localhost:8095/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-token-guard-1",
-      "port": 8097,
-      "url": "http://localhost:8097/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-metrics-dashboard-1",
-      "port": 8094,
-      "url": "http://localhost:8094/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-skill-integrator-1",
-      "port": 8091,
-      "url": "http://localhost:8091/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-dashboard-1",
-      "port": 8098,
-      "url": "http://localhost:8098/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-command-console-1",
-      "port": 8100,
-      "url": "http://localhost:8100/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
-    {
-      "container": "ai-factory-project-memory-1",
-      "port": 8108,
-      "url": "http://localhost:8108/health",
-      "status": "ok",
-      "response": {
-        "status": "ok"
-      }
-    },
     {
       "container": "ai-factory-dialogue-manager-1",
       "port": 8111,
@@ -2071,11 +1605,24 @@
       }
     },
     {
-      "container": "ai-factory-dialogue-console-1",
-      "port": 8112,
-      "url": "http://localhost:8112/health",
-      "status": "error_404",
-      "response": null
+      "container": "ai-factory-reality-observer-1",
+      "port": 8192,
+      "url": "http://localhost:8192/health",
+      "status": "ok",
+      "response": {
+        "status": "healthy",
+        "timestamp": "2026-04-05T16:56:54.403656",
+        "service": "C0.2 Reality Observer"
+      }
+    },
+    {
+      "container": "ai-factory-system-mapper-1",
+      "port": 8101,
+      "url": "http://localhost:8101/health",
+      "status": "ok",
+      "response": {
+        "status": "ok"
+      }
     }
   ]
 }

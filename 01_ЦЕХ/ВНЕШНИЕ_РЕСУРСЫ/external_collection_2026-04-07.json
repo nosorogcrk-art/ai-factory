@@ -1,0 +1,168 @@
+{
+  "timestamp": "2026-04-07T23:38:31.504778",
+  "items": [
+    {
+      "source": "github",
+      "title": "fastapi/fastapi",
+      "url": "https://github.com/fastapi/fastapi",
+      "description": "FastAPI framework, high performance, easy to learn, fast to code, ready for production",
+      "stars": 96943,
+      "language": "Python",
+      "created_at": "2018-12-08T08:21:47Z",
+      "updated_at": "2026-04-07T22:01:09Z"
+    },
+    {
+      "source": "github",
+      "title": "fastapi/full-stack-fastapi-template",
+      "url": "https://github.com/fastapi/full-stack-fastapi-template",
+      "description": "Full stack, modern web application template. Using FastAPI, React, SQLModel, PostgreSQL, Docker, GitHub Actions, automatic HTTPS and more.",
+      "stars": 42517,
+      "language": "TypeScript",
+      "created_at": "2019-02-23T15:08:34Z",
+      "updated_at": "2026-04-07T19:39:42Z"
+    },
+    {
+      "source": "github",
+      "title": "mouredev/Hello-Python",
+      "url": "https://github.com/mouredev/Hello-Python",
+      "description": "Curso para aprender el lenguaje de programación Python desde cero y para principiantes. 100 clases, 44 horas en vídeo, código, proyectos y grupo de chat. Fundamentos, frontend, backend, testing, IA...",
+      "stars": 35085,
+      "language": "Python",
+      "created_at": "2022-08-03T17:14:53Z",
+      "updated_at": "2026-04-07T23:31:14Z"
+    },
+    {
+      "source": "github",
+      "title": "AstrBotDevs/AstrBot",
+      "url": "https://github.com/AstrBotDevs/AstrBot",
+      "description": "Agentic IM Chatbot infrastructure that integrates lots of IM platforms, LLMs, plugins and AI feature, and can be your openclaw alternative. ✨",
+      "stars": 29268,
+      "language": "Python",
+      "created_at": "2022-12-08T13:27:46Z",
+      "updated_at": "2026-04-07T23:36:18Z"
+    },
+    {
+      "source": "github",
+      "title": "python-telegram-bot/python-telegram-bot",
+      "url": "https://github.com/python-telegram-bot/python-telegram-bot",
+      "description": "We have made you a wrapper you can't refuse",
+      "stars": 29012,
+      "language": "Python",
+      "created_at": "2015-07-07T15:30:39Z",
+      "updated_at": "2026-04-07T22:46:39Z"
+    },
+    {
+      "source": "github",
+      "title": "AZeC4/TelegramGroup",
+      "url": "https://github.com/AZeC4/TelegramGroup",
+      "description": "2026最新悄咪咪收集的10000+个Telegram群合集，附全网最有趣好用的机器人BOT🤖【dianbaodaohang.com】",
+      "stars": 21056,
+      "language": null,
+      "created_at": "2018-02-10T11:43:40Z",
+      "updated_at": "2026-04-07T18:37:23Z"
+    },
+    {
+      "source": "github",
+      "title": "goldbergyoni/nodebestpractices",
+      "url": "https://github.com/goldbergyoni/nodebestpractices",
+      "description": ":white_check_mark:  The Node.js best practices list (July 2024)",
+      "stars": 105180,
+      "language": "Dockerfile",
+      "created_at": "2017-09-15T08:33:19Z",
+      "updated_at": "2026-04-07T17:36:29Z"
+    },
+    {
+      "source": "github",
+      "title": "gin-gonic/gin",
+      "url": "https://github.com/gin-gonic/gin",
+      "description": "Gin is a high-performance HTTP web framework written in Go. It provides a Martini-like API but with significantly better performance—up to 40 times faster—thanks to httprouter. Gin is designed for building REST APIs, web applications, and microservices.",
+      "stars": 88353,
+      "language": "Go",
+      "created_at": "2014-06-16T23:57:25Z",
+      "updated_at": "2026-04-07T21:55:56Z"
+    },
+    {
+      "source": "github",
+      "title": "nestjs/nest",
+      "url": "https://github.com/nestjs/nest",
+      "description": "A progressive Node.js framework for building efficient, scalable, and enterprise-grade server-side applications with TypeScript/JavaScript 🚀",
+      "stars": 75091,
+      "language": "TypeScript",
+      "created_at": "2017-02-04T20:12:52Z",
+      "updated_at": "2026-04-07T22:01:10Z"
+    },
+    {
+      "source": "rss",
+      "source_url": "https://habr.com/ru/rss/hub/python/all/",
+      "title": "Как мы перестали писать промпты и превратили ИИ в аналоговый синтезатор через PyTorch Hooks",
+      "url": "https://habr.com/ru/articles/1020544/?utm_campaign=1020544&utm_source=habrahabr&utm_medium=rss",
+      "summary": "<p><strong>Спойлер:</strong> Никаких банальных ИИ-оберток, где текст конвертируется в звук через API. Только хардкорная хирургия нейросетей, кросс-модальные мосты и перехват мыслей LLM в реальном времени.</p><p>За последний год Hugging Face превратился в конвейер одинаковых проектов: берем Llama/Gemma, прикручиваем к ней интерфейс на Gradio, называем это стартапом. Мы для нашего виртуального музыкального артиста <strong>Livadies</strong> решили пойти другим путем. Мы задались вопросом: <em>как з",
+      "published": "Tue, 07 Apr 2026 17:56:37 GMT"
+    },
+    {
+      "source": "rss",
+      "source_url": "https://habr.com/ru/rss/hub/python/all/",
+      "title": "Возвращаем к жизни связку openclaw + claude",
+      "url": "https://habr.com/ru/articles/1020486/?utm_campaign=1020486&utm_source=habrahabr&utm_medium=rss",
+      "summary": "<img src=\"https://habrastorage.org/getpro/habr/upload_files/e3f/fc4/951/e3ffc495116487fa8f35f43db55f6029.png\" /><p>Здравствуйте.</p><p>Думаю многие видели, что буквально только что, claude решили резко поменять политику и отключить работу своего решения в сторонних приложениях. То есть даже подписчики их платной подписки за 100 usd, среди которых был и я, теперь не могут использовать удобные безлимитные(в рамках лимитов) решения.</p><p>В основном это было сделано из-за безумно популярного агентс",
+      "published": "Tue, 07 Apr 2026 15:35:56 GMT"
+    },
+    {
+      "source": "rss",
+      "source_url": "https://habr.com/ru/rss/hub/python/all/",
+      "title": "obabot: пишем бота один раз — запускаем в Telegram и Max",
+      "url": "https://habr.com/ru/articles/1020404/?utm_campaign=1020404&utm_source=habrahabr&utm_medium=rss",
+      "summary": "<img src=\"https://habrastorage.org/getpro/habr/upload_files/d7d/62f/7e1/d7d62f7e1041bb487060e600099c2e0b.jpg\" /><p><strong>Max </strong>запустили как полноценную альтернативу Telegram для российского рынка, с открытым Bot API. Разработчики оказались перед классической дилеммой: поддерживать двойную кодовую базу или выбрать одну платформу, теряя аудиторию второй.</p><p>Типичная ситуация выглядит так: есть готовый Telegram-бот на aiogram, и нужно запустить его ещё в Max. Варианты неприятные — либо",
+      "published": "Tue, 07 Apr 2026 13:08:25 GMT"
+    },
+    {
+      "source": "rss",
+      "source_url": "https://medium.com/feed/tag/ai",
+      "title": "How AEON Pay Is Solving Real-World Crypto Payments",
+      "url": "https://medium.com/@nathanieloto38/how-aeon-pay-is-solving-real-world-crypto-payments-da3a96ff1cc2?source=rss------ai-5",
+      "summary": "<div class=\"medium-feed-item\"><p class=\"medium-feed-snippet\">Crypto has long promised financial freedom &#x2014; but using it in daily life has always been a challenge.</p><p class=\"medium-feed-link\"><a href=\"https://medium.com/@nathanieloto38/how-aeon-pay-is-solving-real-world-crypto-payments-da3a96ff1cc2?source=rss------ai-5\">Continue reading on Medium »</a></p></div>",
+      "published": "Tue, 07 Apr 2026 23:18:30 GMT"
+    },
+    {
+      "source": "rss",
+      "source_url": "https://medium.com/feed/tag/ai",
+      "title": "​The Amygdala Prison: Part 7",
+      "url": "https://medium.com/@hanogluhamza26/the-amygdala-prison-part-7-3392682bdefa?source=rss------ai-5",
+      "summary": "<div class=\"medium-feed-item\"><p class=\"medium-feed-image\"><a href=\"https://medium.com/@hanogluhamza26/the-amygdala-prison-part-7-3392682bdefa?source=rss------ai-5\"><img src=\"https://cdn-images-1.medium.com/max/1216/1*Rj6GSXYuZA2XbkN6ZBJhQQ.png\" width=\"1216\" /></a></p><p class=\"medium-feed-snippet\">&#x200b;Chemical Handcuffs</p><p class=\"medium-feed-link\"><a href=\"https://medium.com/@hanogluhamza26/the-amygdala-prison-part-7-3392682bdefa?source=rss------ai-5\">Continue reading on Medium »</a></p>",
+      "published": "Tue, 07 Apr 2026 23:15:32 GMT"
+    },
+    {
+      "source": "rss",
+      "source_url": "https://medium.com/feed/tag/ai",
+      "title": "PALIMPSEST: They Put Her Back Together. Not All of Her Came Back.",
+      "url": "https://medium.com/@iambrobertson/palimpsest-they-put-her-back-together-not-all-of-her-came-back-59b160bac9ca?source=rss------ai-5",
+      "summary": "<div class=\"medium-feed-item\"><p class=\"medium-feed-image\"><a href=\"https://medium.com/@iambrobertson/palimpsest-they-put-her-back-together-not-all-of-her-came-back-59b160bac9ca?source=rss------ai-5\"><img src=\"https://cdn-images-1.medium.com/max/1376/1*6GqMxpyubTjrHPwUvKXfgg.png\" width=\"1376\" /></a></p><p class=\"medium-feed-snippet\">Part 1: The Repair (A Three-Part Machines with Motives Series)</p><p class=\"medium-feed-link\"><a href=\"https://medium.com/@iambrobertson/palimpsest-they-put-her-back",
+      "published": "Tue, 07 Apr 2026 23:11:51 GMT"
+    },
+    {
+      "source": "rss",
+      "source_url": "https://dev.to/feed/tag/python",
+      "title": "Why I Built Selectools (and What I Learned Along the Way)",
+      "url": "https://dev.to/johnnichev/why-i-built-selectools-and-what-i-learned-along-the-way-59fd",
+      "summary": "<p>Every AI agent framework makes the same promise: \"connect your LLM to tools and go.\" Then you start building.</p>\n\n<p>You discover that LangChain needs 5 packages to do what should take 1. That LCEL's <code>|</code> operator hides a <code>Runnable</code> protocol that breaks your debugger. That LangSmith costs money to see what your own code is doing. That when your agent graph pauses for human input, LangGraph restarts the entire node from scratch.</p>\n\n<p>I hit every one of these at work. W",
+      "published": "Tue, 07 Apr 2026 23:22:56 +0000"
+    },
+    {
+      "source": "rss",
+      "source_url": "https://dev.to/feed/tag/python",
+      "title": "Web Scraping for Beginners: Sell Data as a Service",
+      "url": "https://dev.to/caper_dev/web-scraping-for-beginners-sell-data-as-a-service-3a7f",
+      "summary": "<h1>\n  \n  \n  Web Scraping for Beginners: Sell Data as a Service\n</h1>\n\n<p>As a developer, you're likely aware of the vast amounts of data available on the web. However, extracting and utilizing this data can be a daunting task, especially for those new to web scraping. In this article, we'll explore the basics of web scraping and provide a step-by-step guide on how to get started. We'll also discuss how to monetize your web scraping skills by selling data as a service.</p>\n\n<h2>\n  \n  \n  What is ",
+      "published": "Tue, 07 Apr 2026 23:15:21 +0000"
+    },
+    {
+      "source": "rss",
+      "source_url": "https://dev.to/feed/tag/python",
+      "title": "Entrenando a MAJN: Prediciendo fallas de Turbinas con Deep Learning y Bare-Metal C++",
+      "url": "https://dev.to/galp76/entrenando-a-majn-prediciendo-fallas-de-turbinas-con-deep-learning-y-bare-metal-c-32ei",
+      "summary": "<h2>\n  \n  \n  El contexto\n</h2>\n\n<p>Soy Ingeniero Industrial desde el año 2002 y, desde el 2020, también soy un apasionado autodidacta de la programación. Hace algunas semanas le pregunté a Google Gemini si podía ayudarme a encontrar un proyecto donde pudiera aplicar ambas áreas. ¿Su respuesta? Una genialidad: usar el famoso Turbofan Engine Degradation Simulation Dataset de la NASA para entrenar redes neuronales y hacer mantenimiento predictivo. Así nació MAJN (el nombre lo escogió mi hijo), y as",
+      "published": "Tue, 07 Apr 2026 23:13:01 +0000"
+    }
+  ],
+  "indexed_count": 0
+}

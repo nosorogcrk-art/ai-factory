@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Optional, Dict, Any
+from typing import Dict, Any, List, Optional
 
 
 class DecomposeRequest(BaseModel):
@@ -7,6 +7,14 @@ class DecomposeRequest(BaseModel):
     context: Dict[str, Any] = Field(default_factory=dict)
 
 
+class BranchDesign(BaseModel):
+    id: str
+    name: str
+    description: str
+    containers: List[str] = Field(default_factory=list)
+
+
 class DecomposeResponse(BaseModel):
-    patches: list[str]
+    patches: List[str]
+    branches: Optional[List[BranchDesign]] = None
     status: str = "ok"

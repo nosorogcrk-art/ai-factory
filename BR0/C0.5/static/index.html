@@ -40,7 +40,8 @@
 </div>
 
 <div id="Projects" class="tabcontent">
-    <p>Страница проектов – в разработке</p>
+    <div id="projectsStats"></div>
+    <div id="projectsTable"></div>
 </div>
 
 <div id="Logs" class="tabcontent">
@@ -107,6 +108,48 @@ async function loadPorts() {
     document.getElementById('portsTable').innerHTML = html;
 }
 
+async function loadProjects() {
+    const response = await fetch('/map');
+    const data = await response.json();
+    
+    // Статистика проектов
+    const stats = data.stats;
+    document.getElementById('projectsStats').innerHTML = `
+        <h2>📊 Статистика проектов</h2>
+        <table>
+            <tr><th>Всего проектов</th><td>${stats.total_projects || 0}</td></tr>
+            <tr><th>Активных проектов</th><td>${stats.active_projects || 0}</td></tr>
+            <tr><th>Архивированных проектов</th><td>${stats.archived_projects || 0}</td></tr>
+            <tr><th>Веток в проектах</th><td>${stats.total_branches_in_projects || 0}</td></tr>
+            <tr><th>Контейнеров в проектах</th><td>${stats.total_containers_in_projects || 0}</td></tr>
+            <tr><th>Патчей в проектах</th><td>${stats.total_patches_in_projects || 0}</td></tr>
+        </table>
+    `;
+    
+    // Таблица проектов
+    const projects = data.projects || [];
+    let projectsHtml = '<h2>📁 Проекты</h2>';
+    if (projects.length === 0) {
+        projectsHtml += '<p>Проекты не найдены</p>';
+    } else {
+        projectsHtml += '<table><th>ID</th><th>Название</th><th>Статус</th><th>Описание</th><th>Веток</th><th>Контейнеров</th><th>Патчей</th>';
+        for (let p of projects) {
+            let statusClass = p.status === 'active' ? 'status-implemented' : 'status-planned';
+            projectsHtml += `<tr>
+                <td>${p.id}</td>
+                <td>${p.name}</td>
+                <td class="${statusClass}">${p.status}</td>
+                <td>${p.description || ''}</td>
+                <td>${p.branches?.length || 0}</td>
+                <td>${p.containers?.length || 0}</td>
+                <td>${p.patches || 0}</td>
+            </tr>`;
+        }
+        projectsHtml += '</table>';
+    }
+    document.getElementById('projectsTable').innerHTML = projectsHtml;
+}
+
 function openTab(evt, tabName) {
     let i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -121,6 +164,7 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
     if (tabName === 'Map') loadMap();
     else if (tabName === 'Ports') loadPorts();
+    else if (tabName === 'Projects') loadProjects();
 }
 
 document.getElementById("defaultOpen").click();

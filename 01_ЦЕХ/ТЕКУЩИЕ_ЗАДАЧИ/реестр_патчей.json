@@ -1,0 +1,54 @@
+{
+  "P17.1.5": {
+    "id": "P17.1.5",
+    "title": "Создание навыка «опрос пользователя» (discovery) в BR17",
+    "description": "Создание папки и файлов для навыка discovery: skill.json и prompt.md",
+    "status": "done",
+    "created_at": "2026-04-06",
+    "updated_at": "2026-04-06",
+    "author": "Архитектор",
+    "artifacts": [
+      "00_КАНОН/НАВЫКИ/discovery/skill.json",
+      "00_КАНОН/НАВЫКИ/discovery/prompt.md"
+    ]
+  },
+  "P17.1.6": {
+    "id": "P17.1.6",
+    "title": "Создание навыка «проектирование веток» (branch_design) в BR17",
+    "description": "Создание папки и файлов для навыка branch_design: skill.json и prompt.md",
+    "status": "done",
+    "created_at": "2026-04-07",
+    "updated_at": "2026-04-07",
+    "author": "Архитектор",
+    "artifacts": [
+      "00_КАНОН/НАВЫКИ/branch_design/skill.json",
+      "00_КАНОН/НАВЫКИ/branch_design/prompt.md"
+    ]
+  },
+  "P17.1.7": {
+    "id": "P17.1.7",
+    "title": "Создание навыка «проектирование контейнеров» (container_design) в BR17",
+    "description": "Создание папки и файлов для навыка container_design: skill.json и prompt.md",
+    "status": "done",
+    "created_at": "2026-04-07",
+    "updated_at": "2026-04-07",
+    "author": "Архитектор",
+    "artifacts": [
+      "00_КАНОН/НАВЫКИ/container_design/skill.json",
+      "00_КАНОН/НАВЫКИ/container_design/prompt.md"
+    ]
+  },
+  "P17.1.8": {
+    "id": "P17.1.8",
+    "title": "Создание навыка «проектирование атомарных патчей» (patch_design) в BR17",
+    "description": "Создание папки и файлов для навыка patch_design: skill.json и prompt.md",
+    "status": "done",
+    "created_at": "2026-04-07",
+    "updated_at": "2026-04-07",
+    "author": "Архитектор",
+    "artifacts": [
+      "00_КАНОН/НАВЫКИ/patch_design/skill.json",
+      "00_КАНОН/НАВЫКИ/patch_design/prompt.md"
+    ]
+  }
+}

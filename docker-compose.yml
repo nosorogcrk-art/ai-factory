@@ -3,6 +3,23 @@ networks:
     driver: bridge
 
 services:
+  orchestrator:
+    build: ./BR0/C0.1
+    ports:
+      - "8100:8100"
+    networks:
+      - factory-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./01_ЦЕХ:/app/01_ЦЕХ
+    environment:
+      - BR18_URL=http://log-aggregator:8093/api/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8100/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
   project-memory:
     build: ./BR2/C2.6
     ports:
@@ -11,6 +28,20 @@ services:
       - factory-net
     volumes:
       - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./00_КАНОН:/app/00_КАНОН
+      - ./BR9:/app/BR9
+      - ./BR7:/app/BR7
+      - ./BR1:/app/BR1
+      - ./BR0:/app/BR0
+      - ./BR2:/app/BR2
+      - ./BR3:/app/BR3
+      - ./BR4:/app/BR4
+      - ./BR6:/app/BR6
+      - ./BR10:/app/BR10
+      - ./BR17:/app/BR17
+      - ./BR18:/app/BR18
+      - ./BR19:/app/BR19
+      - ./BR20:/app/BR20
     environment:
       - BR18_URL=http://log-aggregator:8093/api/logs
     healthcheck:
@@ -31,8 +62,10 @@ services:
     environment:
       - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
       - PROJECT_MEMORY_URL=http://project-memory:8090
+      - C12_URL=http://patch-architect:8085
       - BR18_URL=http://log-aggregator:8093/api/logs
       - DB_PATH=/data/dialogue_sessions.db
+      - SKILL_INTEGRATOR_URL=http://skill-integrator:8090
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8099/health"]
       interval: 30s
@@ -62,6 +95,7 @@ services:
       - ./02_ПРОДУКТ:/app/02_ПРОДУКТ
     environment:
       - PORT=8096
+      - BR18_URL=http://log-aggregator:8093/api/logs
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8096/health"]
       interval: 30s
@@ -78,6 +112,8 @@ services:
       - ./01_ЦЕХ:/app/01_ЦЕХ
     environment:
       - PORT=8085
+      - SKILL_INTEGRATOR_URL=http://skill-integrator:8090
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8085/health"]
       interval: 30s
@@ -103,7 +139,7 @@ services:
   command-console:
     build: ./BR4/C4.3
     ports:
-      - "8100:8095"
+      - "8107:8095"
     networks:
       - factory-net
     volumes:
@@ -198,6 +234,19 @@ services:
       - factory-net
     volumes:
       - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./BR9:/app/BR9
+      - ./BR7:/app/BR7
+      - ./BR1:/app/BR1
+      - ./BR0:/app/BR0
+      - ./BR2:/app/BR2
+      - ./BR3:/app/BR3
+      - ./BR4:/app/BR4
+      - ./BR6:/app/BR6
+      - ./BR10:/app/BR10
+      - ./BR17:/app/BR17
+      - ./BR18:/app/BR18
+      - ./BR19:/app/BR19
+      - ./BR20:/app/BR20
 
   log-analyzer:
     build: ./BR19/C19.1
@@ -314,6 +363,20 @@ services:
       - factory-net
     volumes:
       - ./01_ЦЕХ:/app/01_ЦЕХ
+    environment:
+      - HANDOVER_URL=http://handover:8080
+      - PROJECT_MEMORY_URL=http://project-memory:8090
+      - DAILY_ANALYSIS_HOUR=8
+      - DAILY_ANALYSIS_ENABLED=true
+      - REPORTS_DIR=/app/01_ЦЕХ/МЕТРИКИ/daedalus_reports
+      - USE_REVA_STUB=true
+      - REVA_REPORTS_PATH=/app/01_ЦЕХ/01_ЖУРНАЛЫ/reva_reports.json
+      - GITHUB_TOKEN=${GITHUB_TOKEN}  # опционально, можно оставить пустым
+      - GITHUB_API_ENABLED=true
+      - RSS_FEEDS=[{"url":"https://habr.com/ru/rss/hub/python/all/","name":"Habr Python"},{"url":"https://medium.com/feed/tag/ai","name":"Medium AI"}]
+      - ARXIV_ENABLED=true
+      - ARXIV_CATEGORIES=cs.AI,cs.SE,cs.LG
+      - EXTERNAL_CACHE_FILE=/app/01_ЦЕХ/МЕТРИКИ/external_cache.json
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8103/health"]
       interval: 30s
@@ -416,13 +479,16 @@ services:
       retries: 3
 
   skill-integrator:
-    build: ./BR17/C17.5
+    build: ./BR7/C7.4
     ports:
       - "8091:8090"
     networks:
       - factory-net
     volumes:
       - ./01_ЦЕХ:/app/01_ЦЕХ
+      - ./00_КАНОН:/app/00_КАНОН
+    environment:
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8090/health"]
       interval: 30s

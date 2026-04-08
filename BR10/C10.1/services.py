@@ -1,6 +1,5 @@
 import logging
 import subprocess
-import json
 import re
 from pathlib import Path
 import repositories

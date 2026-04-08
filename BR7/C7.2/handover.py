@@ -21,7 +21,7 @@ LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
 TASK_MODEL = {
     "statuses": ["NEW", "IN_PROGRESS", "ON_REVIEW", "REWORK", "DONE", "BLOCKED"],
     "transitions": [
-        {"from": "NEW", "to": "IN_PROGRESS", "allowed_roles": ["АРХИ", "ГЕФЕСТ"]},
+        {"from": "NEW", "to": "IN_PROGRESS", "allowed_roles": ["АРХИ", "ГЕФЕСТ", "АРГУС"]},
         {"from": "IN_PROGRESS", "to": "ON_REVIEW", "allowed_roles": ["ГЕФЕСТ"]},
         {"from": "ON_REVIEW", "to": "REWORK", "allowed_roles": ["РЕВА"]},
         {"from": "ON_REVIEW", "to": "DONE", "allowed_roles": ["РЕВА"]},

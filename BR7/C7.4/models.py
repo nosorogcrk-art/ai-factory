@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 
 class CompileRequest(BaseModel):
     task_type: str
@@ -16,3 +16,12 @@ class CompileResponse(BaseModel):
     warnings: List[str] = []
     total_matched: int
     returned: int
+
+class ExecuteRequest(BaseModel):
+    task_type: str
+    context: Dict[str, Any]  # произвольный JSON, который будет передан в LLM
+
+class ExecuteResponse(BaseModel):
+    result: Dict[str, Any]   # JSON-ответ от LLM
+    skill_id: str
+    warnings: List[str] = []

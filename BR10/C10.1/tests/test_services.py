@@ -1,5 +1,3 @@
-import pytest
-from unittest.mock import patch
 from services import build_patches
 
 

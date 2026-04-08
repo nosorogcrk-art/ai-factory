@@ -32,27 +32,53 @@ def save_registry(registry: List[Dict[str, Any]]) -> None:
         json.dump(registry, f, indent=2, ensure_ascii=False)
 
 
+def _detect_skills(description: str) -> List[str]:
+    """
+    Определяет требуемые навыки на основе описания (заглушка).
+    В будущем будет заменена на семантический поиск по BR2/C2.3.
+    """
+    skills = []
+    description_lower = description.lower()
+    if "рефакторинг" in description_lower:
+        skills.append("SKILL-042")  # рефакторинг
+    if "тест" in description_lower or "тестирование" in description_lower:
+        skills.append("SKILL-101")  # тестирование
+    if "логирование" in description_lower or "лог" in description_lower:
+        skills.append("SKILL-023")  # логирование
+    if "промпт" in description_lower or "инструкция" in description_lower:
+        skills.append("SKILL-077")  # промпт-инжиниринг
+    if "api" in description_lower or "эндпоинт" in description_lower:
+        skills.append("SKILL-055")  # API разработка
+    return skills
+
+
 def _generate_patches(description: str, context: Dict[str, Any]) -> List[Dict[str, Any]]:
     """Генерирует список патчей на основе описания."""
     patches = []
     if "логирование" in description.lower():
         patches.append({
             "title": "Улучшить формат логов",
-            "description": "Добавить временные метки и уровни логирования во все скрипты агентов."
+            "description": "Добавить временные метки и уровни логирования во все скрипты агентов.",
+            "required_skills": ["SKILL-023"]
         })
         patches.append({
             "title": "Добавить ротацию логов",
-            "description": "Настроить автоматическое удаление старых логов."
+            "description": "Настроить автоматическое удаление старых логов.",
+            "required_skills": ["SKILL-023"]
         })
     elif "промпт" in description.lower():
         patches.append({
             "title": "Оптимизировать промпт Гефеста",
-            "description": "Улучшить инструкции для агента Гефест, добавить примеры."
+            "description": "Улучшить инструкции для агента Гефест, добавить примеры.",
+            "required_skills": ["SKILL-077"]
         })
     else:
+        # Для общего случая определяем навыки на основе описания
+        required_skills = _detect_skills(description)
         patches.append({
             "title": f"Реализовать: {description[:50]}...",
-            "description": description
+            "description": description,
+            "required_skills": required_skills
         })
     return patches
 
@@ -85,11 +111,13 @@ def decompose(description: str, context: Dict[str, Any]) -> List[str]:
             "created_at": datetime.now().isoformat(),
             "updated_at": datetime.now().isoformat(),
             "history": [],
-            "type": "improvement"
+            "type": "improvement",
+            "required_skills": patch.get("required_skills", []),
+            "modified_skills": []  # Пока пусто, будет заполняться в будущем
         }
         registry.append(task)
         created_ids.append(new_id)
-        logger.info(f"Created patch {new_id}: {patch['title']}")
+        logger.info(f"Created patch {new_id}: {patch['title']} with skills {task['required_skills']}")
 
     save_registry(registry)
     return created_ids

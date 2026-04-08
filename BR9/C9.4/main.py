@@ -2,7 +2,9 @@ import logging
 from pathlib import Path
 from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
-import models, services, repositories
+import models
+import services
+import repositories
 
 LOG_FILE = Path("01_ЦЕХ/01_ЖУРНАЛЫ/dialogue_manager.log")
 LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
@@ -38,8 +40,15 @@ async def health():
 async def dialog(req: models.DialogRequest, background_tasks: BackgroundTasks):
     try:
         reply, completed, task_id, task_description = await services.process_dialog(req.project_id, req.message)
+        
+        # Проверяем, является ли ответ ошибкой "Проект не найден"
+        if "Проект не найден" in reply:
+            raise HTTPException(status_code=400, detail="Project not found")
+        
         if completed and task_id and task_description:
             background_tasks.add_task(services.background_processing, req.project_id, task_description, task_id)
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Dialog processing failed: {e}")
         raise HTTPException(status_code=503, detail=str(e))

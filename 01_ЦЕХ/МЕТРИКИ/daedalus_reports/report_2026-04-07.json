@@ -1,0 +1,115 @@
+{
+  "generated_at": "2026-04-07T23:38:24.965357",
+  "period_hours": 24,
+  "total_errors": 74,
+  "total_warnings": 0,
+  "average_duration_ms": 0,
+  "top_errors": [
+    {
+      "message": "Failed to send log to BR18: [Errno -2] Name or ser",
+      "count": 19
+    },
+    {
+      "message": "DeepSeek call failed: ",
+      "count": 5
+    },
+    {
+      "message": "DeepSeek returned no response",
+      "count": 5
+    },
+    {
+      "message": "Dialog processing failed: module 'services' has no",
+      "count": 1
+    },
+    {
+      "message": "Failed to parse branches JSON: Expecting value: li",
+      "count": 1
+    },
+    {
+      "message": "Raw response: ```json",
+      "count": 1
+    },
+    {
+      "message": "Patch spec not found: 01_ЦЕХ/ЧЕРНОВИКИ/СПЕКИ/IMP-2",
+      "count": 1
+    }
+  ],
+  "by_container": {
+    "dialogue_manager.log": {
+      "errors": [
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Failed to send log to BR18: [Errno -2] Name or service not known",
+        "Dialog processing failed: module 'services' has no attribute 'background_processing'",
+        "Failed to send log to BR18: [Errno -2] Name or service not known"
+      ],
+      "warnings": [],
+      "info_count": 432,
+      "error_count": 61,
+      "warning_count": 0,
+      "duration_ops": []
+    },
+    "patch_architect.log": {
+      "errors": [
+        "DeepSeek call failed: ",
+        "DeepSeek returned no response",
+        "DeepSeek call failed: ",
+        "DeepSeek returned no response",
+        "DeepSeek call failed: ",
+        "DeepSeek returned no response",
+        "DeepSeek call failed: ",
+        "DeepSeek returned no response",
+        "DeepSeek call failed: ",
+        "DeepSeek returned no response",
+        "Failed to parse branches JSON: Expecting value: line 1 column 1 (char 0)",
+        "Raw response: ```json"
+      ],
+      "warnings": [],
+      "info_count": 67,
+      "error_count": 12,
+      "warning_count": 0,
+      "duration_ops": []
+    },
+    "handover.log": {
+      "errors": [],
+      "warnings": [],
+      "info_count": 0,
+      "error_count": 0,
+      "warning_count": 0,
+      "duration_ops": []
+    },
+    "integrator.log": {
+      "errors": [
+        "Patch spec not found: 01_ЦЕХ/ЧЕРНОВИКИ/СПЕКИ/IMP-20260407-003.md"
+      ],
+      "warnings": [],
+      "info_count": 2,
+      "error_count": 1,
+      "warning_count": 0,
+      "duration_ops": []
+    },
+    "skill_integrator.log": {
+      "errors": [],
+      "warnings": [],
+      "info_count": 0,
+      "error_count": 0,
+      "warning_count": 0,
+      "duration_ops": []
+    }
+  }
+}
