@@ -1,8 +1,12 @@
+import sys
+from pathlib import Path
 import pytest
 import tempfile
 import os
 
-from ..services import SemanticAuditor
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from services import SemanticAuditor
 
 
 @pytest.fixture
@@ -35,8 +39,9 @@ def health():
     return {"status": "ok"}
 """)
         
-        # Создаем паспорт
-        passport_file = os.path.join(tmpdir, "C6.2.md")
+        # Создаем паспорт с именем директории
+        dir_name = os.path.basename(tmpdir)
+        passport_file = os.path.join(tmpdir, f"{dir_name}.md")
         with open(passport_file, "w") as f:
             f.write("# Паспорт контейнера")
         
@@ -89,8 +94,9 @@ async def test_review_file_no_healthcheck(auditor):
         with open(main_file, "w") as f:
             f.write("print('Hello')")
         
-        # Создаем паспорт
-        passport_file = os.path.join(tmpdir, "C6.2.md")
+        # Создаем паспорт с именем директории
+        dir_name = os.path.basename(tmpdir)
+        passport_file = os.path.join(tmpdir, f"{dir_name}.md")
         with open(passport_file, "w") as f:
             f.write("# Паспорт контейнера")
         
@@ -230,8 +236,10 @@ def test_check_has_passport(auditor):
         with open(main_file, "w") as f:
             f.write("print('Hello')")
         
-        # Создаем паспорт
-        passport_file = os.path.join(tmpdir, "C6.2.md")
+        # Получаем имя временной директории
+        dir_name = os.path.basename(tmpdir)
+        # Создаем паспорт с именем директории
+        passport_file = os.path.join(tmpdir, f"{dir_name}.md")
         with open(passport_file, "w") as f:
             f.write("# Паспорт контейнера")
         
@@ -241,7 +249,7 @@ def test_check_has_passport(auditor):
         # Удаляем паспорт
         os.remove(passport_file)
         result = auditor._check_has_passport(main_file)
-        assert result == "Не найден паспорт контейнера C6.2.md"
+        assert result == f"Не найден паспорт контейнера {dir_name}.md"
 
 
 if __name__ == "__main__":

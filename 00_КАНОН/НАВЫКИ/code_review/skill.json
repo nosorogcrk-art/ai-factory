@@ -1,0 +1,10 @@
+{
+  "id": "SKILL-CODE-REVIEW-001",
+  "name": "code_review",
+  "version": "1.0",
+  "task_type": "code_review",
+  "description": "Анализирует код на соответствие Золотому стандарту 5.0: типизация, тесты, структура, сложность, логирование.",
+  "allowed_for_swarm": [],
+  "created_at": "2026-04-10",
+  "author": "system"
+}

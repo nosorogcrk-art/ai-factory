@@ -1,3 +1,9 @@
+import sys
+from pathlib import Path
+
+# Добавляем путь к папке контейнера C10.1, чтобы импортировать main и services
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from fastapi.testclient import TestClient
 from main import app
 
@@ -56,3 +62,48 @@ def test_generate_with_content_only():
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "generated"
+
+
+def test_generate_from_l5_endpoint_missing_params():
+    """Тест эндпоинта /generate-from-l5 с отсутствующими параметрами"""
+    response = client.post("/generate-from-l5", json={})
+    # FastAPI возвращает 422 при ошибках валидации Pydantic
+    assert response.status_code == 422
+    # Проверяем, что есть детали ошибки
+    assert "detail" in response.json()
+
+
+def test_generate_from_l5_endpoint_success(mocker):
+    """Тест успешной генерации через /generate-from-l5"""
+    mock_files = [{"path": "main.py", "content": "print('ok')"}]
+    
+    async def mock_generate(*args, **kwargs):
+        return mock_files
+    
+    mocker.patch("services.generate_code_from_l5", mock_generate)
+    
+    response = client.post("/generate-from-l5", json={
+        "container_id": "c1",
+        "spec": {"name": "Test Container", "dependencies": ["fastapi"]}
+    })
+    assert response.status_code == 200
+    data = response.json()
+    assert data["status"] == "success"
+    assert len(data["files"]) == 1
+    assert data["files"][0]["path"] == "main.py"
+    assert data["files"][0]["content"] == "print('ok')"
+
+
+def test_generate_from_l5_endpoint_error(mocker):
+    """Тест ошибки генерации через /generate-from-l5"""
+    async def mock_generate(*args, **kwargs):
+        raise Exception("Generation failed")
+    
+    mocker.patch("services.generate_code_from_l5", mock_generate)
+    
+    response = client.post("/generate-from-l5", json={
+        "container_id": "c1",
+        "spec": {"name": "Test Container"}
+    })
+    assert response.status_code == 500
+    assert "Generation failed" in response.json()["detail"]

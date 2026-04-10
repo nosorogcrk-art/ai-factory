@@ -230,6 +230,8 @@ services:
 
   indexer:
     build: ./BR2/C2.2
+    ports:
+      - "8115:8090"
     networks:
       - factory-net
     volumes:
@@ -247,6 +249,11 @@ services:
       - ./BR18:/app/BR18
       - ./BR19:/app/BR19
       - ./BR20:/app/BR20
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
 
   log-analyzer:
     build: ./BR19/C19.1

@@ -189,3 +189,49 @@ def package(repo_path: Path, version: str, skills: List[str]) -> tuple[bool, str
     except Exception as e:
         logger.error(f"Packaging failed: {e}")
         return False, str(e)
+
+
+async def package_code(files: list = None, source_dir: str = None) -> dict:
+    """
+    Упаковывает код в zip-архив.
+    :param files: список объектов [{"path": "main.py", "content": "..."}]
+    :param source_dir: путь к директории с файлами (если уже сохранены)
+    :return: {"status": "success", "artifact_url": "/artifacts/...", "version": "..."}
+    """
+    import zipfile
+    import tempfile
+    import shutil
+    from pathlib import Path
+    from datetime import datetime
+    
+    # Создаём временную директорию
+    with tempfile.TemporaryDirectory() as tmpdir:
+        target_dir = Path(tmpdir)
+        if files:
+            for file_info in files:
+                file_path = target_dir / file_info["path"]
+                file_path.parent.mkdir(parents=True, exist_ok=True)
+                with open(file_path, "w") as f:
+                    f.write(file_info["content"])
+        elif source_dir:
+            shutil.copytree(source_dir, target_dir, dirs_exist_ok=True)
+        else:
+            raise ValueError("No files or source_dir provided")
+
+        # Создаём архив
+        os.makedirs("01_ЦЕХ/ПРОДУКТЫ", exist_ok=True)
+        version = datetime.now().strftime("%Y%m%d_%H%M%S")
+        archive_name = f"product_{version}.zip"
+        archive_path = Path("01_ЦЕХ/ПРОДУКТЫ") / archive_name
+        with zipfile.ZipFile(archive_path, "w", zipfile.ZIP_DEFLATED) as zipf:
+            for root, _, files_in_dir in os.walk(target_dir):
+                for file in files_in_dir:
+                    full_path = Path(root) / file
+                    arcname = full_path.relative_to(target_dir)
+                    zipf.write(full_path, arcname)
+
+        return {
+            "status": "success",
+            "artifact_url": f"/artifacts/{archive_name}",
+            "version": version
+        }

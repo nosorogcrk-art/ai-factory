@@ -1,5 +1,7 @@
 import logging
 import json
+import httpx
+import time
 from pathlib import Path
 from typing import Optional, Tuple
 import repositories as repo
@@ -8,6 +10,36 @@ from external_api import _save_message, call_skill_integrator
 from handlers import _process_l2_response, _ensure_project_exists, send_log_to_br18, background_processing as handlers_background_processing
 
 HINTS_DIR = Path("01_ЦЕХ/ПОДСКАЗКИ")
+
+
+async def get_prompt_version(prompt_name: str) -> Optional[str]:
+    """Получает версию промпта от C1.1 для A/B тестирования."""
+    try:
+        async with httpx.AsyncClient(timeout=2.0) as client:
+            resp = await client.get(f"http://cognitive-engine:8103/api/ab/version/prompt/{prompt_name}")
+            if resp.status_code == 200:
+                data = resp.json()
+                return data.get("version")
+    except Exception as e:
+        logger.warning(f"[AB] Failed to get version for prompt {prompt_name}: {e}")
+    return None
+
+
+async def send_ab_metric(experiment_id: str, variant: str, success: bool, duration_ms: int, cost_usd: float = 0.0, context: str = ""):
+    """Отправляет метрику в C1.1 для A/B тестирования."""
+    try:
+        async with httpx.AsyncClient(timeout=2.0) as client:
+            await client.post("http://cognitive-engine:8103/api/ab/metrics", json={
+                "experiment_id": experiment_id,
+                "variant": variant,
+                "success": success,
+                "duration_ms": duration_ms,
+                "cost_usd": cost_usd,
+                "context": context
+            })
+    except Exception as e:
+        logger.warning(f"[AB] Failed to send metric: {e}")
+
 
 def load_hints(project_id: str) -> dict:
     hints_file = HINTS_DIR / f"{project_id}_hints.json"
@@ -67,6 +99,17 @@ async def process_dialog(project_id: str, message: str) -> Tuple[str, bool, Opti
     logger.info(f"DEBUG: Checking system prompt for project {project_id}. collected keys: {list(collected.keys())}, system_prompt present: {'system_prompt' in collected}")
     if not system_prompt:
         logger.info(f"No system prompt in collected for project {project_id}, calling C7.4 for discovery skill")
+        
+        # Получить версию промпта от C1.1 для A/B тестирования
+        start_time = time.time()
+        experiment_id = None
+        variant = None
+        version = await get_prompt_version("discovery")
+        if version:
+            logger.info(f"[AB] Using version {version} for prompt discovery")
+            variant = version
+            experiment_id = f"prompt_discovery"
+        
         skill_response = await call_skill_integrator("discovery")
         logger.info(f"DEBUG: call_skill_integrator returned: {skill_response is not None}")
         
@@ -79,6 +122,17 @@ async def process_dialog(project_id: str, message: str) -> Tuple[str, bool, Opti
             # Сохраняем промпт в collected для использования в будущих сообщениях
             collected["system_prompt"] = system_prompt
             collected["skill_id"] = skill_id
+            
+            # Отправка метрики успеха
+            if experiment_id and variant:
+                duration_ms = int((time.time() - start_time) * 1000)
+                await send_ab_metric(
+                    experiment_id=experiment_id,
+                    variant=variant,
+                    success=True,
+                    duration_ms=duration_ms,
+                    context=f"prompt_discovery_success"
+                )
         else:
             logger.warning(f"Failed to load skill from C7.4 for project {project_id}, using fallback prompt")
             await send_log_to_br18("skill_fallback", {"project_id": project_id})
@@ -100,6 +154,17 @@ async def process_dialog(project_id: str, message: str) -> Tuple[str, bool, Opti
             )
             collected["system_prompt"] = system_prompt
             collected["skill_id"] = "fallback"
+            
+            # Отправка метрики ошибки
+            if experiment_id and variant:
+                duration_ms = int((time.time() - start_time) * 1000)
+                await send_ab_metric(
+                    experiment_id=experiment_id,
+                    variant=variant,
+                    success=False,
+                    duration_ms=duration_ms,
+                    context=f"prompt_discovery_fallback"
+                )
     else:
         logger.info(f"DEBUG: Using existing system prompt from collected for project {project_id}")
 

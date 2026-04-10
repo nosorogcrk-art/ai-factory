@@ -86,3 +86,60 @@ async def generate(req: models.GenerateRequest, background_tasks: BackgroundTask
         message=message,
         files=[]
     )
+
+
+@app.post("/generate-from-l5", response_model=models.GenerateFromL5Response)
+async def generate_from_l5(req: models.GenerateFromL5Request, background_tasks: BackgroundTasks):
+    """Генерация кода из L5 спецификации через навык code_generation"""
+    logger.info(f"Generate from L5 request for container {req.container_id}")
+    
+    # Логируем в BR18
+    background_tasks.add_task(log_to_br18, "INFO", 
+                              f"Generate from L5 request for container {req.container_id}")
+    
+    if not req.container_id or not req.spec:
+        error_msg = "Missing container_id or spec"
+        logger.error(error_msg)
+        background_tasks.add_task(log_to_br18, "ERROR", error_msg)
+        raise HTTPException(status_code=400, detail=error_msg)
+    
+    try:
+        files = await services.generate_code_from_l5(req.container_id, req.spec)
+        logger.info(f"Generated {len(files)} files for container {req.container_id}")
+        background_tasks.add_task(log_to_br18, "INFO", 
+                                  f"Generated {len(files)} files for container {req.container_id}")
+        return models.GenerateFromL5Response(
+            status="success",
+            files=[models.FileItem(path=f["path"], content=f["content"]) for f in files]
+        )
+    except Exception as e:
+        error_msg = f"Failed to generate code: {str(e)}"
+        logger.error(error_msg)
+        background_tasks.add_task(log_to_br18, "ERROR", error_msg)
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/build_from_queue")
+async def build_from_queue(request: dict, background_tasks: BackgroundTasks):
+    """Принимает очередь патчей и запускает сборку для каждого"""
+    queue = request.get("queue")
+    if queue is None:
+        error_msg = "Missing 'queue' field"
+        logger.error(error_msg)
+        background_tasks.add_task(log_to_br18, "ERROR", error_msg)
+        raise HTTPException(status_code=400, detail=error_msg)
+    
+    logger.info(f"Build from queue request with {len(queue)} items")
+    background_tasks.add_task(log_to_br18, "INFO", 
+                              f"Build from queue request with {len(queue)} items")
+    
+    try:
+        result = await services.build_from_queue(queue)
+        logger.info(f"Build from queue completed: {result['total']} items processed")
+        background_tasks.add_task(log_to_br18, "INFO", 
+                                  f"Build from queue completed: {result['total']} items processed")
+        return {"status": "success", "result": result}
+    except Exception as e:
+        error_msg = f"Failed to build from queue: {str(e)}"
+        logger.error(error_msg)
+        background_tasks.add_task(log_to_br18, "ERROR", error_msg)
+        raise HTTPException(status_code=500, detail=str(e))

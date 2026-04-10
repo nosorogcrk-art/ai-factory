@@ -3,10 +3,90 @@ import os
 import asyncio
 import logging
 import httpx
+import glob
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Any
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
+
+def calculate_risk_score(project_id: str) -> Dict[str, Any]:
+    risk_score = 0
+    reasons = []
+
+    # 1. Анализ диалогов
+    prompt_reports = glob.glob(f"01_ЦЕХ/МЕТРИКИ/prompt_analysis/*{project_id}*.json")
+    for report in prompt_reports:
+        try:
+            with open(report, "r") as f:
+                data = json.load(f)
+                if data.get("suggestions") and len(data["suggestions"]) > 0:
+                    risk_score += 1
+                    reasons.append("Есть рекомендации по улучшению промпта")
+                    break
+        except (FileNotFoundError, json.JSONDecodeError):
+            pass
+
+    # 2. Анализ декомпозиции
+    decomp_reports = glob.glob("01_ЦЕХ/МЕТРИКИ/decomposition_analysis/*.json")
+    for report in decomp_reports:
+        try:
+            with open(report, "r") as f:
+                data = json.load(f)
+                rules = data.get("generated_rules", [])
+                if rules and "удовлетворительно" not in str(rules).lower():
+                    risk_score += 1
+                    reasons.append("Декомпозиция требует доработки")
+                    break
+        except (FileNotFoundError, json.JSONDecodeError):
+            pass
+
+    # 3. Аудит интегратора
+    audit_reports = glob.glob("01_ЦЕХ/МЕТРИКИ/integrator_audit/*.json")
+    for report in audit_reports:
+        try:
+            with open(report, "r") as f:
+                data = json.load(f)
+                if data.get("recommendations") and len(data["recommendations"]) > 0:
+                    risk_score += 1
+                    reasons.append("Интегратор выдал рекомендации")
+                    break
+        except (FileNotFoundError, json.JSONDecodeError):
+            pass
+
+    if risk_score >= 3:
+        risk_level = "high"
+    elif risk_score >= 2:
+        risk_level = "medium"
+    else:
+        risk_level = "low"
+
+    return {
+        "risk_level": risk_level,
+        "risk_score": risk_score,
+        "reasons": reasons
+    }
+
+
+async def fetch_projects() -> List[Dict]:
+    """Получает список проектов из C2.6 (project-memory) или через файловую систему."""
+    try:
+        async with httpx.AsyncClient(timeout=2.0) as client:
+            resp = await client.get("http://project-memory:8090/projects")
+            if resp.status_code == 200:
+                return resp.json()
+    except Exception:
+        pass
+
+    # Fallback: сканировать папку 01_ЦЕХ/ПРОЕКТЫ/
+    projects = []
+    projects_dir = "01_ЦЕХ/ПРОЕКТЫ/"
+    if os.path.exists(projects_dir):
+        for item in os.listdir(projects_dir):
+            if os.path.isdir(os.path.join(projects_dir, item)):
+                projects.append({"id": item})
+    return projects
+
 
 # Директории с отчётами
 REPORT_DIRS = {
@@ -94,6 +174,52 @@ async def create_task_in_handover(payload: Dict) -> bool:
     except Exception as e:
         logger.error(f"Failed to create task in handover: {e}")
         return False
+
+
+async def create_handover_task(
+    title: str,
+    description: str,
+    assigned_role: str,
+    priority: str = "medium"
+) -> bool:
+    """
+    Создаёт задачу в handover системе (обёртка для совместимости).
+    """
+    payload = {
+        "title": title,
+        "description": description,
+        "assigned_role": assigned_role,
+        "priority": priority,
+        "metadata": {
+            "source": "daedalus_risk_analysis",
+            "timestamp": datetime.now().isoformat()
+        }
+    }
+    return await create_task_in_handover(payload)
+
+
+async def scan_projects_for_risk():
+    projects = await fetch_projects()
+    for project in projects:
+        project_id = project["id"]
+        risk = calculate_risk_score(project_id)
+        if risk["risk_level"] == "high":
+            # create_handover_task – асинхронная функция из существующего модуля
+            await create_handover_task(
+                title=f"Risk alert: project {project_id}",
+                description=f"Risk level: {risk['risk_level']}\nReasons: {', '.join(risk['reasons'])}",
+                assigned_role="ARGUS",
+                priority="high"
+            )
+        # Сохранить отчёт (опционально, без ротации для упрощения)
+        os.makedirs("01_ЦЕХ/МЕТРИКИ/risk_analysis/", exist_ok=True)
+        report_path = f"01_ЦЕХ/МЕТРИКИ/risk_analysis/{project_id}_{datetime.now().isoformat()}.json"
+        with open(report_path, "w") as f:
+            json.dump({
+                "timestamp": datetime.now().isoformat(),
+                "project_id": project_id,
+                **risk
+            }, f, indent=2)
 
 def mark_report_processed(report_path: Path):
     """

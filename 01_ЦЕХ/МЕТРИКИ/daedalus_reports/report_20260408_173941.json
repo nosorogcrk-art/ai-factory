@@ -1,0 +1,168 @@
+{
+  "period_start": "2026-04-07 17:39:40.000881",
+  "period_end": "2026-04-08 17:39:40.000881",
+  "total_logs_analyzed": 1500,
+  "error_count": 33,
+  "error_types": {
+    "timeout": 15,
+    "connection_error": 8,
+    "validation_error": 3,
+    "permission_denied": 2,
+    "resource_not_found": 5
+  },
+  "containers_with_issues": [
+    "C0.1",
+    "C6.2",
+    "C7.1",
+    "C10.1"
+  ],
+  "generated_hypotheses": [
+    "Увеличить таймауты в контейнерах с частыми timeout ошибками",
+    "Улучшить обработку сетевых ошибок и добавить retry логику",
+    "Провести аудит качества кода в контейнерах с наибольшим количеством ошибок"
+  ],
+  "recommendations": [
+    "Проверить конфигурацию таймаутов в C0.1 и C6.2",
+    "Добавить exponential backoff для сетевых запросов",
+    "Запустить статический анализ для C0.1, C6.2, C7.1"
+  ],
+  "analysis_duration_seconds": 1.5992546081542969,
+  "evidence": {
+    "timeout": [
+      {
+        "path": "00_КАНОН/НАВЫКИ/integrator_audit/prompt.md",
+        "score": 0.36251771450042725,
+        "snippet": "Ты – эксперт по интеграции программных патчей. Твоя задача – на основе предоставленных данных (логи интегратора и реестр патчей) выявить причины ошибок сборки и предложить конкретные улучшения.\n\nВходн",
+        "metadata": {
+          "size": 2182,
+          "filename": "prompt.md",
+          "type": "markdown",
+          "timestamp": "2026-04-07T21:11:39.355938+00:00",
+          "path": "00_КАНОН/НАВЫКИ/integrator_audit/prompt.md"
+        }
+      },
+      {
+        "path": "00_КАНОН/НАВЫКИ/decomposition_optimizer/prompt.md",
+        "score": 0.3373245596885681,
+        "snippet": "Ты – эксперт по оптимизации декомпозиции задач на патчи. Твоя задача – на основе предоставленных данных (реестр патчей и логи интегратора) выявить проблемы и предложить конкретные правила для улучшени",
+        "metadata": {
+          "type": "markdown",
+          "size": 1962,
+          "timestamp": "2026-04-07T22:18:36.599188+00:00",
+          "path": "00_КАНОН/НАВЫКИ/decomposition_optimizer/prompt.md",
+          "filename": "prompt.md"
+        }
+      }
+    ],
+    "connection_error": [
+      {
+        "path": "00_КАНОН/НАВЫКИ/discovery/skill.json",
+        "score": 0.41244667768478394,
+        "snippet": "{\n  \"id\": \"SKILL-DISCOVERY-001\",\n  \"name\": \"Опрос пользователя по 5 блокам\",\n  \"version\": \"1.0\",\n  \"task_type\": \"discovery\",\n  \"description\": \"Проводит структурированный опрос для сбора требований (L1",
+        "metadata": {
+          "path": "00_КАНОН/НАВЫКИ/discovery/skill.json",
+          "size": 379,
+          "type": "json",
+          "timestamp": "2026-04-06T18:40:50.037077+00:00",
+          "filename": "skill.json"
+        }
+      },
+      {
+        "path": "/app/00_КАНОН/НАВЫКИ/discovery/skill.json",
+        "score": 0.41244667768478394,
+        "snippet": "{\n  \"id\": \"SKILL-DISCOVERY-001\",\n  \"name\": \"Опрос пользователя по 5 блокам\",\n  \"version\": \"1.0\",\n  \"task_type\": \"discovery\",\n  \"description\": \"Проводит структурированный опрос для сбора требований (L1",
+        "metadata": {
+          "type": "json",
+          "filename": "skill.json",
+          "path": "/app/00_КАНОН/НАВЫКИ/discovery/skill.json",
+          "timestamp": "2026-04-06T19:16:58.175648+00:00",
+          "size": 379
+        }
+      }
+    ]
+  },
+  "reva_feedback": [],
+  "github_evidence": {},
+  "external_insights": [
+    {
+      "source": "rss",
+      "source_name": "Habr Python",
+      "title": "Как я выбирал стек для SaaS-мониторинга сайтов",
+      "url": "https://habr.com/ru/articles/1021000/?utm_campaign=1021000&utm_source=habrahabr&utm_medium=rss",
+      "summary": "<img src=\"https://habrastorage.org/getpro/habr/upload_files/47f/980/d7a/47f980d7abad5e9e8e9880fe8f7bdc34.png\" /><p>Как в одиночку собрать полноценный сервис мониторинга с проверками из 10 точек мира, алертами в Telegram/Slack и собственным агентом? Делюсь личным опытом выбора стека: почему FastAPI выиграл у Django, как TimescaleDB справляется с миллионами строк логов и зачем писать агент на Go, если основной код на Python. Только практика, архитектурные решения и честный расчет стоимости инфраст",
+      "published": "Wed, 08 Apr 2026 15:21:29 GMT"
+    },
+    {
+      "source": "rss",
+      "source_name": "Habr Python",
+      "title": "Как мы создали новый тестовый фреймворк, адаптируемый к росту проектов",
+      "url": "https://habr.com/ru/articles/1020856/?utm_campaign=1020856&utm_source=habrahabr&utm_medium=rss",
+      "summary": "<img src=\"https://habrastorage.org/getpro/habr/upload_files/ed7/488/027/ed7488027873b5586f9f24a2676aaac4.jpg\" /><p>Наш тестовый фреймворк перестал масштабироваться с ростом сервисов. Мы переработали архитектуру, ввели разделение на слои, упростили масштабирование автотестов и подготовили фреймворк к интеграции SDK и использованию AI</p> <a href=\"https://habr.com/ru/articles/1020856/?utm_campaign=1020856&amp;utm_source=habrahabr&amp;utm_medium=rss#habracut\">Читать далее</a>",
+      "published": "Wed, 08 Apr 2026 11:37:08 GMT"
+    },
+    {
+      "source": "rss",
+      "source_name": "Habr Python",
+      "title": "Мультиагентная система без LangChain: почему абстракции ломаются и как строить production на чистом Python",
+      "url": "https://habr.com/ru/articles/1020810/?utm_campaign=1020810&utm_source=habrahabr&utm_medium=rss",
+      "summary": "<img src=\"https://habrastorage.org/getpro/habr/upload_files/e2a/aa2/1f0/e2aaa21f07ebe63af110b1a659205aef.jpg\" /><p>LangChain обещает: переключите модель одной строкой, подключите RAG за две. У меня в production мультиагентная система с RAG, CRM и тремя мессенджерами — и я построил её без LangChain. Под катом — почему абстракции ломаются, сколько стоит фоллбек на YandexGPT и при чём тут медведь с удочкой.  </p> <a href=\"https://habr.com/ru/articles/1020810/?utm_campaign=1020810&amp;utm_source=hab",
+      "published": "Wed, 08 Apr 2026 10:45:52 GMT"
+    },
+    {
+      "source": "rss",
+      "source_name": "Habr Python",
+      "title": "Обновления функциональности GigaIDE за март 2026",
+      "url": "https://habr.com/ru/companies/sberbank/articles/1019478/?utm_campaign=1019478&utm_source=habrahabr&utm_medium=rss",
+      "summary": "<img src=\"https://habrastorage.org/getpro/habr/upload_files/c5c/cd0/ec6/c5ccd0ec61c21989ac21fa2105028968.jpeg\" /><p>Закончился еще один месяц, а значит нам пора поделиться с Вами новостями о развитии <strong>GigaIDE</strong>. Ниже краткий обзор обновлений <strong>PRO-функционала GigaIDE</strong>, которые можно найти на нашем <a href=\"https://gitverse.ru/features/gigaide/marketplace/\">маркетплейсе</a>. Обзор инкремента за <a href=\"https://habr.com/ru/companies/sberbank/articles/1006448/\">февраль ",
+      "published": "Wed, 08 Apr 2026 10:22:04 GMT"
+    },
+    {
+      "source": "rss",
+      "source_name": "Habr Python",
+      "title": "Один скилл, четыре модели — что может пойти не так",
+      "url": "https://habr.com/ru/articles/1020786/?utm_campaign=1020786&utm_source=habrahabr&utm_medium=rss",
+      "summary": "<img src=\"https://habrastorage.org/getpro/habr/upload_files/0da/94e/295/0da94e295426316c60a9e205a1a5a22a.png\" /><p>На GitHub лежат сотни AI-скиллов. Скилл для code review, скилл для дебага, скилл для обработки PDF, скилл для анализа безопасности. Установил в Cursor или Claude Code — и твой AI-ассистент стал умнее. Звучит как npm install: поставил пакет, он работает.</p><p>Но скилл — не пакет. Это текстовый файл с инструкциями, который читает языковая модель. А модели читают по-разному.</p><p>Пре",
+      "published": "Wed, 08 Apr 2026 10:16:46 GMT"
+    },
+    {
+      "source": "rss",
+      "source_name": "Medium AI",
+      "title": "BHP Advances AI Strategy Across the Mining Lifecycle",
+      "url": "https://medium.com/@chris_2084/bhp-advances-ai-strategy-across-the-mining-lifecycle-1a85b1e09714?source=rss------ai-5",
+      "summary": "<div class=\"medium-feed-item\"><p class=\"medium-feed-image\"><a href=\"https://medium.com/@chris_2084/bhp-advances-ai-strategy-across-the-mining-lifecycle-1a85b1e09714?source=rss------ai-5\"><img src=\"https://cdn-images-1.medium.com/max/1080/1*utT2VM9QBZogWwkLglyxLg.jpeg\" width=\"1080\" /></a></p><p class=\"medium-feed-snippet\">BHP AI mining strategy focuses on execution and system integration as the company applies data and artificial intelligence across the&#x2026;</p><p class=\"medium-feed-link\"><a h",
+      "published": "Wed, 08 Apr 2026 17:32:16 GMT"
+    },
+    {
+      "source": "rss",
+      "source_name": "Medium AI",
+      "title": "How AI Can Bring Every Household to $100K",
+      "url": "https://medium.com/@mainstreetgpt/how-ai-can-bring-every-household-to-100k-6bb593045131?source=rss------ai-5",
+      "summary": "<div class=\"medium-feed-item\"><p class=\"medium-feed-image\"><a href=\"https://medium.com/@mainstreetgpt/how-ai-can-bring-every-household-to-100k-6bb593045131?source=rss------ai-5\"><img src=\"https://cdn-images-1.medium.com/max/1536/1*3ljWMOk_vCYIiQME818CFg.png\" width=\"1536\" /></a></p><p class=\"medium-feed-snippet\">3 Economic Deliverables to Lift People While Not Bringing Others Down</p><p class=\"medium-feed-link\"><a href=\"https://medium.com/@mainstreetgpt/how-ai-can-bring-every-household-to-100k-6b",
+      "published": "Wed, 08 Apr 2026 17:29:06 GMT"
+    },
+    {
+      "source": "rss",
+      "source_name": "Medium AI",
+      "title": "The Simplest Way to Make Money with AI Right Now (Anyone Can Start)",
+      "url": "https://medium.com/@SimplifyAI/the-simplest-way-to-make-money-with-ai-right-now-anyone-can-start-0377002d9ba4?source=rss------ai-5",
+      "summary": "<div class=\"medium-feed-item\"><p class=\"medium-feed-image\"><a href=\"https://medium.com/@SimplifyAI/the-simplest-way-to-make-money-with-ai-right-now-anyone-can-start-0377002d9ba4?source=rss------ai-5\"><img src=\"https://cdn-images-1.medium.com/max/1280/1*TlXsD8MdNoxFlDf5cqfBtQ.png\" width=\"1280\" /></a></p><p class=\"medium-feed-snippet\">Let&#x2019;s bring this back to reality &#x2014; the reality of the person listening and the pressing questions they have about all of this and what&#x2026;</p><p cl",
+      "published": "Wed, 08 Apr 2026 17:25:35 GMT"
+    },
+    {
+      "source": "rss",
+      "source_name": "Medium AI",
+      "title": "Claude Code Internals — The Accidental Blueprint",
+      "url": "https://abivarma.medium.com/claude-code-internals-the-accidental-blueprint-8810895cfdb9?source=rss------ai-5",
+      "summary": "<div class=\"medium-feed-item\"><p class=\"medium-feed-image\"><a href=\"https://abivarma.medium.com/claude-code-internals-the-accidental-blueprint-8810895cfdb9?source=rss------ai-5\"><img src=\"https://cdn-images-1.medium.com/max/2456/1*ShjNJbvE8OCo4Qr_bo1O_Q.png\" width=\"2456\" /></a></p><p class=\"medium-feed-snippet\">A rare look inside a production agentic system that nobody was supposed to see.</p><p class=\"medium-feed-link\"><a href=\"https://abivarma.medium.com/claude-code-internals-the-accidental-bl",
+      "published": "Wed, 08 Apr 2026 17:25:15 GMT"
+    },
+    {
+      "source": "rss",
+      "source_name": "Medium AI",
+      "title": "Why Businesses Are Scrambling To Get Noticed By AI Search",
+      "url": "https://medium.com/@impactnews-wire/why-businesses-are-scrambling-to-get-noticed-by-ai-search-c890ddad52bd?source=rss------ai-5",
+      "summary": "<div class=\"medium-feed-item\"><p class=\"medium-feed-image\"><a href=\"https://medium.com/@impactnews-wire/why-businesses-are-scrambling-to-get-noticed-by-ai-search-c890ddad52bd?source=rss------ai-5\"><img src=\"https://cdn-images-1.medium.com/max/1024/0*azblg0-rrz86jz70\" width=\"1024\" /></a></p><p class=\"medium-feed-snippet\">As AI systems increasingly deliver direct answers instead of links, businesses are being forced to rethink visibility, shifting from&#x2026;</p><p class=\"medium-feed-link\"><a hre",
+      "published": "Wed, 08 Apr 2026 17:21:34 GMT"
+    }
+  ]
+}

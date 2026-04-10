@@ -9,14 +9,15 @@ from contextlib import asynccontextmanager
 from pydantic import BaseModel
 
 from models import AnalyzeRequest, HypothesisRequest, HealthResponse, ApproveRequest, RejectRequest, HintsRequest
-from services import CognitiveEngineService
+from services import CognitiveEngineService, get_ab_version, send_ab_metric
 from log_analyzer import scheduler_loop as log_analyzer_scheduler
 from semantic_search import provide_hints_for_new_project
 from external_search import external_search_scheduler
 from prompt_analyzer import prompt_analysis_scheduler, analyze_project_dialog, PROJECT_MEMORY_URL
 from decomposition_analyzer import decomposition_analyzer_scheduler, run_decomposition_analysis
 from integrator_auditor import integrator_audit_scheduler, run_integrator_audit
-from auto_patch_initiator import auto_patch_scheduler, run_auto_patch_initiation
+from auto_patch_initiator import auto_patch_scheduler, run_auto_patch_initiation, scan_projects_for_risk
+from ab_auto_accept import background_ab_accept
 
 # --- Конфигурация ---
 LOG_FILE = Path("01_ЦЕХ/01_ЖУРНАЛЫ/cognitive_engine.log")
@@ -52,6 +53,12 @@ async def scheduler_loop():
             logger.error(f"Scheduled analysis failed: {e}")
             await cognitive_service._send_log_to_br18("daily_analysis_failed", {"error": str(e)})
 
+
+async def background_risk_analysis():
+    while True:
+        await asyncio.sleep(86400)  # 24 часа
+        await scan_projects_for_risk()
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Запуск при старте
@@ -70,6 +77,10 @@ async def lifespan(app: FastAPI):
     asyncio.create_task(integrator_audit_scheduler(interval_seconds=86400))
     # Запуск планировщика автоматических патчей (раз в час)
     asyncio.create_task(auto_patch_scheduler(interval_seconds=3600))
+    # Запуск фоновой задачи анализа рисков проектов (раз в сутки)
+    asyncio.create_task(background_risk_analysis())
+    # Запуск фоновой задачи автоматического принятия A/B-тестов (раз в час)
+    asyncio.create_task(background_ab_accept())
     yield
     # Очистка при завершении
     await cognitive_service.close()
@@ -256,6 +267,31 @@ async def trigger_auto_patches():
     await run_auto_patch_initiation()
     return {"status": "ok", "message": "Auto patch initiation triggered"}
 
+@app.post("/trigger_risk_analysis")
+async def trigger_risk_analysis():
+    await scan_projects_for_risk()
+    return {"status": "ok", "message": "Risk analysis started"}
+
+from fastapi import BackgroundTasks
+
+@app.get("/api/ab/version/{object_type}/{object_id}")
+async def ab_version(object_type: str, object_id: str, context: Optional[str] = None):
+    version = await get_ab_version(object_type, object_id, context)
+    return {"version": version}
+
+@app.post("/api/ab/metrics")
+async def ab_metric(payload: dict, background_tasks: BackgroundTasks):
+    background_tasks.add_task(
+        send_ab_metric,
+        payload.get("experiment_id"),
+        payload.get("variant"),
+        payload.get("success", False),
+        payload.get("duration_ms", 0),
+        payload.get("cost_usd", 0.0),
+        payload.get("context", "")
+    )
+    return {"status": "accepted"}
+
 @app.get("/")
 async def root():
     """
@@ -278,6 +314,7 @@ async def root():
             "POST /analyze_prompts": "Анализ диалогов проекта для улучшения промптов",
             "POST /analyze_decomposition": "Анализ декомпозиции патчей и генерация правил",
             "POST /audit_integrator": "Аудит интегратора через навык integrator_audit",
-            "POST /trigger_auto_patches": "Ручной запуск инициатора автоматических патчей"
+            "POST /trigger_auto_patches": "Ручной запуск инициатора автоматических патчей",
+            "POST /trigger_risk_analysis": "Ручной запуск анализа рисков проектов"
         }
     }

@@ -13,8 +13,49 @@ DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
 DEEPSEEK_URL = "https://api.deepseek.com/v1/chat/completions"
 
 
+async def get_skill_version(skill_name: str) -> Optional[str]:
+    """Получает версию навыка от C1.1 для A/B тестирования."""
+    try:
+        async with httpx.AsyncClient(timeout=2.0) as client:
+            resp = await client.get(f"http://cognitive-engine:8103/api/ab/version/skill/{skill_name}")
+            if resp.status_code == 200:
+                data = resp.json()
+                return data.get("version")
+    except Exception as e:
+        logger.warning(f"[AB] Failed to get version for skill {skill_name}: {e}")
+    return None
+
+
+async def send_ab_metric(experiment_id: str, variant: str, success: bool, duration_ms: int, cost_usd: float = 0.0, context: str = ""):
+    """Отправляет метрику в C1.1 для A/B тестирования."""
+    try:
+        async with httpx.AsyncClient(timeout=2.0) as client:
+            await client.post("http://cognitive-engine:8103/api/ab/metrics", json={
+                "experiment_id": experiment_id,
+                "variant": variant,
+                "success": success,
+                "duration_ms": duration_ms,
+                "cost_usd": cost_usd,
+                "context": context
+            })
+    except Exception as e:
+        logger.warning(f"[AB] Failed to send metric: {e}")
+
+
 async def call_skill_integrator(task_type: str) -> Optional[str]:
-    """Вызывает C7.4 и возвращает промпт навыка."""
+    """Вызывает C7.4 и возвращает промпт навыка с поддержкой A/B тестирования."""
+    import time
+    start_time = time.time()
+    experiment_id = None
+    variant = None
+    
+    # Получить версию навыка от C1.1
+    version = await get_skill_version(task_type)
+    if version:
+        logger.info(f"[AB] Using version {version} for skill {task_type}")
+        variant = version
+        experiment_id = f"skill_{task_type}"
+    
     # Временная заглушка для демонстрации
     if task_type == "branch_design":
         return """Ты — эксперт по проектированию архитектуры программного обеспечения (Domain-Driven Design). Твоя задача — на основе формализованного замысла (L2) в формате JSON выделить ветки (bounded contexts).
@@ -46,16 +87,45 @@ async def call_skill_integrator(task_type: str) -> Optional[str]:
     ...
   ]
 }"""
+    
     url = f"{SKILL_INTEGRATOR_URL}/compile"
     payload = {"task_type": task_type}
+    if version:
+        payload["version"] = version
+    
     try:
         async with httpx.AsyncClient() as client:
             resp = await client.post(url, json=payload, timeout=10.0)
             resp.raise_for_status()
             data = resp.json()
-            return data.get("prompt")
+            result = data.get("prompt")
+            
+            # Отправка метрики успеха
+            if experiment_id and variant:
+                duration_ms = int((time.time() - start_time) * 1000)
+                await send_ab_metric(
+                    experiment_id=experiment_id,
+                    variant=variant,
+                    success=True,
+                    duration_ms=duration_ms,
+                    context=f"skill_{task_type}"
+                )
+            
+            return result
     except Exception as e:
         logger.error(f"Failed to get skill {task_type}: {e}")
+        
+        # Отправка метрики ошибки
+        if experiment_id and variant:
+            duration_ms = int((time.time() - start_time) * 1000)
+            await send_ab_metric(
+                experiment_id=experiment_id,
+                variant=variant,
+                success=False,
+                duration_ms=duration_ms,
+                context=f"skill_{task_type}_error"
+            )
+        
         return None
 
 

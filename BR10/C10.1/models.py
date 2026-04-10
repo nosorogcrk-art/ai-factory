@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 
 
 class BuildRequest(BaseModel):
@@ -23,3 +23,18 @@ class GenerateResponse(BaseModel):
     status: str  # "generated" | "error"
     message: str
     files: List[str]
+
+
+class FileItem(BaseModel):
+    path: str
+    content: str
+
+
+class GenerateFromL5Request(BaseModel):
+    container_id: str
+    spec: Dict[str, Any]
+
+
+class GenerateFromL5Response(BaseModel):
+    status: str  # "success" | "error"
+    files: List[FileItem]

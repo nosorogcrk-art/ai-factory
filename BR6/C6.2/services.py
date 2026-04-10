@@ -1,9 +1,11 @@
 import os
 import subprocess
 import tempfile
-from typing import Optional
+from typing import Optional, Dict, Any
 
-from .models import Violation, Severity, ReviewResponse
+import httpx
+
+from models import Violation, Severity, ReviewResponse
 
 
 class SemanticAuditor:
@@ -177,3 +179,35 @@ class SemanticAuditor:
             return "Проверка ruff превысила время ожидания"
         except Exception as e:
             return f"Ошибка при запуске ruff: {str(e)}"
+
+
+async def review_code(code: str) -> Dict[str, Any]:
+    """
+    Вызывает навык code_review через C7.4 /execute.
+    Возвращает словарь с полями passed, score, issues, suggestions.
+    """
+    url = "http://skill-integrator:8090/execute"
+    payload = {
+        "task_type": "code_review",
+        "context": {
+            "code": code,
+            "language": "python",
+            "standards": "Золотой стандарт 5.0"
+        }
+    }
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            resp = await client.post(url, json=payload)
+            resp.raise_for_status()
+            data = resp.json()
+            # Формат ответа C7.4: {"result": {...}, "skill_id": "...", "warnings": []}
+            result = data.get("result", {})
+            return result
+    except Exception:
+        # Заглушка на случай недоступности сервиса
+        return {
+            "passed": False,
+            "score": 0,
+            "issues": ["Сервис code_review временно недоступен"],
+            "suggestions": ["Проверьте доступность сервиса skill-integrator:8090"]
+        }

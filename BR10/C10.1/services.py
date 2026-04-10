@@ -3,6 +3,8 @@ import subprocess
 import re
 from pathlib import Path
 import repositories
+import httpx
+from typing import Dict, Any, List
 
 logger = logging.getLogger(__name__)
 
@@ -69,3 +71,51 @@ def build_patches(task_id: str, patch_ids: list[str], check_skills: bool, run_te
     except Exception as e:
         logger.error(f"Build process error: {e}")
         return False, str(e)
+
+async def generate_code_from_l5(container_id: str, spec: Dict[str, Any]) -> List[Dict[str, str]]:
+    """
+    Вызывает навык code_generation через C7.4.
+    Возвращает список файлов [{"path": "...", "content": "..."}].
+    В случае ошибки выбрасывает исключение.
+    """
+    url = "http://skill-integrator:8090/execute"
+    payload = {
+        "task_type": "code_generation",
+        "context": {
+            "container_id": container_id,
+            "spec": spec
+        }
+    }
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            resp = await client.post(url, json=payload)
+            resp.raise_for_status()
+            data = await resp.json()
+            # Формат ответа C7.4: {"result": {...}, "skill_id": "...", "warnings": []}
+            result_data = data.get("result", {})
+            if "files" in result_data:
+                return result_data["files"]
+            else:
+                error_msg = result_data.get("error", "Generation failed: no files in result")
+                raise Exception(error_msg)
+    except Exception as e:
+        raise Exception(f"Failed to generate code: {str(e)}")
+
+async def build_from_queue(queue: list) -> dict:
+    """
+    Принимает очередь патчей (список патчей с полями container_id, spec и т.д.).
+    Для каждого патча вызывает generate_code_from_l5 и собирает результаты.
+    """
+    results = []
+    for item in queue:
+        container_id = item.get("container_id")
+        spec = item.get("spec")
+        if not container_id or not spec:
+            results.append({"error": "Missing container_id or spec in queue item"})
+            continue
+        try:
+            files = await generate_code_from_l5(container_id, spec)
+            results.append({"container_id": container_id, "status": "success", "files": files})
+        except Exception as e:
+            results.append({"container_id": container_id, "status": "error", "error": str(e)})
+    return {"total": len(queue), "results": results}

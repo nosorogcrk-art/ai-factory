@@ -1,0 +1,64 @@
+{
+  "statuses": [
+    "NEW",
+    "IN_PROGRESS",
+    "ON_REVIEW",
+    "REWORK",
+    "DONE",
+    "BLOCKED"
+  ],
+  "transitions": [
+    {
+      "from": "NEW",
+      "to": "IN_PROGRESS",
+      "allowed_roles": [
+        "\u0410\u0420\u0425\u0418",
+        "\u0413\u0415\u0424\u0415\u0421\u0422",
+        "\u0410\u0420\u0413\u0423\u0421"
+      ]
+    },
+    {
+      "from": "IN_PROGRESS",
+      "to": "ON_REVIEW",
+      "allowed_roles": [
+        "\u0413\u0415\u0424\u0415\u0421\u0422"
+      ]
+    },
+    {
+      "from": "ON_REVIEW",
+      "to": "REWORK",
+      "allowed_roles": [
+        "\u0420\u0415\u0412\u0410"
+      ]
+    },
+    {
+      "from": "ON_REVIEW",
+      "to": "DONE",
+      "allowed_roles": [
+        "\u0420\u0415\u0412\u0410"
+      ]
+    },
+    {
+      "from": "REWORK",
+      "to": "IN_PROGRESS",
+      "allowed_roles": [
+        "\u0413\u0415\u0424\u0415\u0421\u0422"
+      ]
+    },
+    {
+      "from": "*",
+      "to": "BLOCKED",
+      "allowed_roles": [
+        "\u0410\u0420\u0413\u0423\u0421",
+        "*"
+      ]
+    },
+    {
+      "from": "BLOCKED",
+      "to": "NEW",
+      "allowed_roles": [
+        "\u0410\u0420\u0413\u0423\u0421"
+      ]
+    }
+  ]
+}

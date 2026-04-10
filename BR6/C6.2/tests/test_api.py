@@ -1,9 +1,13 @@
+import sys
+from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 import tempfile
 import os
 
-from ..main import app
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from main import app
 
 
 client = TestClient(app)

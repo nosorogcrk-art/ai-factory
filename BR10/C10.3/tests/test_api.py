@@ -30,3 +30,58 @@ def test_package_failure():
         })
         assert response.status_code == 500
         assert "Some error" in response.text
+
+def test_package_new_format_with_files():
+    with patch("services.package_code") as mock_package_code:
+        mock_package_code.return_value = {
+            "status": "success",
+            "artifact_url": "/artifacts/test.zip",
+            "version": "20250410_034500"
+        }
+        response = client.post("/package", json={
+            "files": [
+                {"path": "main.py", "content": "print('hello')"},
+                {"path": "utils.py", "content": "def foo(): pass"}
+            ]
+        })
+        assert response.status_code == 200
+        data = response.json()
+        assert data["status"] == "success"
+        assert data["artifact_url"] == "/artifacts/test.zip"
+        assert "version" in data
+
+def test_package_new_format_with_source_dir():
+    with patch("services.package_code") as mock_package_code:
+        mock_package_code.return_value = {
+            "status": "success",
+            "artifact_url": "/artifacts/test.zip",
+            "version": "20250410_034500"
+        }
+        response = client.post("/package", json={
+            "source_dir": "/tmp/source"
+        })
+        assert response.status_code == 200
+        data = response.json()
+        assert data["status"] == "success"
+
+def test_package_new_format_missing_params():
+    response = client.post("/package", json={})
+    assert response.status_code == 400
+    assert "Empty request" in response.text
+
+def test_package_code_endpoint():
+    with patch("services.package_code") as mock_package_code:
+        mock_package_code.return_value = {
+            "status": "success",
+            "artifact_url": "/artifacts/test.zip",
+            "version": "20250410_034500"
+        }
+        response = client.post("/package_code", json={
+            "files": [
+                {"path": "main.py", "content": "print('hello')"}
+            ]
+        })
+        assert response.status_code == 200
+        data = response.json()
+        assert data["status"] == "success"
+        assert data["artifact_url"] == "/artifacts/test.zip"

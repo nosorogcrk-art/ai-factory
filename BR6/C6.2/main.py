@@ -2,8 +2,8 @@ import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 
-from .models import ReviewRequest, ReviewResponse, HealthResponse
-from .services import SemanticAuditor
+from models import ReviewRequest, ReviewResponse, HealthResponse
+from services import SemanticAuditor, review_code
 
 # Настройка логирования
 logging.basicConfig(
@@ -97,6 +97,19 @@ async def review_file(request: ReviewRequest):
     except Exception as e:
         logger.error(f"Ошибка при проверке файла: {e}")
         raise HTTPException(status_code=500, detail=f"Внутренняя ошибка сервера: {str(e)}")
+
+
+@app.post("/audit")
+async def audit_code(request: dict):
+    """Анализирует код с помощью навыка code_review через C7.4"""
+    code = request.get("code")
+    if not code:
+        raise HTTPException(status_code=400, detail="Missing 'code' field")
+    try:
+        result = await review_code(code)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/rules")

@@ -582,3 +582,41 @@ class CognitiveEngineService:
     async def close(self):
         """Закрытие ресурсов"""
         await self.client.aclose()
+
+
+async def get_ab_version(object_type: str, object_id: str, context: Optional[str] = None) -> Optional[str]:
+    """
+    Запрашивает у C19.4 версию для объекта (prompt/skill).
+    Возвращает строку версии или None, если эксперимента нет или C19.4 недоступен.
+    """
+    url = f"http://localhost:8106/api/version/{object_type}/{object_id}"
+    if context:
+        url += f"?context={context}"
+    try:
+        async with httpx.AsyncClient(timeout=2.0) as client:
+            resp = await client.get(url)
+            if resp.status_code == 200:
+                data = resp.json()
+                return data.get("version")
+    except Exception as e:
+        # логировать ошибку, но не падать
+        print(f"[AB] Failed to get version: {e}")
+    return None
+
+
+async def send_ab_metric(experiment_id: str, variant: str, success: bool, duration_ms: int, cost_usd: float = 0.0, context: str = ""):
+    """Отправляет метрику в C19.4"""
+    url = "http://localhost:8106/api/metrics"
+    payload = {
+        "experiment_id": experiment_id,
+        "variant": variant,
+        "success": success,
+        "duration_ms": duration_ms,
+        "cost_usd": cost_usd,
+        "context": context
+    }
+    try:
+        async with httpx.AsyncClient(timeout=2.0) as client:
+            await client.post(url, json=payload)
+    except Exception as e:
+        print(f"[AB] Failed to send metric: {e}")
