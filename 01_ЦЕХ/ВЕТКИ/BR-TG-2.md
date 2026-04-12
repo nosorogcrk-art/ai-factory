@@ -1,0 +1,23 @@
+---
+id: BR-TG-2
+responsible: АРХИ
+status: planned
+name: Конфигурация мониторинга
+description: Настройка групп аккаунтов, управление списками ключевых слов и стоп-слов, настройка каналов назначения для пересылки сообщений.
+containers: ["C-TG-2.1", "C-TG-2.2", "C-TG-2.3"]
+priority: medium
+estimated_complexity: medium
+requires_e2e_llm_tests: false
+max_complexity_cyclomatic: 10
+max_lines_per_file: 300
+memory_indexed: false
+dependencies: []
+---
+
+# Ветка BR-TG-2: Конфигурация мониторинга
+
+## Функции
+- Настройка групп аккаунтов, управление списками ключевых слов и стоп-слов, настройка каналов назначения для пересылки сообщений
+
+## Планируемые контейнеры (L4)
+- (будут определены позже)

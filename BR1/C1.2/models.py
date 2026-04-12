@@ -17,4 +17,6 @@ class BranchDesign(BaseModel):
 class DecomposeResponse(BaseModel):
     patches: List[str]
     branches: Optional[List[BranchDesign]] = None
+    containers: Optional[List[Dict[str, Any]]] = None
+    queue: Optional[List[Any]] = None
     status: str = "ok"

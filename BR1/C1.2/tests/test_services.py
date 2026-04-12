@@ -103,3 +103,36 @@ async def test_call_patch_design_invalid_json():
         from services import call_patch_design
         result = await call_patch_design({"title": "Test"}, [], [])
         assert result is None
+
+
+@pytest.mark.asyncio
+async def test_decompose_l2_success():
+    """Тест успешного разложения L2 через навыки."""
+    from services import decompose_l2
+    l2_data = {
+        "title": "HelloWorldTest REST API",
+        "description": "Простой REST API на FastAPI",
+        "requirements": ["GET /hello возвращает JSON"],
+        "technical_specs": {"stack": "Python 3.12, FastAPI", "database": "не требуется"}
+    }
+    # Мокаем вызовы навыков
+    with patch("services.call_skill", new_callable=AsyncMock) as mock_call:
+        mock_call.side_effect = [
+            {"branches": [{"id": "BR-HW-1", "name": "API Endpoints", "description": "Обработка HTTP-запросов", "containers": ["C-HW-1.1"]}]},
+            {"branches": [{"branch_id": "BR-HW-1", "containers": [{"id": "C-HW-1.1", "name": "API Gateway", "description": "Обработка HTTP-запросов", "port": 8000}]}]},
+            {"patches": [{"id": "P-HW-1.1-1", "title": "Patch 1"}, {"id": "P-HW-1.1-2", "title": "Patch 2"}]},
+            {"queue": ["P-HW-1.1-1", "P-HW-1.1-2"]}
+        ]
+        result = await decompose_l2(l2_data)
+        assert "branches" in result and len(result["branches"]) > 0
+        assert "containers" in result and len(result["containers"]) > 0
+        assert "patches" in result and len(result["patches"]) > 0
+        assert "queue" in result and len(result["queue"]) > 0
+        # Проверяем, что call_skill вызывался 4 раза
+        assert mock_call.call_count == 4
+        # Проверяем порядок вызовов
+        calls = mock_call.call_args_list
+        assert calls[0][0][0] == "branch_design"
+        assert calls[1][0][0] == "container_design"
+        assert calls[2][0][0] == "patch_design"
+        assert calls[3][0][0] == "queue_builder"

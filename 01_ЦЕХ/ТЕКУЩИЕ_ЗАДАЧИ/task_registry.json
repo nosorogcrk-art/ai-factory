@@ -233,5 +233,1563 @@
         "comment": "Автоматическая задача: новый проект 'E2E Test Project' (ID: proj_2848a3dc)"
       }
     ]
+  },
+  {
+    "id": "PROJ-proj_6e806bd5",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T18:56:02.464063+00:00",
+    "updated_at": "2026-04-10T18:56:02.464094+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T18:56:02.464096+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TestConsole' (ID: proj_6e806bd5)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_35949b41",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T18:56:05.085269+00:00",
+    "updated_at": "2026-04-10T18:56:05.085427+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T18:56:05.085437+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'ПАРС' (ID: proj_35949b41)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_eb6e1c92",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T18:56:08.186080+00:00",
+    "updated_at": "2026-04-10T18:56:08.186168+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T18:56:08.186173+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'ПАРСЕР ТГ' (ID: proj_eb6e1c92)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_36672c23",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T18:56:09.968001+00:00",
+    "updated_at": "2026-04-10T18:56:09.968026+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T18:56:09.968028+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'ТГ ПАРСЕР' (ID: proj_36672c23)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_0b77bbea",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T20:00:49.524650+00:00",
+    "updated_at": "2026-04-10T20:00:49.525275+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T20:00:49.525280+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'L2 Auto Test' (ID: proj_0b77bbea)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_a94ed7c5",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:45:07.950548+00:00",
+    "updated_at": "2026-04-10T21:45:07.950966+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:45:07.950972+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog' (ID: proj_a94ed7c5)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_c241712a",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:47:41.503376+00:00",
+    "updated_at": "2026-04-10T21:47:41.503885+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:47:41.503890+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775857635' (ID: proj_c241712a)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_0d9e6615",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:48:13.524799+00:00",
+    "updated_at": "2026-04-10T21:48:13.524854+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:48:13.524858+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775857687' (ID: proj_0d9e6615)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_73e806c9",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:48:15.276043+00:00",
+    "updated_at": "2026-04-10T21:48:15.276058+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:48:15.276060+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775857686' (ID: proj_73e806c9)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_685744cb",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:48:17.216669+00:00",
+    "updated_at": "2026-04-10T21:48:17.216731+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:48:17.217255+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775857686' (ID: proj_685744cb)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_aecdf981",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:49:49.424113+00:00",
+    "updated_at": "2026-04-10T21:49:49.424185+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:49:49.424190+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775857775' (ID: proj_aecdf981)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_07eb7ded",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:49:59.952887+00:00",
+    "updated_at": "2026-04-10T21:49:59.952968+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:49:59.952973+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775857775' (ID: proj_07eb7ded)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_93610750",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:51:05.816046+00:00",
+    "updated_at": "2026-04-10T21:51:05.816112+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:51:05.816116+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775857849' (ID: proj_93610750)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_ebfa71ab",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:51:08.249312+00:00",
+    "updated_at": "2026-04-10T21:51:08.249413+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:51:08.249417+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775857848' (ID: proj_ebfa71ab)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_853b182b",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:51:10.198448+00:00",
+    "updated_at": "2026-04-10T21:51:10.198505+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:51:10.198969+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775857848' (ID: proj_853b182b)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_94e9c75d",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:51:42.794369+00:00",
+    "updated_at": "2026-04-10T21:51:42.794446+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:51:42.794451+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775857891' (ID: proj_94e9c75d)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_9c260e9b",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:51:44.747502+00:00",
+    "updated_at": "2026-04-10T21:51:44.747531+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:51:44.747533+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775857891' (ID: proj_9c260e9b)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_19b0a286",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:52:16.726908+00:00",
+    "updated_at": "2026-04-10T21:52:16.727284+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:52:16.727294+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775857907' (ID: proj_19b0a286)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_8e1a2910",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:52:19.398531+00:00",
+    "updated_at": "2026-04-10T21:52:19.398575+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:52:19.398587+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775857907' (ID: proj_8e1a2910)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_78b90ea7",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:55:51.321456+00:00",
+    "updated_at": "2026-04-10T21:55:51.321857+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:55:51.321864+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775858124' (ID: proj_78b90ea7)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_61d2a96f",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T21:55:53.482054+00:00",
+    "updated_at": "2026-04-10T21:55:53.482072+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T21:55:53.482074+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775858123' (ID: proj_61d2a96f)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_8c7b0254",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:12:56.461107+00:00",
+    "updated_at": "2026-04-10T22:12:56.461503+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:12:56.461507+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775859161' (ID: proj_8c7b0254)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_4614555f",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:12:59.141017+00:00",
+    "updated_at": "2026-04-10T22:12:59.141047+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:12:59.141051+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775859160' (ID: proj_4614555f)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_1ff9e44f",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:13:00.958997+00:00",
+    "updated_at": "2026-04-10T22:13:00.959015+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:13:00.959017+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775859160' (ID: proj_1ff9e44f)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_55b839a8",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:19:03.062216+00:00",
+    "updated_at": "2026-04-10T22:19:03.062601+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:19:03.062607+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775859528' (ID: proj_55b839a8)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_b32aa6b0",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:19:05.796294+00:00",
+    "updated_at": "2026-04-10T22:19:05.796457+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:19:05.796471+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775859527' (ID: proj_b32aa6b0)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_54222154",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:19:38.511965+00:00",
+    "updated_at": "2026-04-10T22:19:38.512027+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:19:38.512031+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775859567' (ID: proj_54222154)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_9ac627cd",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:19:40.836051+00:00",
+    "updated_at": "2026-04-10T22:19:40.836068+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:19:40.836070+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775859567' (ID: proj_9ac627cd)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_dee173ea",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:22:42.841120+00:00",
+    "updated_at": "2026-04-10T22:22:42.841613+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:22:42.841623+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775859741' (ID: proj_dee173ea)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_c076948e",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:22:46.747201+00:00",
+    "updated_at": "2026-04-10T22:22:46.747485+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:22:46.747491+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775859741' (ID: proj_c076948e)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_56282e06",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:23:18.976086+00:00",
+    "updated_at": "2026-04-10T22:23:18.976296+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:23:18.976365+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775859793' (ID: proj_56282e06)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_c66ad0a1",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:23:21.373694+00:00",
+    "updated_at": "2026-04-10T22:23:21.373710+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:23:21.373712+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775859793' (ID: proj_c66ad0a1)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_d28d4489",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:23:52.773575+00:00",
+    "updated_at": "2026-04-10T22:23:52.773655+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:23:52.773659+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775859832' (ID: proj_d28d4489)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_51525d23",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:23:55.098524+00:00",
+    "updated_at": "2026-04-10T22:23:55.098582+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:23:55.098597+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775859831' (ID: proj_51525d23)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_002ccd26",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:23:56.613062+00:00",
+    "updated_at": "2026-04-10T22:23:56.613079+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:23:56.613080+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775859831' (ID: proj_002ccd26)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_45194a77",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:23:58.250209+00:00",
+    "updated_at": "2026-04-10T22:23:58.250272+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:23:58.250276+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775859810' (ID: proj_45194a77)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_b0854939",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:23:59.623114+00:00",
+    "updated_at": "2026-04-10T22:23:59.623135+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:23:59.623137+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775859810' (ID: proj_b0854939)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_0ca54271",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:25:01.171424+00:00",
+    "updated_at": "2026-04-10T22:25:01.171974+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:25:01.171982+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775859872' (ID: proj_0ca54271)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_4be7d5fc",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:25:03.322100+00:00",
+    "updated_at": "2026-04-10T22:25:03.322128+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:25:03.322130+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775859872' (ID: proj_4be7d5fc)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_68688e22",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:38:35.935904+00:00",
+    "updated_at": "2026-04-10T22:38:35.936976+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:38:35.936985+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775860707' (ID: proj_68688e22)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_8ecc0c09",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:38:38.197568+00:00",
+    "updated_at": "2026-04-10T22:38:38.197626+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:38:38.197630+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775860707' (ID: proj_8ecc0c09)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_7acf5234",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:38:40.047028+00:00",
+    "updated_at": "2026-04-10T22:38:40.047425+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:38:40.047429+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775860694' (ID: proj_7acf5234)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_49da0f10",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:38:42.042023+00:00",
+    "updated_at": "2026-04-10T22:38:42.042062+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:38:42.042067+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775860693' (ID: proj_49da0f10)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_88da2783",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:48:14.560277+00:00",
+    "updated_at": "2026-04-10T22:48:14.560350+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:48:14.560354+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775861278' (ID: proj_88da2783)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_10429230",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:48:17.376089+00:00",
+    "updated_at": "2026-04-10T22:48:17.376718+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:48:17.376725+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775861277' (ID: proj_10429230)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_74b90a77",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:48:49.180198+00:00",
+    "updated_at": "2026-04-10T22:48:49.180266+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:48:49.180271+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775861323' (ID: proj_74b90a77)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_33d9414d",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:48:51.088638+00:00",
+    "updated_at": "2026-04-10T22:48:51.088654+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:48:51.088656+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775861323' (ID: proj_33d9414d)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_b555c147",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:48:52.842047+00:00",
+    "updated_at": "2026-04-10T22:48:52.842100+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:48:52.842104+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775861313' (ID: proj_b555c147)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_b0cc0163",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:48:54.255698+00:00",
+    "updated_at": "2026-04-10T22:48:54.256646+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:48:54.256649+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775861312' (ID: proj_b0cc0163)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_fa101d25",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:49:26.173272+00:00",
+    "updated_at": "2026-04-10T22:49:26.173351+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:49:26.173354+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775861345' (ID: proj_fa101d25)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_9e912042",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:49:28.357005+00:00",
+    "updated_at": "2026-04-10T22:49:28.357032+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:49:28.357036+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775861345' (ID: proj_9e912042)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_5c20182f",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:49:30.279505+00:00",
+    "updated_at": "2026-04-10T22:49:30.279549+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:49:30.279561+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775861334' (ID: proj_5c20182f)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_8b61cd7c",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T22:49:31.731339+00:00",
+    "updated_at": "2026-04-10T22:49:31.731356+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T22:49:31.731358+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775861334' (ID: proj_8b61cd7c)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_7773981d",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T23:18:06.153596+00:00",
+    "updated_at": "2026-04-10T23:18:06.153722+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T23:18:06.153728+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'Test Project for E2E' (ID: proj_7773981d)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_f4a13013",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T23:18:08.859439+00:00",
+    "updated_at": "2026-04-10T23:18:08.859526+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T23:18:08.859530+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775863064' (ID: proj_f4a13013)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_e71b2499",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T23:18:10.764578+00:00",
+    "updated_at": "2026-04-10T23:18:10.764628+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T23:18:10.764632+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775863063' (ID: proj_e71b2499)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_caae9df1",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T23:18:12.663682+00:00",
+    "updated_at": "2026-04-10T23:18:12.663733+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T23:18:12.663735+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775863063' (ID: proj_caae9df1)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_49eba93f",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T23:22:14.659596+00:00",
+    "updated_at": "2026-04-10T23:22:14.659655+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T23:22:14.659659+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775863316' (ID: proj_49eba93f)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_f98b56bc",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T23:22:16.998448+00:00",
+    "updated_at": "2026-04-10T23:22:16.998554+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T23:22:16.998573+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775863315' (ID: proj_f98b56bc)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_5d33f4ab",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T23:22:18.882253+00:00",
+    "updated_at": "2026-04-10T23:22:18.882315+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T23:22:18.882320+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775863315' (ID: proj_5d33f4ab)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_19e40813",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T23:22:51.304043+00:00",
+    "updated_at": "2026-04-10T23:22:51.304117+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T23:22:51.304122+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775863358' (ID: proj_19e40813)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_f6d95c03",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T23:22:53.623563+00:00",
+    "updated_at": "2026-04-10T23:22:53.623612+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T23:22:53.623616+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775863358' (ID: proj_f6d95c03)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_daf889e0",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T23:22:55.444089+00:00",
+    "updated_at": "2026-04-10T23:22:55.444150+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T23:22:55.444167+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775863357' (ID: proj_daf889e0)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_1fcfb200",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T23:23:27.213379+00:00",
+    "updated_at": "2026-04-10T23:23:27.213444+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T23:23:27.213448+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775863386' (ID: proj_1fcfb200)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_35c14f6c",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T23:23:29.619215+00:00",
+    "updated_at": "2026-04-10T23:23:29.619246+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T23:23:29.619250+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'E2E Test Dialog 1775863385' (ID: proj_35c14f6c)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_382b934d",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-10T23:23:31.659616+00:00",
+    "updated_at": "2026-04-10T23:23:31.659692+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T23:23:31.659697+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'test_availability_1775863385' (ID: proj_382b934d)"
+      }
+    ]
+  },
+  {
+    "id": "DIALOG-739d9031",
+    "status": "NEW",
+    "assigned_to": "АРХИ",
+    "created_at": "2026-04-10T23:28:36.235719+00:00",
+    "updated_at": "2026-04-10T23:28:36.236170+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-10T23:28:36.236174+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРХИ",
+        "comment": "{\"title\": \"TG Keyword Monitor — система мониторинга Telegram по ключевым словам\", \"description\": \"Веб-платформа для автоматического мониторинга Telegram-групп по ключевым словам от имени реальных пользователей через Telegram User API. Система поддерживает несколько аккаунтов с независимыми наборами ключевых слов, фильтрует срабатывания через стоп-слова и пересылает найденные сообщения в указанный Telegram-канал с полным контекстом.\", \"requirements\": [\"Управление Telegram-аккаунтами: добавление через номер телефона, привязка к группам, отображение статуса, безопасное хранение сессий\", \"Группы аккаунтов с независимыми наборами ключевых слов и стоп-слов (поиск без учёта регистра, поддержка словосочетаний)\", \"Логика срабатывания: обработка только групп, разбивка на предложения, проверка ключевых слов и стоп-слов в пределах одного предложения\", \"Репост в Telegram-канал: форматирование с выделением ключевых слов, ссылка на оригинал, настройка разных каналов для разных групп\", \"Дашборд и статистика: история срабатываний с фильтрами и экспортом, графики, ТОП ключевых слов и чатов, статистика по аккаунтам\", \"Безопасность: авторизация в веб-интерфейсе, хэширование паролей, HTTPS, логирование действий, изоляция session-файлов на сервере\"], \"technical_specs\": {\"platform\": \"Веб-интерфейс, Linux-сервер (постоянный процесс, не serverless)\", \"stack\": \"Python (Pyrogram/Telethon), веб-фреймворк (Flask/FastAPI/React/Vue), Telegram Bot API\", \"database\": \"PostgreSQL или SQLite\", \"other\": \"Docker Compose для деплоя, Python 3.10+, обязателен HTTPS в production\"}, \"deliverable\": \"code\", \"priority\": \"high\", \"tags\": [\"telegram\", \"monitoring\", \"parsing\", \"web-app\", \"python\", \"keywords\"]}"
+      },
+      "No patches generated, check L2",
+      "Decomposition returned no patches"
+    ]
+  },
+  {
+    "id": "PROJ-proj_790bfb96",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T00:06:37.834762+00:00",
+    "updated_at": "2026-04-11T00:06:37.835231+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T00:06:37.835251+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'HelloWorldTest' (ID: proj_790bfb96)"
+      }
+    ]
+  },
+  {
+    "id": "DIALOG-841d9858",
+    "status": "NEW",
+    "assigned_to": "АРХИ",
+    "created_at": "2026-04-11T00:08:09.154863+00:00",
+    "updated_at": "2026-04-11T00:08:09.154928+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T00:08:09.154932+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРХИ",
+        "comment": "{\"title\": \"HelloWorldTest REST API\", \"description\": \"Разработка простого REST API на Python 3.12 с использованием FastAPI, который по GET запросу на эндпоинт /hello возвращает JSON {\\\"message\\\": \\\"Hello, World!\\\"} со статус-кодом 200. Проект предназначен для демонстрации работы системы, не требует базы данных и сложной функциональности.\", \"requirements\": [\"GET /hello возвращает JSON {\\\"message\\\": \\\"Hello, World!\\\"}\", \"Статус-код ответа 200\", \"Использование Python 3.12\", \"Использование FastAPI\", \"Отсутствие базы данных\"], \"technical_specs\": {\"platform\": \"веб\", \"stack\": \"Python 3.12, FastAPI\", \"database\": \"не требуется\", \"other\": \"REST API, один эндпоинт\"}, \"deliverable\": \"code\", \"priority\": \"high\", \"tags\": [\"API\", \"demo\", \"FastAPI\", \"Python\"]}"
+      },
+      "No patches generated, check L2",
+      "Decomposition returned no patches"
+    ]
+  },
+  {
+    "id": "PROJ-proj_8fcfedf8",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T08:41:54.668926+00:00",
+    "updated_at": "2026-04-11T08:41:54.671370+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T08:41:54.671385+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'HelloWorldTest_Final' (ID: proj_8fcfedf8)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_63840026",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T09:42:47.347844+00:00",
+    "updated_at": "2026-04-11T09:42:47.348397+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T09:42:47.348415+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'HelloWorldTest_Final_2' (ID: proj_63840026)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_a7fafc45",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T09:57:22.209032+00:00",
+    "updated_at": "2026-04-11T09:57:22.211241+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T09:57:22.211259+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'HelloWorldTest_Final_3' (ID: proj_a7fafc45)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_4864b6ea",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T10:13:56.611529+00:00",
+    "updated_at": "2026-04-11T10:13:56.612262+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T10:13:56.612732+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'HelloWorldTest_Final_4' (ID: proj_4864b6ea)"
+      }
+    ]
+  },
+  {
+    "id": "DIALOG-669da444",
+    "status": "NEW",
+    "assigned_to": "АРХИ",
+    "created_at": "2026-04-11T10:15:46.971266+00:00",
+    "updated_at": "2026-04-11T10:15:46.971587+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T10:15:46.971593+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРХИ",
+        "comment": "{\"title\": \"Simple Hello World REST API\", \"description\": \"Разработка минимального REST API на Python 3.12 с использованием FastAPI. Приложение должно содержать один эндпоинт GET /hello, который возвращает JSON-ответ {\\\"message\\\": \\\"Hello, World!\\\"}. База данных не требуется.\", \"requirements\": [\"Реализовать эндпоинт GET /hello\", \"Эндпоинт должен возвращать JSON {\\\"message\\\": \\\"Hello, World!\\\"}\", \"Использовать Python 3.12\", \"Использовать фреймворк FastAPI\"], \"technical_specs\": {\"platform\": \"Веб (REST API)\", \"stack\": \"Python 3.12, FastAPI\", \"database\": \"Не требуется\", \"other\": \"Только один эндпоинт\"}, \"deliverable\": \"code\", \"priority\": \"high\", \"tags\": []}"
+      },
+      "Patches sent to integrator, build started",
+      "Decomposition returned no patches"
+    ]
+  },
+  {
+    "id": "PROJ-proj_08c5bb4f",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T10:49:03.626272+00:00",
+    "updated_at": "2026-04-11T10:49:03.627720+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T10:49:03.627729+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'HelloWorldTest_Final_5' (ID: proj_08c5bb4f)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_a7950fa2",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T10:55:07.213495+00:00",
+    "updated_at": "2026-04-11T10:55:07.213618+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T10:55:07.213623+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'HelloWorld_Manual' (ID: proj_a7950fa2)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_da48c4e8",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T11:28:10.300285+00:00",
+    "updated_at": "2026-04-11T11:28:10.301790+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T11:28:10.301816+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'HelloWorld_Final' (ID: proj_da48c4e8)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_82bae3e3",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T15:49:41.710694+00:00",
+    "updated_at": "2026-04-11T15:49:41.711671+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T15:49:41.711679+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'L2_Test_Iteration_31B' (ID: proj_82bae3e3)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_d9b85360",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T15:54:16.780573+00:00",
+    "updated_at": "2026-04-11T15:54:16.780816+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T15:54:16.780822+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'L2_Test_Iteration_31B_Final' (ID: proj_d9b85360)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_422d350e",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T16:19:22.971264+00:00",
+    "updated_at": "2026-04-11T16:19:22.971711+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T16:19:22.971725+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'L2_Test_Iteration_31B_Final2' (ID: proj_422d350e)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_4e46ba98",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T16:47:58.786295+00:00",
+    "updated_at": "2026-04-11T16:47:58.788318+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T16:47:58.788352+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TelegramParser' (ID: proj_4e46ba98)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_bef25721",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T17:10:35.753941+00:00",
+    "updated_at": "2026-04-11T17:10:35.754079+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T17:10:35.754083+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'DebugL2' (ID: proj_bef25721)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_825f6aa7",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T17:17:39.264431+00:00",
+    "updated_at": "2026-04-11T17:17:39.265642+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T17:17:39.265651+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TestAutoL2' (ID: proj_825f6aa7)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_9f86042b",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T18:08:18.120399+00:00",
+    "updated_at": "2026-04-11T18:08:18.120899+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T18:08:18.120905+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TwoStageTest' (ID: proj_9f86042b)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_02830d95",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T18:10:23.069369+00:00",
+    "updated_at": "2026-04-11T18:10:23.069520+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T18:10:23.069528+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'CleanTest' (ID: proj_02830d95)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_4a9d101d",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T18:27:57.284216+00:00",
+    "updated_at": "2026-04-11T18:27:57.284660+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T18:27:57.284666+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TwoStageTest_1775932057' (ID: proj_4a9d101d)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_225f8f31",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T18:46:33.059390+00:00",
+    "updated_at": "2026-04-11T18:46:33.060483+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T18:46:33.060491+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TG_Keyword_Monitor' (ID: proj_225f8f31)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_7ac8d4d4",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T18:50:36.813519+00:00",
+    "updated_at": "2026-04-11T18:50:36.813678+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T18:50:36.813708+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TG_Keyword_Monitor_Manual' (ID: proj_7ac8d4d4)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_bec44e0a",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T20:18:07.422993+00:00",
+    "updated_at": "2026-04-11T20:18:07.424639+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T20:18:07.424652+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TelegramParser_Final' (ID: proj_bec44e0a)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_b76c31b0",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T20:54:33.573845+00:00",
+    "updated_at": "2026-04-11T20:54:33.575684+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T20:54:33.575723+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TelegramParser_Final_2' (ID: proj_b76c31b0)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_4576938d",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-11T21:09:25.963372+00:00",
+    "updated_at": "2026-04-11T21:09:25.963603+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-11T21:09:25.963609+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TelegramParser_Final_3' (ID: proj_4576938d)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_9291f258",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-12T06:32:18.187116+00:00",
+    "updated_at": "2026-04-12T06:32:18.188533+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-12T06:32:18.188541+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TelegramParser_Auto' (ID: proj_9291f258)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_35ca9bf2",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-12T07:09:56.624970+00:00",
+    "updated_at": "2026-04-12T07:09:56.626397+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-12T07:09:56.626407+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TelegramParser_RealCode' (ID: proj_35ca9bf2)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_4647a0ca",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-12T07:44:26.590685+00:00",
+    "updated_at": "2026-04-12T07:44:26.591085+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-12T07:44:26.591094+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TodoApp' (ID: proj_4647a0ca)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_cafc24ea",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-12T09:05:40.909197+00:00",
+    "updated_at": "2026-04-12T09:05:40.910135+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-12T09:05:40.910179+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TodoApp_Fixed_Iter41' (ID: proj_cafc24ea)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_1bb9b27e",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-12T09:21:46.616425+00:00",
+    "updated_at": "2026-04-12T09:21:46.617822+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-12T09:21:46.617843+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TodoApp_Final' (ID: proj_1bb9b27e)"
+      }
+    ]
+  },
+  {
+    "id": "PROJ-proj_dd812d5d",
+    "status": "IN_PROGRESS",
+    "assigned_to": "АРГУС",
+    "created_at": "2026-04-12T09:31:50.534605+00:00",
+    "updated_at": "2026-04-12T09:31:50.534689+00:00",
+    "history": [
+      {
+        "timestamp": "2026-04-12T09:31:50.534693+00:00",
+        "from": "NEW",
+        "to": "IN_PROGRESS",
+        "actor": "АРГУС",
+        "comment": "Автоматическая задача: новый проект 'TodoApp_Auto' (ID: proj_dd812d5d)"
+      }
+    ]
   }
 ]

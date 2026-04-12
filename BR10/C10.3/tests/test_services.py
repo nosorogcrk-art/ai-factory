@@ -53,3 +53,29 @@ def test_generate_release_notes_success(mock_repo, tmp_path):
     text = output.read_text()
     assert "P10.3.14" in text
     assert "IMP-20260327-001" in text
+
+
+@pytest.mark.asyncio
+async def test_create_archive(tmp_path):
+    """Тест новой функции create_archive из ТЗ."""
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    
+    import services
+    # Временно перенаправим PRODUCTS_DIR в tmp_path
+    original_dir = services.PRODUCTS_DIR
+    services.PRODUCTS_DIR = tmp_path
+
+    try:
+        files = [{"filename": "test.txt", "content": "Hello"}]
+        archive_path = await services.create_archive("test_proj", files)
+        assert Path(archive_path).exists()
+        assert archive_path.endswith(".zip")
+        # Проверить содержимое архива
+        import zipfile
+        with zipfile.ZipFile(archive_path, 'r') as zf:
+            assert "test.txt" in zf.namelist()
+            assert zf.read("test.txt").decode() == "Hello"
+    finally:
+        services.PRODUCTS_DIR = original_dir

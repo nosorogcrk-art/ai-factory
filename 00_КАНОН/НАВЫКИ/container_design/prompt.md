@@ -42,4 +42,30 @@
 
 Пример для L2 «Система мониторинга Telegram» и веток BR-TG-1 (Управление аккаунтами), BR-TG-2 (Мониторинг и фильтрация). Ожидаемый ответ должен содержать для каждой ветки список контейнеров.
 
+Пример для простого REST API:
+L2: {
+  "title": "HelloWorldTest REST API",
+  "description": "Простой REST API на FastAPI",
+  "requirements": ["GET /hello возвращает JSON"],
+  "technical_specs": {"stack": "Python 3.12, FastAPI", "database": "не требуется"}
+}
+Ветка: {"id": "BR-HW-1", "name": "API Endpoints", "description": "Обработка HTTP-запросов, маршрутизация, валидация и возврат JSON-ответов."}
+
+Ожидаемый вывод:
+{
+  "branches": [
+    {
+      "branch_id": "BR-HW-1",
+      "containers": [
+        {
+          "id": "C-HW-1.1",
+          "name": "API Gateway",
+          "description": "Обработка HTTP-запросов, маршрутизация, валидация и возврат JSON-ответов для эндпоинтов.",
+          "port": 8000
+        }
+      ]
+    }
+  ]
+}
+
 Возвращай **только JSON**. Никаких пояснений.

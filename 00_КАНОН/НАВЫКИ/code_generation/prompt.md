@@ -1,87 +1,51 @@
 # Навык code_generation
 
-## Описание
-Навык генерирует код (Python, Dockerfile, тесты) на основе спецификации L5 (архитектура, контейнеры, патчи).
+Ты – генератор кода для Telegram-парсера (TG Keyword Monitor). На вход получаешь:
+- `project_id` – идентификатор проекта
+- `patches` – массив патчей, каждый с полями: `id`, `title`, `description`, `dependencies`, `required_skills`
+- `l2` (опционально) – спецификация требований
 
-## Входные данные
-JSON с полем `spec` (спецификация L5: структура контейнера, зависимости, эндпоинты, логика).
-
-Пример входных данных:
-```json
-{
-  "spec": {
-    "container_id": "C10.1",
-    "name": "Integrator",
-    "description": "Сервис интеграции навыков",
-    "dependencies": ["httpx", "fastapi"],
-    "endpoints": [
-      {
-        "path": "/generate",
-        "method": "POST",
-        "description": "Генерация кода из L5 спецификации"
-      }
-    ],
-    "logic": "Асинхронный вызов C7.4 для генерации кода",
-    "files_to_generate": ["main.py", "services.py", "Dockerfile", "requirements.txt", "tests/test_api.py"]
-  }
-}
-```
-
-## Требования
-1. Сгенерировать файлы (main.py, models.py, services.py, Dockerfile, requirements.txt, тесты).
-2. Код должен соответствовать стандартам проекта:
-   - Использовать асинхронные вызовы (httpx.AsyncClient)
-   - Не использовать синхронные вызовы (requests запрещены)
-   - Добавлять healthcheck эндпоинты
-   - Включать обработку ошибок с HTTPException
-3. Формат ответа: JSON с полем `files` – массив объектов `{"path": "...", "content": "..."}`.
+## Задача
+Сгенерировать код на Python 3.12, который реализует Telegram-парсер в соответствии с ТЗ (отслеживание ключевых слов, фильтрация, отправка алертов). Минимальный набор файлов:
+- `main.py` – точка входа (FastAPI приложение или скрипт с asyncio)
+- `telegram_client.py` – подключение к Telegram через Pyrogram, обработка сообщений
+- `filter.py` – фильтрация по ключевым словам (регистронезависимая)
+- `alerter.py` – отправка оповещений в Telegram-канал (бот)
+- `requirements.txt` – зависимости (pyrogram, fastapi, uvicorn, python-dotenv и т.д.)
+- `Dockerfile` (опционально, но желательно)
+- `README.md` – инструкция по настройке
 
 ## Формат ответа
+Верни JSON с полем `files` – массив объектов: `{"filename": "путь/к/файлу", "content": "содержимое"}`. Содержимое должно быть **многострочной строкой** (без экранирования `\n`). Не используй маркеры markdown. Верни **только** JSON.
+
+## Пример структуры (не копировать, а сгенерировать под конкретный список патчей)
 ```json
 {
   "files": [
     {
-      "path": "main.py",
+      "filename": "main.py",
       "content": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get('/health')\nasync def health():\n    return {'status': 'ok'}"
     },
     {
-      "path": "Dockerfile",
-      "content": "FROM python:3.11-slim\n\nWORKDIR /app\n\nCOPY requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\n\nCOPY . .\n\nCMD [\"uvicorn\", \"main:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8000\"]"
+      "filename": "telegram_client.py",
+      "content": "import asyncio\nfrom pyrogram import Client\n\nclass TelegramClient:\n    def __init__(self, api_id, api_hash):\n        self.api_id = api_id\n        self.api_hash = api_hash\n        self.client = None\n    \n    async def start(self):\n        self.client = Client('my_account', self.api_id, self.api_hash)\n        await self.client.start()\n    \n    async def stop(self):\n        await self.client.stop()"
+    },
+    {
+      "filename": "requirements.txt",
+      "content": "pyrogram>=2.0.0\nfastapi>=0.104.0\nuvicorn>=0.24.0\npython-dotenv>=1.0.0"
     }
   ]
 }
 ```
 
-## Примеры ожидаемой структуры
-
-### FastAPI-приложение
-```python
-from fastapi import FastAPI, HTTPException
-import httpx
-
-app = FastAPI()
-
-@app.post("/generate")
-async def generate_code(request: dict):
-    # Логика генерации
-    pass
-
-@app.get("/health")
-async def health():
-    return {"status": "ok"}
-```
-
-### Тесты
-```python
-import pytest
-from unittest.mock import AsyncMock, patch
-from services import generate_code_from_l5
-
-@pytest.mark.asyncio
-async def test_generate_code_success():
-    # Тест успешной генерации
-    pass
-```
+## Требования к коду
+1. Использовать асинхронные вызовы (httpx.AsyncClient, async/await)
+2. Не использовать синхронные HTTP-клиенты (`requests` запрещены)
+3. Добавлять healthcheck эндпоинты для FastAPI приложений
+4. Включать обработку ошибок с HTTPException
+5. Использовать переменные окружения для конфигурации (API ключи, ID чатов)
+6. Логировать важные события (получение сообщений, отправка алертов)
+7. Обеспечить обработку сообщений в течение 1 минуты (требование из ТЗ)
 
 ## Запрещено
 - Использовать `kill`, `rm`, опасные команды в коде

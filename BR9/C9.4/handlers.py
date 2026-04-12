@@ -8,6 +8,7 @@ from external_api import (
     call_decomposer, call_integrator, PROJECT_MEMORY_URL,
     HANDOVER_URL
 )
+import services
 
 logger = logging.getLogger(__name__)
 
@@ -42,6 +43,15 @@ async def _process_l2_response(project_id: str, l2_data: dict, collected: dict) 
         await _save_artifact(project_id, "specification", l2_data)
         print("DEBUG _process_l2_response: artifact saved")
         logger.info(f"Artifact saved successfully for project {project_id}")
+        
+        # Автоматический вызов C1.2 (Patch Architect) для декомпозиции L2
+        try:
+            result = await services.trigger_decomposition(l2_data)
+            logger.info(f"Decomposition triggered successfully: {result}")
+        except Exception as e:
+            logger.error(f"Failed to trigger decomposition: {e}")
+            # Не прерываем диалог, только логируем
+        
         patches = await _call_c12(project_id, l2_data)
         print(f"DEBUG _process_l2_response: C1.2 called, patches count: {len(patches) if patches else 0}")
         

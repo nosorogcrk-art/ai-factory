@@ -36,4 +36,24 @@
   "technical_specs": {...}
 }
 
+Пример для простого REST API:
+{
+  "title": "HelloWorldTest REST API",
+  "description": "Простой REST API на FastAPI",
+  "requirements": ["GET /hello возвращает JSON"],
+  "technical_specs": {"stack": "Python 3.12, FastAPI", "database": "не требуется"}
+}
+
+Ожидаемый вывод для простого REST API:
+{
+  "branches": [
+    {
+      "id": "BR-HW-1",
+      "name": "API Endpoints",
+      "description": "Обработка HTTP-запросов, маршрутизация, валидация и возврат JSON-ответов.",
+      "containers": ["C-HW-1.1"]
+    }
+  ]
+}
+
 Ожидаемый вывод: список веток. Никаких дополнительных пояснений, только JSON.

@@ -42,6 +42,21 @@ def init_db():
         ''')
         conn.execute('CREATE INDEX IF NOT EXISTS idx_messages_project_id ON project_messages(project_id)')
         conn.execute('CREATE INDEX IF NOT EXISTS idx_messages_created_at ON project_messages(created_at)')
+        
+        # Проверяем наличие колонок timestamp и message_type в project_messages и добавляем, если их нет
+        cur = conn.cursor()
+        cur.execute("PRAGMA table_info(project_messages)")
+        columns = [col[1] for col in cur.fetchall()]
+        
+        if "timestamp" not in columns:
+            cur.execute("ALTER TABLE project_messages ADD COLUMN timestamp TEXT")
+            logger.info("Added timestamp column to project_messages table")
+        
+        if "message_type" not in columns:
+            cur.execute("ALTER TABLE project_messages ADD COLUMN message_type TEXT DEFAULT 'text'")
+            logger.info("Added message_type column to project_messages table")
+        
+        # Создаём индекс на timestamp только после добавления колонки
         conn.execute('CREATE INDEX IF NOT EXISTS idx_messages_timestamp ON project_messages(timestamp)')
         
         # Таблица артефактов

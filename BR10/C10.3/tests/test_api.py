@@ -85,3 +85,46 @@ def test_package_code_endpoint():
         data = response.json()
         assert data["status"] == "success"
         assert data["artifact_url"] == "/artifacts/test.zip"
+
+
+def test_package_tz_format_success():
+    """Тест нового формата ТЗ с project_id и files."""
+    with patch("services.create_archive") as mock_create_archive:
+        mock_create_archive.return_value = "01_ЦЕХ/ПРОДУКТЫ/test_proj_20250411_091500.zip"
+        response = client.post("/package", json={
+            "project_id": "test_proj",
+            "files": [
+                {"filename": "test.txt", "content": "Hello"},
+                {"filename": "main.py", "content": "print(1)"}
+            ]
+        })
+        assert response.status_code == 200
+        data = response.json()
+        assert data["status"] == "ok"
+        assert "archive_path" in data
+        assert "download_url" in data
+        assert data["archive_path"] == "01_ЦЕХ/ПРОДУКТЫ/test_proj_20250411_091500.zip"
+
+
+def test_package_tz_format_empty_files():
+    """Тест нового формата ТЗ с пустым списком файлов."""
+    response = client.post("/package", json={
+        "project_id": "test_proj",
+        "files": []
+    })
+    assert response.status_code == 400
+    assert "No files provided" in response.text
+
+
+def test_package_tz_format_failure():
+    """Тест нового формата ТЗ с ошибкой в сервисе."""
+    with patch("services.create_archive") as mock_create_archive:
+        mock_create_archive.side_effect = Exception("Test error")
+        response = client.post("/package", json={
+            "project_id": "test_proj",
+            "files": [
+                {"filename": "test.txt", "content": "Hello"}
+            ]
+        })
+        assert response.status_code == 500
+        assert "Test error" in response.text

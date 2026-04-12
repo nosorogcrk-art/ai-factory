@@ -41,17 +41,41 @@ async def decompose(request: models.DecomposeRequest) -> models.DecomposeRespons
 
     try:
         logger.info(f"Decompose request: {request.description[:100]}...")
-        result = await services.decompose_task(request.description, request.context)
+        # Парсим L2 из строки JSON
+        import json
+        l2_data = json.loads(request.description)
+        # Вызываем новую цепочку проектирования
+        result = await services.decompose_l2(l2_data)
+        
+        # Извлекаем ID патчей для обратной совместимости
+        patches_ids = [p.get("id") for p in result.get("patches", []) if isinstance(p, dict) and "id" in p]
+        # Если нет ID, используем исходные patches (уже строки)
+        if not patches_ids:
+            patches_ids = result.get("patches", [])
         
         # Отправляем событие в BR18
         send_log_to_br18("decompose_success", {
             "description": request.description[:200],
-            "patches": result.get("patches", []),
+            "patches": patches_ids,
             "branches": result.get("branches", []),
+            "containers": result.get("containers", []),
+            "queue": result.get("queue", []),
             "context": request.context
         })
         
-        return models.DecomposeResponse(patches=result.get("patches", []), branches=result.get("branches", []))
+        return models.DecomposeResponse(
+            patches=patches_ids,
+            branches=result.get("branches"),
+            containers=result.get("containers"),
+            queue=result.get("queue"),
+            status="ok"
+        )
+    except json.JSONDecodeError as e:
+        logger.error(f"Invalid JSON in description: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid JSON in description"
+        )
     except Exception as e:
         logger.error(f"Decomposition failed: {e}")
         send_log_to_br18("decompose_error", {

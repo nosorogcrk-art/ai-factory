@@ -595,17 +595,13 @@ services:
   packager:
     build: ./BR10/C10.3
     ports:
-      - "8093:8093"
+      - "8093:8082"
     networks:
       - factory-net
     volumes:
       - ./01_ЦЕХ:/app/01_ЦЕХ
-      - ./02_ПРОДУКТ:/app/02_ПРОДУКТ
-    environment:
-      - BR18_URL=http://log-aggregator:8093/api/logs
-      - PORT=8093
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8093/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8082/health"]
       interval: 30s
       timeout: 5s
       retries: 3

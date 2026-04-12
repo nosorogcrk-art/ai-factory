@@ -8,60 +8,33 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 from pydantic import BaseModel
 import handover
 from argus_watcher import watch_projects
+import services
 
 app = FastAPI(title="Handover API")
 
 async def background_build_trigger():
     """
-    Раз в 10 секунд проверяет наличие файла очереди патчей.
-    Если файл существует и не обработан (по наличию файла .processed),
-    отправляет POST /build_from_queue в C10.1.
+    Фоновая задача: раз в 5 секунд проверяет очередь патчей и запускает сборку.
+    Отслеживает изменения файла по времени модификации.
     """
-    queue_file = Path("01_ЦЕХ/ОЧЕРЕДЬ_ПАТЧЕЙ/latest_queue.json")
-    processed_flag = queue_file.with_suffix(queue_file.suffix + ".processed")
+    last_mtime = 0
+    queue_path = Path("01_ЦЕХ/ОЧЕРЕДЬ_ПАТЧЕЙ/latest_queue.json")
     while True:
-        try:
-            if queue_file.exists() and not processed_flag.exists():
-                # Читаем очередь
-                with open(queue_file, "r") as f:
-                    queue_data = json.load(f)  # ожидаем список патчей с полями id, spec, order
-                # Вызываем C10.1
-                async with httpx.AsyncClient(timeout=60.0) as client:
-                    resp = await client.post(
-                        "http://integrator:8096/build_from_queue",
-                        json={"queue": queue_data}
-                    )
-                    resp.raise_for_status()
-                    result = resp.json()
-                    
-                    # После успешной сборки запускаем аудит и упаковку
-                    if result and result.get("results"):
-                        # Получаем список файлов из результата сборки
-                        all_files = []
-                        for item in result["results"]:
-                            if item.get("status") == "success" and item.get("files"):
-                                all_files.extend(item["files"])
-                        if all_files:
-                            # Запускаем аудит
-                            audit_result = await run_code_audit(all_files)
-                            if audit_result.get("passed"):
-                                # Успешный аудит – упаковываем
-                                package_result = await package_build_result(all_files)
-                                logging.info(f"Packaging successful: {package_result}")
-                            else:
-                                # Аудит не пройден – создаём задачу на доработку
-                                await create_rework_task(
-                                    project_id="unknown",   # можно извлечь из контекста
-                                    issues=audit_result.get("issues", []),
-                                    suggestions=audit_result.get("suggestions", [])
-                                )
-                    
-                    # Помечаем как обработанный
-                    processed_flag.touch()
-        except Exception as e:
-            # Логируем ошибку, но не прерываем цикл
-            logging.error(f"Background build trigger error: {e}")
-        await asyncio.sleep(10)   # интервал проверки
+        await asyncio.sleep(5)
+        if not queue_path.exists():
+            continue
+        mtime = queue_path.stat().st_mtime
+        if mtime > last_mtime:
+            last_mtime = mtime
+            try:
+                with open(queue_path, "r") as f:
+                    data = json.load(f)
+                if data.get("queue"):
+                    logging.info("Queue changed, triggering build")
+                    # Используем check_and_build_queue, который включает вызов Packager
+                    await check_and_build_queue()
+            except Exception as e:
+                logging.error(f"Failed to process queue: {e}")
 
 async def run_code_audit(files: List[Dict]) -> Dict[str, Any]:
     """Отправляет код в C6.2 /audit и возвращает результат."""
@@ -72,12 +45,14 @@ async def run_code_audit(files: List[Dict]) -> Dict[str, Any]:
         resp.raise_for_status()
         return resp.json()
 
-async def package_build_result(files: List[Dict]) -> Dict[str, Any]:
+async def package_build_result(files: List[Dict], project_id: str = "handover_queue") -> Dict[str, Any]:
     """Вызывает C10.3 /package для упаковки кода."""
-    async with httpx.AsyncClient(timeout=60.0) as client:
-        resp = await client.post("http://packager:8093/package", json={"files": files})
-        resp.raise_for_status()
-        return resp.json()
+    try:
+        archive_path = await services.call_packager(project_id, files)
+        return {"status": "ok", "archive_path": archive_path}
+    except Exception as e:
+        logging.error(f"Packaging failed: {e}")
+        return {"status": "error", "error": str(e)}
 
 async def create_rework_task(project_id: str, issues: List[str], suggestions: List[str]):
     """Создаёт задачу на доработку в handover."""
@@ -97,45 +72,54 @@ async def check_and_build_queue():
     Возвращает результат операции.
     """
     queue_file = Path("01_ЦЕХ/ОЧЕРЕДЬ_ПАТЧЕЙ/latest_queue.json")
-    processed_flag = queue_file.with_suffix(queue_file.suffix + ".processed")
     try:
-        if queue_file.exists() and not processed_flag.exists():
+        if queue_file.exists():
             with open(queue_file, "r") as f:
                 queue_data = json.load(f)
+            patch_ids = queue_data.get("queue", [])
+            if not patch_ids:
+                logging.info("Queue is empty, skipping")
+                return {"status": "skipped", "message": "Queue empty", "audit_processed": False}
+            
             async with httpx.AsyncClient(timeout=60.0) as client:
+                task_id = "handover_queue"
+                if patch_ids:
+                    task_id = patch_ids[0]  # используем первый патч как task_id
+                payload = {
+                    "task_id": task_id,
+                    "patch_ids": patch_ids,
+                    "check_skills": True,
+                    "run_tests": False
+                }
+                logging.info(f"Calling integrator at http://integrator:8096/build with payload: {payload}")
                 resp = await client.post(
-                    "http://integrator:8096/build_from_queue",
-                    json={"queue": queue_data}
+                    "http://integrator:8096/build",
+                    json=payload
                 )
                 resp.raise_for_status()
                 result = resp.json()
+                logging.info(f"Integrator response status: {resp.status_code}")
+                logging.info(f"Integrator response body keys: {list(result.keys())}")
                 
-                # После успешной сборки запускаем аудит и упаковку
-                if result and result.get("results"):
-                    # Получаем список файлов из результата сборки
-                    all_files = []
-                    for item in result["results"]:
-                        if item.get("status") == "success" and item.get("files"):
-                            all_files.extend(item["files"])
-                    if all_files:
-                        # Запускаем аудит
-                        audit_result = await run_code_audit(all_files)
-                        if audit_result.get("passed"):
-                            # Успешный аудит – упаковываем
-                            package_result = await package_build_result(all_files)
-                            logging.info(f"Packaging successful: {package_result}")
-                        else:
-                            # Аудит не пройден – создаём задачу на доработку
-                            await create_rework_task(
-                                project_id="unknown",   # можно извлечь из контекста
-                                issues=audit_result.get("issues", []),
-                                suggestions=audit_result.get("suggestions", [])
-                            )
+                # Получаем файлы из ответа интегратора
+                files = result.get("files", [])
+                logging.info(f"Extracted {len(files)} files from integrator response")
+                if files:
+                    logging.info(f"File names: {[f.get('filename', f.get('path', 'unknown')) for f in files[:5]]}{'...' if len(files) > 5 else ''}")
+                if not files:
+                    logging.warning("Integrator returned no files")
+                    return {"status": "error", "message": "No files generated", "audit_processed": False}
                 
-                processed_flag.touch()
-                return {"status": "success", "message": "Build triggered", "audit_processed": True}
-        elif processed_flag.exists():
-            return {"status": "skipped", "message": "Queue already processed", "audit_processed": False}
+                # Извлекаем project_id из queue_data (первый патч или дефолтный)
+                project_id = "handover_queue"
+                if queue_data.get("queue") and len(queue_data["queue"]) > 0:
+                    project_id = queue_data["queue"][0]
+                
+                # Вызываем Packager для упаковки файлов
+                package_result = await package_build_result(files, project_id)
+                logging.info(f"Packaging successful: {package_result}")
+                
+                return {"status": "success", "message": "Build triggered and packaged", "audit_processed": True, "archive_path": package_result.get("archive_path")}
         else:
             return {"status": "skipped", "message": "No queue file", "audit_processed": False}
     except Exception as e:

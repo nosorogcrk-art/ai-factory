@@ -2,6 +2,7 @@ import logging
 from pathlib import Path
 from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
+import httpx
 import models
 import services
 import repositories
@@ -59,3 +60,27 @@ async def dialog(req: models.DialogRequest, background_tasks: BackgroundTasks):
         completed=completed,
         task_id=task_id if completed else None
     )
+
+
+@app.post("/api/dialog/finish")
+async def finish_dialog(request: dict):
+    project_id = request.get("project_id")
+    if not project_id:
+        raise HTTPException(status_code=400, detail="Missing 'project_id'")
+    
+    try:
+        history = await services.get_dialog_history(project_id)
+        if not history:
+            raise HTTPException(status_code=404, detail="No messages found for project")
+        
+        l2_data = await services.finalize_l2(project_id, history)
+        result = await services.save_l2_artifact(project_id, l2_data)
+        logger.info(f"L2 finalized for project {project_id}: {result}")
+        return {"status": "ok", "l2": l2_data, "artifact": result}
+    
+    except httpx.HTTPStatusError as e:
+        logger.error(f"HTTP error while finalizing L2: {e}")
+        raise HTTPException(status_code=502, detail=f"Upstream error: {e.response.text}")
+    except Exception as e:
+        logger.error(f"Unexpected error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))

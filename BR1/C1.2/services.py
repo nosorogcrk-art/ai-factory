@@ -12,6 +12,43 @@ SKILL_INTEGRATOR_URL = os.getenv("SKILL_INTEGRATOR_URL", "http://skill-integrato
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
 DEEPSEEK_URL = "https://api.deepseek.com/v1/chat/completions"
 
+SKILL_EXECUTE_URL = "http://skill-integrator:8090/execute"
+
+
+async def call_skill(task_type: str, context: dict) -> dict:
+    """
+    Вызывает навык через C7.4 /execute.
+    Возвращает содержимое поля "result" из ответа.
+    Если result содержит поле "text" с JSON внутри markdown, извлекает JSON.
+    """
+    payload = {"task_type": task_type, "context": context}
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        resp = await client.post(SKILL_EXECUTE_URL, json=payload)
+        resp.raise_for_status()
+        data = resp.json()
+        result = data.get("result")
+        if result is None:
+            raise ValueError(f"Skill {task_type} returned no result")
+        # Если result содержит поле "text", пытаемся извлечь JSON
+        if isinstance(result, dict) and "text" in result:
+            import re
+            import json as json_lib
+            text = result["text"]
+            # Ищем JSON внутри текста (возможно с обратными кавычками)
+            json_match = re.search(r'\{.*\}', text, re.DOTALL)
+            if json_match:
+                json_str = json_match.group(0)
+                # Удаляем возможные обратные кавычки в начале и конце
+                json_str = json_str.strip().strip('`').strip()
+                try:
+                    parsed = json_lib.loads(json_str)
+                    return parsed
+                except json_lib.JSONDecodeError:
+                    logger.warning(f"Failed to parse JSON from skill {task_type} text: {text[:200]}")
+                    # Возвращаем исходный result, чтобы не сломать существующую логику
+                    pass
+        return result
+
 
 async def get_skill_version(skill_name: str) -> Optional[str]:
     """Получает версию навыка от C1.1 для A/B тестирования."""
@@ -413,3 +450,64 @@ async def decompose_task(description: str, context: dict) -> dict:
     # 8. Вернуть список ID веток (для обратной совместимости пока как "patches")
     branch_ids = [b["id"] for b in branches]
     return {"patches": branch_ids, "branches": branches}
+
+
+async def decompose_l2(l2_data: dict) -> dict:
+    logger.info(f"Starting decomposition of L2: {l2_data.get('title')}")
+    # 1. Ветки
+    logger.info("Calling branch_design skill")
+    branch_result = await call_skill("branch_design", {"l2": l2_data})
+    logger.info(f"Branch result: {branch_result}")
+    branches = branch_result.get("branches", [])
+    logger.info(f"Designed {len(branches)} branches: {[b.get('id') for b in branches]}")
+
+    # 2. Контейнеры (для каждой ветки)
+    containers = []
+    for branch in branches:
+        logger.info(f"Calling container_design for branch {branch.get('id')}")
+        try:
+            cont_result = await call_skill("container_design", {"branch": branch, "l2": l2_data})
+            logger.info(f"Container result for branch {branch.get('id')}: {cont_result}")
+            logger.info(f"Container result keys: {list(cont_result.keys())}")
+            # Обработка структуры ответа: может быть {"branches": [{"branch_id":..., "containers":...}]}
+            if "branches" in cont_result:
+                logger.info(f"Found 'branches' key, iterating")
+                for branch_cont in cont_result["branches"]:
+                    logger.info(f"Branch cont: {branch_cont}")
+                    containers.extend(branch_cont.get("containers", []))
+            else:
+                logger.info(f"No 'branches' key, looking for 'containers'")
+                containers.extend(cont_result.get("containers", []))
+        except Exception as e:
+            logger.error(f"Error calling container_design for branch {branch.get('id')}: {e}")
+    logger.info(f"Designed {len(containers)} containers: {[c.get('id') for c in containers]}")
+
+    # 3. Патчи (для каждого контейнера)
+    patches = []
+    for container in containers:
+        logger.info(f"Calling patch_design for container {container.get('id')}")
+        patch_result = await call_skill("patch_design", {"container": container, "l2": l2_data})
+        logger.info(f"Patch result for container {container.get('id')}: {patch_result}")
+        patches.extend(patch_result.get("patches", []))
+    logger.info(f"Designed {len(patches)} patches: {[p.get('id') for p in patches]}")
+
+    # 4. Очередь
+    logger.info("Calling queue_builder skill")
+    queue_result = await call_skill("queue_builder", {"patches": patches})
+    logger.info(f"Queue result: {queue_result}")
+    queue = queue_result.get("queue", [])
+    logger.info(f"Built queue with {len(queue)} items: {queue}")
+
+    # 5. Сохранить очередь и артефакты в файл
+    os.makedirs("01_ЦЕХ/ОЧЕРЕДЬ_ПАТЧЕЙ", exist_ok=True)
+    output = {
+        "branches": branches,
+        "containers": containers,
+        "patches": patches,
+        "queue": queue
+    }
+    with open("01_ЦЕХ/ОЧЕРЕДЬ_ПАТЧЕЙ/latest_queue.json", "w") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
+
+    logger.info(f"Decomposition completed. Output keys: {list(output.keys())}")
+    return output

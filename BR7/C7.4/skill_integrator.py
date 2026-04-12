@@ -5,6 +5,7 @@ skill_integrator.py – интегратор навыков.
 Читает навыки из файловой системы (00_КАНОН/НАВЫКИ/{task_type}/) и возвращает их содержимое.
 """
 
+import asyncio
 import json
 import logging
 import os
@@ -94,6 +95,7 @@ async def _call_deepseek(system_prompt: str, user_prompt: str) -> Optional[Dict[
     Вызывает DeepSeek API с системным и пользовательским промптом.
     Возвращает распарсенный JSON-ответ или None при ошибке.
     Очищает ответ от маркеров Markdown (```json).
+    Добавлены повторные попытки и улучшенное логирование.
     """
     if not DEEPSEEK_API_KEY:
         logger.error("DEEPSEEK_API_KEY environment variable is not set")
@@ -114,42 +116,62 @@ async def _call_deepseek(system_prompt: str, user_prompt: str) -> Optional[Dict[
         "max_tokens": 4000
     }
     
-    try:
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            response = await client.post(DEEPSEEK_API_URL, headers=headers, json=payload)
-            response.raise_for_status()
-            
-            result = await response.json()
-            content = result.get("choices", [{}])[0].get("message", {}).get("content", "")
-            
-            if not content:
-                logger.error("Empty response from DeepSeek API")
-                return None
-            
-            # Очистка от маркеров Markdown
-            content = content.strip()
-            if content.startswith("```json"):
-                content = content[7:]
-            if content.endswith("```"):
-                content = content[:-3]
-            content = content.strip()
-            
-            # Пытаемся распарсить JSON из ответа
-            try:
-                parsed = json.loads(content)
-                logger.info("DeepSeek API call successful, JSON parsed")
-                return parsed
-            except json.JSONDecodeError as e:
-                logger.error(f"Failed to parse JSON from DeepSeek response: {e}")
-                # Если не JSON, возвращаем как текст
-                return {"text": content}
+    max_retries = 3
+    retry_delay = 2  # секунды
+    
+    for attempt in range(max_retries):
+        try:
+            logger.info(f"Calling DeepSeek API (attempt {attempt + 1}/{max_retries})")
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                response = await client.post(DEEPSEEK_API_URL, headers=headers, json=payload)
+                response.raise_for_status()
                 
-    except httpx.HTTPError as e:
-        logger.error(f"HTTP error calling DeepSeek API: {e}")
-        return None
-    except Exception as e:
-        logger.error(f"Unexpected error calling DeepSeek API: {e}")
-        return None
+                result = response.json()  # httpx response.json() is synchronous
+                logger.debug(f"DeepSeek API raw response: {result}")
+                
+                content = result.get("choices", [{}])[0].get("message", {}).get("content", "")
+                
+                if not content:
+                    logger.error("Empty response from DeepSeek API")
+                    if attempt < max_retries - 1:
+                        await asyncio.sleep(retry_delay)
+                        continue
+                    return None
+                
+                # Очистка от маркеров Markdown
+                content = content.strip()
+                if content.startswith("```json"):
+                    content = content[7:]
+                if content.endswith("```"):
+                    content = content[:-3]
+                content = content.strip()
+                
+                # Пытаемся распарсить JSON из ответа
+                try:
+                    parsed = json.loads(content)
+                    logger.info("DeepSeek API call successful, JSON parsed")
+                    return parsed
+                except json.JSONDecodeError as e:
+                    logger.error(f"Failed to parse JSON from DeepSeek response: {e}")
+                    logger.debug(f"Response content that failed to parse: {content}")
+                    # Если не JSON, возвращаем как текст
+                    return {"text": content}
+                    
+        except httpx.HTTPError as e:
+            logger.error(f"HTTP error calling DeepSeek API (attempt {attempt + 1}): {e}")
+            if attempt < max_retries - 1:
+                await asyncio.sleep(retry_delay)
+                continue
+            return None
+        except Exception as e:
+            logger.error(f"Unexpected error calling DeepSeek API (attempt {attempt + 1}): {e}")
+            if attempt < max_retries - 1:
+                await asyncio.sleep(retry_delay)
+                continue
+            return None
+    
+    logger.error(f"All {max_retries} attempts to call DeepSeek API failed")
+    return None
 
 
 @app.post("/compile", response_model=CompileResponse)

@@ -78,9 +78,10 @@ def health():
 async def package(request: dict, background_tasks: BackgroundTasks):
     """
     Упаковывает код в zip-архив.
-    Поддерживает два формата запросов:
-    1. Старый: {"repo_path": "...", "version": "...", "skills": [...]}
-    2. Новый: {"files": [{"path": "...", "content": "..."}], "source_dir": "..."}
+    Поддерживает три формата запросов:
+    1. Новый формат ТЗ: {"project_id": "...", "files": [{"filename": "...", "content": "..."}]}
+    2. Промежуточный формат: {"files": [{"path": "...", "content": "..."}], "source_dir": "..."}
+    3. Старый формат: {"repo_path": "...", "version": "...", "skills": [...]}
     """
     logger.info(f"Package request: keys={list(request.keys())}")
     
@@ -89,8 +90,45 @@ async def package(request: dict, background_tasks: BackgroundTasks):
         raise HTTPException(status_code=400, detail="Empty request")
     
     # Определяем тип запроса
+    if "project_id" in request and "files" in request:
+        # Новый формат ТЗ
+        try:
+            # Проверяем, есть ли поле filename в первом файле (новый формат)
+            if not request["files"]:
+                raise HTTPException(status_code=400, detail="No files provided")
+            
+            # Проверяем формат файлов
+            if "filename" in request["files"][0]:
+                # Это новый формат ТЗ
+                req = models.PackageRequest(**request)
+                logger.info(f"Package request (new TZ format): project_id={req.project_id}, files_count={len(req.files)}")
+                await send_log_to_br18("package_new_started", {"project_id": req.project_id, "files_count": len(req.files)})
+                
+                # Преобразуем Pydantic модели в словари для совместимости с services.create_archive
+                files_list = [{"filename": f.filename, "content": f.content} for f in req.files]
+                archive_path = await services.create_archive(req.project_id, files_list)
+                
+                # Создаем download_url (опционально)
+                archive_name = archive_path.split('/')[-1]
+                download_url = f"/api/download/{archive_name}"
+                
+                response = models.PackageResponse(
+                    status="ok",
+                    archive_path=archive_path,
+                    download_url=download_url
+                )
+                
+                await send_log_to_br18("package_new_completed", {"archive_path": archive_path})
+                return response
+        except HTTPException:
+            raise
+        except Exception as e:
+            logger.error(f"New TZ format packaging failed: {e}")
+            await send_log_to_br18("package_new_failed", {"error": str(e)})
+            raise HTTPException(status_code=500, detail=str(e))
+    
     if "files" in request or "source_dir" in request:
-        # Новый формат запроса
+        # Промежуточный формат запроса
         await send_log_to_br18("package_code_started", {"has_files": "files" in request, "source_dir": request.get("source_dir")})
         try:
             files_list = None
@@ -106,7 +144,7 @@ async def package(request: dict, background_tasks: BackgroundTasks):
     else:
         # Старый формат запроса
         try:
-            req = models.PackageRequest(**request)
+            req = models.LegacyPackageRequest(**request)
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"Invalid request format: {e}")
         

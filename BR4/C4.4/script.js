@@ -17,7 +17,7 @@ async function loadProjects() {
     try { const resp = await fetch(PROJECTS_API); if(!resp.ok) throw new Error(`HTTP ${resp.status}`); const projects = await resp.json();
         projectSelect.innerHTML = "";
         if(projects.length===0){ const opt = document.createElement("option"); opt.textContent="Нет проектов, создайте первый"; opt.disabled=true; projectSelect.appendChild(opt); currentProjectId=null; chatDiv.innerHTML='<div class="loading">Нет проектов. Нажмите «Новый».</div>'; updateUI(); return; }
-        for(const p of projects){ const opt = document.createElement("option"); opt.value=p.id; opt.textContent=`${p.name} (${p.id.slice(0,8)})`; projectSelect.appendChild(opt); }
+        for(const p of projects){ const opt = document.createElement("option"); opt.value=p.id; opt.textContent=`${p.name} (${p.id})`; projectSelect.appendChild(opt); }
         if(currentProjectId && projects.some(p=>p.id===currentProjectId)) projectSelect.value=currentProjectId; else { currentProjectId=projects[0].id; projectSelect.value=currentProjectId; }
         await loadMessages(); updateUI();
     } catch(err){ console.error(err); chatDiv.innerHTML='<div class="loading error">Ошибка загрузки проектов.</div>'; showError("Не удалось загрузить проекты"); }

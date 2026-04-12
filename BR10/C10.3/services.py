@@ -6,6 +6,7 @@ import subprocess
 import shutil
 import tempfile
 import tarfile
+import zipfile
 from pathlib import Path
 from datetime import datetime
 from typing import List, Optional
@@ -15,6 +16,9 @@ logger = logging.getLogger(__name__)
 
 BR18_URL = os.getenv("BR18_URL", "http://br18:8080/api/logs")
 ENABLE_BR18 = os.getenv("ENABLE_BR18", "false").lower() == "true"
+
+# Константа из ТЗ
+PRODUCTS_DIR = Path("01_ЦЕХ/ПРОДУКТЫ")
 
 
 def generate_metadata(version: str, skills: List[str]) -> dict:
@@ -235,3 +239,33 @@ async def package_code(files: list = None, source_dir: str = None) -> dict:
             "artifact_url": f"/artifacts/{archive_name}",
             "version": version
         }
+
+
+async def create_archive(project_id: str, files: List[dict]) -> str:
+    """
+    Создаёт ZIP-архив с переданными файлами.
+    Возвращает путь к созданному архиву.
+    
+    Args:
+        project_id: Идентификатор проекта
+        files: Список словарей с ключами 'filename' и 'content'
+    
+    Returns:
+        Путь к созданному архиву
+    """
+    # Убедиться, что директория для архивов существует
+    PRODUCTS_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Сформировать имя архива
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    archive_name = f"{project_id}_{timestamp}.zip"
+    archive_path = PRODUCTS_DIR / archive_name
+
+    # Создать архив
+    with zipfile.ZipFile(archive_path, 'w', zipfile.ZIP_DEFLATED) as zf:
+        for file_item in files:
+            # Записать файл в архив (без вложенных папок)
+            zf.writestr(file_item['filename'], file_item['content'])
+
+    logger.info(f"Created archive: {archive_path}")
+    return str(archive_path)

@@ -2,14 +2,15 @@ import logging
 import json
 import httpx
 import time
+import os
 from pathlib import Path
 from typing import Optional, Tuple
 import repositories as repo
 from llm_client import _call_llm, _parse_l2_response
-from external_api import _save_message, call_skill_integrator
-from handlers import _process_l2_response, _ensure_project_exists, send_log_to_br18, background_processing as handlers_background_processing
+from external_api import _save_message, call_skill_integrator, send_log_to_br18, PROJECT_MEMORY_URL
 
 HINTS_DIR = Path("01_ЦЕХ/ПОДСКАЗКИ")
+PATCH_ARCHITECT_URL = "http://patch-architect:8085"  # порт C1.2
 
 
 async def get_prompt_version(prompt_name: str) -> Optional[str]:
@@ -48,16 +49,33 @@ def load_hints(project_id: str) -> dict:
             return json.load(f)
     return {}
 
+
+async def trigger_decomposition(l2_data: dict) -> dict:
+    """
+    Вызывает C1.2 (Patch Architect) для декомпозиции L2.
+    Возвращает результат вызова.
+    """
+    url = f"{PATCH_ARCHITECT_URL}/decompose"
+    # C1.2 ожидает поле "description" (строка). Передаём весь L2 как JSON-строку.
+    payload = {"description": json.dumps(l2_data, ensure_ascii=False)}
+    async with httpx.AsyncClient(timeout=30.0) as client:
+        resp = await client.post(url, json=payload)
+        resp.raise_for_status()
+        return resp.json()
+
+
 logger = logging.getLogger(__name__)
 
 
 async def background_processing(project_id: str, task_description: dict, task_id: str):
     """Фоновая обработка задачи: декомпозиция и интеграция."""
+    from handlers import background_processing as handlers_background_processing
     return await handlers_background_processing(project_id, task_description, task_id)
 
 
 async def process_dialog(project_id: str, message: str) -> Tuple[str, bool, Optional[str], Optional[dict]]:
     """Основная функция обработки диалога."""
+    from handlers import _ensure_project_exists, _process_l2_response
     # Шаг 1: Проверяем, что project_id передан
     if not project_id:
         logger.error("project_id is required")
@@ -77,8 +95,52 @@ async def process_dialog(project_id: str, message: str) -> Tuple[str, bool, Opti
         return "Не удалось проверить проект в памяти завода. Пожалуйста, попробуйте позже.", False, None, None
 
     history.append({"role": "user", "content": message})
-    # await send_log_to_br18("user_message", {"project_id": project_id, "message": message})
-    # await _save_message(project_id, "user", message)
+    await send_log_to_br18("user_message", {"project_id": project_id, "message": message})
+    await _save_message(project_id, "user", message)
+
+    # ПРОВЕРКА: принудительное создание L2 после 4 сообщений пользователя
+    user_messages_count = await get_user_messages_count(project_id)
+    print(f"DEBUG: User messages count for project {project_id}: {user_messages_count}")
+    logger.info(f"User messages count for project {project_id}: {user_messages_count}")
+    
+    if user_messages_count >= 4:
+        print(f"DEBUG: Project {project_id} has {user_messages_count} user messages, forcing L2 creation")
+        logger.info(f"Project {project_id} has {user_messages_count} user messages, forcing L2 creation")
+        # Получаем полную историю диалога из C2.6
+        try:
+            full_history = await get_dialog_history(project_id)
+            # Формируем L2 на основе истории с помощью нового навыка l2_extractor
+            l2_data = await call_l2_extractor(full_history)
+            print(f"DEBUG: l2_extractor returned: {l2_data}")
+            logger.info(f"Generated L2 for project {project_id}: {list(l2_data.keys())}")
+            
+            # Сохраняем L2 как артефакт
+            print(f"DEBUG: Saving L2 artifact for project {project_id}")
+            await save_l2_artifact(project_id, l2_data)
+            logger.info(f"L2 artifact saved for project {project_id}")
+            
+            # Обрабатываем L2 через стандартный процесс
+            assistant_message, completed, task_id, task_description = await _process_l2_response(
+                project_id, l2_data, collected
+            )
+            
+            # Сохраняем ответ ассистента
+            history.append({"role": "assistant", "content": assistant_message})
+            repo.save_session(session_id, project_id, history, collected)
+            await _save_message(project_id, "assistant", assistant_message)
+            
+            if completed:
+                await send_log_to_br18("dialogue_completed", {"project_id": project_id, "task_id": task_id})
+            
+            assistant_message = f"<!-- RAW: {assistant_message} -->\n{assistant_message}"
+            return assistant_message, completed, task_id, task_description
+            
+        except Exception as e:
+            print(f"DEBUG: Failed to force L2 creation for project {project_id}: {e}")
+            import traceback
+            print(traceback.format_exc())
+            logger.error(f"Failed to force L2 creation for project {project_id}: {e}", exc_info=True)
+            # Продолжаем обычный диалог в случае ошибки
 
     # Загрузка подсказок для нового диалога
     if not history:  # новый диалог
@@ -171,6 +233,8 @@ async def process_dialog(project_id: str, message: str) -> Tuple[str, bool, Opti
     messages = [{"role": "system", "content": system_prompt}] + history[-20:]
 
     assistant_message = await _call_llm(messages)
+    # Логирование входящего ответа для отладки
+    logger.debug(f"Discovery response: {assistant_message[:500]}")
     is_l2, l2_data = _parse_l2_response(assistant_message)
     print(f"DEBUG services: is_l2={is_l2}, l2_data keys={list(l2_data.keys()) if isinstance(l2_data, dict) else 'not dict'}")
     logger.info(f"DEBUG: is_l2={is_l2}, l2_data keys={list(l2_data.keys()) if isinstance(l2_data, dict) else 'not dict'}")
@@ -197,3 +261,142 @@ async def process_dialog(project_id: str, message: str) -> Tuple[str, bool, Opti
     # ВРЕМЕННО: показать raw response в интерфейсе
     assistant_message = f"<!-- RAW: {assistant_message} -->\n{assistant_message}"
     return assistant_message, completed, task_id, task_description
+
+
+async def get_user_messages_count(project_id: str) -> int:
+    """Возвращает количество сообщений пользователя (role=user) в диалоге."""
+    try:
+        url = f"{PROJECT_MEMORY_URL}/projects/{project_id}/messages"
+        logger.info(f"Getting user messages count from {url}")
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            resp = await client.get(url)
+            resp.raise_for_status()
+            messages = resp.json()
+            count = sum(1 for m in messages if m.get("role") == "user")
+            logger.info(f"Found {count} user messages out of {len(messages)} total messages for project {project_id}")
+            return count
+    except Exception as e:
+        logger.error(f"Failed to get user messages count for project {project_id}: {e}")
+        return 0
+
+async def get_dialog_history(project_id: str) -> list:
+    """Получает историю сообщений проекта из C2.6."""
+    url = f"{PROJECT_MEMORY_URL}/projects/{project_id}/messages"
+    async with httpx.AsyncClient(timeout=10.0) as client:
+        resp = await client.get(url)
+        resp.raise_for_status()
+        return resp.json()
+
+async def save_l2_artifact(project_id: str, l2_data: dict) -> dict:
+    """Сохраняет L2 (specification) как артефакт в C2.6, проверяя дубли."""
+    url_check = f"{PROJECT_MEMORY_URL}/projects/{project_id}/artifacts"
+    async with httpx.AsyncClient(timeout=10.0) as client:
+        resp = await client.get(url_check)
+        resp.raise_for_status()
+        artifacts = resp.json()
+        existing = any(a.get("artifact_type") == "specification" for a in artifacts)
+        if existing:
+            logger.info(f"L2 already exists for project {project_id}, skipping")
+            return {"status": "skipped", "message": "L2 already exists"}
+        
+        url = f"{PROJECT_MEMORY_URL}/projects/{project_id}/artifacts"
+        payload = {
+            "name": f"L2 specification for {project_id}",
+            "artifact_type": "specification",
+            "content": json.dumps(l2_data, ensure_ascii=False),
+            "description": "L2 specification generated after dialog"
+        }
+        resp = await client.post(url, json=payload)
+        resp.raise_for_status()
+        return resp.json()
+
+async def generate_l2_via_llm(messages: list) -> dict:
+    """Прямой вызов DeepSeek для формирования L2 из истории диалога."""
+    api_key = os.environ.get("DEEPSEEK_API_KEY")
+    if not api_key:
+        raise ValueError("DEEPSEEK_API_KEY not set")
+    prompt = f"""
+На основе истории диалога пользователя и ассистента сформируй L2 – JSON с полями:
+- "title": название проекта
+- "description": описание проблемы/цели
+- "requirements": массив строк с требованиями (минимум 2)
+- "technical_specs": объект с техническими деталями (например, {{"stack": "Python", "api": "..."}})
+
+История диалога:
+{json.dumps(messages, indent=2, ensure_ascii=False)}
+
+Верни ТОЛЬКО JSON без пояснений.
+"""
+    url = "https://api.deepseek.com/v1/chat/completions"
+    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+    payload = {
+        "model": "deepseek-chat",
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0.2,
+        "response_format": {"type": "json_object"}
+    }
+    async with httpx.AsyncClient(timeout=30.0) as client:
+        resp = await client.post(url, headers=headers, json=payload)
+        resp.raise_for_status()
+        data = resp.json()
+        return json.loads(data["choices"][0]["message"]["content"])
+
+async def call_l2_extractor(messages: list) -> dict:
+    """
+    Вызывает навык l2_extractor для преобразования истории диалога в L2 JSON.
+    Возвращает словарь с L2 данными.
+    """
+    skill_url = "http://skill-integrator:8090/execute"
+    payload = {
+        "task_type": "l2_extractor",
+        "context": {
+            "history": messages
+        }
+    }
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            resp = await client.post(skill_url, json=payload)
+            resp.raise_for_status()
+            data = resp.json()
+            result = data.get("result", {})
+            # Навык должен вернуть чистый JSON в поле "result" или сам результат
+            if isinstance(result, dict) and "title" in result:
+                return result
+            elif isinstance(result, str):
+                # Если результат - строка, пытаемся распарсить как JSON
+                import json
+                return json.loads(result)
+            else:
+                raise ValueError(f"Unexpected result format from l2_extractor: {result}")
+    except Exception as e:
+        logger.warning(f"Skill l2_extractor failed: {e}, falling back to direct LLM")
+        # Fallback
+        return await generate_l2_via_llm(messages)
+
+
+async def finalize_l2(project_id: str, messages: list) -> dict:
+    """
+    Отправляет историю диалога в навык discovery с командой "finish".
+    Если навык не возвращает l2, использует прямой вызов LLM.
+    """
+    skill_url = "http://skill-integrator:8090/execute"
+    payload = {
+        "task_type": "discovery",
+        "context": {
+            "action": "finish",
+            "messages": messages
+        }
+    }
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            resp = await client.post(skill_url, json=payload)
+            resp.raise_for_status()
+            data = resp.json()
+            result = data.get("result", {})
+            l2_data = result.get("l2")
+            if l2_data:
+                return l2_data
+    except Exception as e:
+        logger.warning(f"Skill discovery finish failed: {e}, falling back to direct LLM")
+    # Fallback
+    return await generate_l2_via_llm(messages)

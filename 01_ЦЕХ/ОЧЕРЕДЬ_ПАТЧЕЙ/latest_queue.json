@@ -1,0 +1,393 @@
+{
+  "branches": [
+    {
+      "id": "BR-TA-1",
+      "name": "Управление задачами",
+      "description": "Создание, просмотр и удаление задач (TODO). Включает бизнес-логику работы с задачами, их атрибутами (заголовок, описание, статус) и хранение в базе данных.",
+      "containers": [
+        "C-TA-1.1",
+        "C-TA-1.2"
+      ]
+    },
+    {
+      "id": "BR-TA-2",
+      "name": "Веб-интерфейс",
+      "description": "Простой фронтенд на HTML/JavaScript для взаимодействия пользователя с системой. Отображает список задач, формы для добавления и кнопки для удаления.",
+      "containers": [
+        "C-TA-2.1"
+      ]
+    },
+    {
+      "id": "BR-TA-3",
+      "name": "API Endpoints",
+      "description": "REST API на FastAPI для обработки HTTP-запросов от фронтенда. Маршруты для операций CRUD над задачами.",
+      "containers": [
+        "C-TA-3.1"
+      ]
+    }
+  ],
+  "containers": [
+    {
+      "id": "C-TA-1.1",
+      "name": "Task API",
+      "description": "Обработка HTTP-запросов для операций с задачами: создание, получение списка, удаление. Включает бизнес-логику и валидацию данных.",
+      "port": 8000
+    },
+    {
+      "id": "C-TA-1.2",
+      "name": "Task Database",
+      "description": "Хранение задач (заголовок, описание, статус) в базе данных SQLite. Предоставляет интерфейс для операций CRUD.",
+      "port": null
+    },
+    {
+      "id": "C-TA-2.1",
+      "name": "Static Web Server",
+      "description": "Обслуживает статические файлы фронтенда (HTML, CSS, JavaScript) для веб-интерфейса управления задачами.",
+      "port": 8080
+    },
+    {
+      "id": "C-TA-3.1",
+      "name": "API Gateway",
+      "description": "REST API на FastAPI для обработки HTTP-запросов от фронтенда. Реализует маршруты CRUD для операций с задачами (создание, чтение, удаление).",
+      "port": 8000
+    },
+    {
+      "id": "C-TA-3.2",
+      "name": "Database Service",
+      "description": "Сервис для управления подключением к базе данных SQLite и выполнения операций с данными задач (сохранение, извлечение, удаление).",
+      "port": null
+    }
+  ],
+  "patches": [
+    {
+      "id": "P-TA-1.1-1",
+      "title": "Базовая структура FastAPI приложения",
+      "description": "Создание FastAPI приложения с базовой структурой проекта, моделями Pydantic для задач (TaskCreate, TaskResponse), конфигурацией и эндпоинтом /health.",
+      "dependencies": [],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-FASTAPI-002",
+        "SKILL-PYDANTIC-003"
+      ]
+    },
+    {
+      "id": "P-TA-1.1-2",
+      "title": "Настройка базы данных SQLite",
+      "description": "Создание SQLAlchemy моделей, настройка подключения к SQLite, создание таблицы tasks, реализация репозитория для работы с БД.",
+      "dependencies": [
+        "P-TA-1.1-1"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-SQL-003",
+        "SKILL-SQLALCHEMY-004"
+      ]
+    },
+    {
+      "id": "P-TA-1.1-3",
+      "title": "CRUD эндпоинты для задач",
+      "description": "Реализация эндпоинтов POST /tasks (создание), GET /tasks (получение списка), DELETE /tasks/{task_id} (удаление) с интеграцией репозитория и валидацией.",
+      "dependencies": [
+        "P-TA-1.1-1",
+        "P-TA-1.1-2"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-FASTAPI-002",
+        "SKILL-SQLALCHEMY-004"
+      ]
+    },
+    {
+      "id": "P-TA-1.1-4",
+      "title": "Логирование, обработка ошибок и документация",
+      "description": "Добавление логирования запросов и ошибок, кастомных обработчиков исключений, автоматической документации OpenAPI и README.",
+      "dependencies": [
+        "P-TA-1.1-1"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-LOGGING-005",
+        "SKILL-FASTAPI-002"
+      ]
+    },
+    {
+      "id": "P-TA-1.1-5",
+      "title": "Тестирование API",
+      "description": "Написание юнит-тестов для моделей и репозитория, интеграционных тестов для эндпоинтов с использованием TestClient.",
+      "dependencies": [
+        "P-TA-1.1-1",
+        "P-TA-1.1-2",
+        "P-TA-1.1-3"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-TESTING-006",
+        "SKILL-FASTAPI-002"
+      ]
+    },
+    {
+      "id": "P-TA-1.2-1",
+      "title": "Базовая структура Task Database",
+      "description": "Создание SQLAlchemy моделей для задач (Task), настройка подключения к SQLite, создание базового репозитория и FastAPI приложения с эндпоинтом /health.",
+      "dependencies": [],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-SQLALCHEMY-002",
+        "SKILL-FASTAPI-003"
+      ]
+    },
+    {
+      "id": "P-TA-1.2-2",
+      "title": "CRUD операции для задач",
+      "description": "Реализация методов репозитория и API эндпоинтов для создания, чтения (всех и по ID), обновления и удаления задач.",
+      "dependencies": [
+        "P-TA-1.2-1"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-SQL-004",
+        "SKILL-FASTAPI-003"
+      ]
+    },
+    {
+      "id": "P-TA-1.2-3",
+      "title": "Валидация данных и обработка ошибок",
+      "description": "Добавление Pydantic схем для валидации входящих/исходящих данных, обработка исключений (например, задача не найдена).",
+      "dependencies": [
+        "P-TA-1.2-1"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-PYDANTIC-005"
+      ]
+    },
+    {
+      "id": "P-TA-1.2-4",
+      "title": "Тестирование и документация",
+      "description": "Написание юнит-тестов для моделей и репозитория, интеграционных тестов для API, создание README с описанием API.",
+      "dependencies": [
+        "P-TA-1.2-1",
+        "P-TA-1.2-2",
+        "P-TA-1.2-3"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-TESTING-006",
+        "SKILL-DOCUMENTATION-007"
+      ]
+    },
+    {
+      "id": "P-TA-2.1-1",
+      "title": "Базовая структура статического веб-сервера",
+      "description": "Создание минимального FastAPI приложения для обслуживания статических файлов, настройка маршрутов для HTML, CSS, JS файлов.",
+      "dependencies": [],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-FASTAPI-002"
+      ]
+    },
+    {
+      "id": "P-TA-2.1-2",
+      "title": "HTML-шаблоны и базовый интерфейс",
+      "description": "Создание HTML-страниц (index.html, styles.css, app.js) с базовой структурой интерфейса управления задачами.",
+      "dependencies": [
+        "P-TA-2.1-1"
+      ],
+      "required_skills": [
+        "SKILL-HTML-006",
+        "SKILL-CSS-007",
+        "SKILL-JAVASCRIPT-008"
+      ]
+    },
+    {
+      "id": "P-TA-2.1-3",
+      "title": "JavaScript логика для работы с API",
+      "description": "Реализация JavaScript функций для взаимодействия с бэкенд API (получение, создание, удаление задач) и обновления интерфейса.",
+      "dependencies": [
+        "P-TA-2.1-2"
+      ],
+      "required_skills": [
+        "SKILL-JAVASCRIPT-008",
+        "SKILL-API-009"
+      ]
+    },
+    {
+      "id": "P-TA-2.1-4",
+      "title": "Логирование и healthcheck",
+      "description": "Добавление логирования запросов к статическим файлам и эндпоинта /health для мониторинга.",
+      "dependencies": [
+        "P-TA-2.1-1"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-LOGGING-004"
+      ]
+    },
+    {
+      "id": "P-TA-2.1-5",
+      "title": "Тестирование и документация",
+      "description": "Написание юнит-тестов для статического сервера, создание README с инструкциями по запуску.",
+      "dependencies": [
+        "P-TA-2.1-1",
+        "P-TA-2.1-2"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-TESTING-005"
+      ]
+    },
+    {
+      "id": "P-TA-3.1-1",
+      "title": "Базовая структура FastAPI приложения",
+      "description": "Создание FastAPI приложения, базовой структуры проекта, Pydantic моделей для задачи (Task) и эндпоинта /health.",
+      "dependencies": [],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-FASTAPI-002",
+        "SKILL-PYDANTIC-003"
+      ]
+    },
+    {
+      "id": "P-TA-3.1-2",
+      "title": "Реализация репозитория и подключение к SQLite",
+      "description": "Создание модуля репозитория (repository.py) с функциями для работы с базой данных SQLite (инициализация таблицы, CRUD-операции).",
+      "dependencies": [
+        "P-TA-3.1-1"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-SQL-003",
+        "SKILL-SQLITE-004"
+      ]
+    },
+    {
+      "id": "P-TA-3.1-3",
+      "title": "CRUD эндпоинты для задач",
+      "description": "Реализация REST API эндпоинтов: POST /tasks (создание), GET /tasks (чтение всех), DELETE /tasks/{task_id} (удаление). Интеграция с репозиторием.",
+      "dependencies": [
+        "P-TA-3.1-1",
+        "P-TA-3.1-2"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-FASTAPI-002",
+        "SKILL-REST-005"
+      ]
+    },
+    {
+      "id": "P-TA-3.1-4",
+      "title": "Логирование, обработка ошибок и CORS",
+      "description": "Добавление логирования запросов, централизованной обработки исключений и настройки CORS для взаимодействия с фронтендом.",
+      "dependencies": [
+        "P-TA-3.1-1"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-LOGGING-006",
+        "SKILL-CORS-007"
+      ]
+    },
+    {
+      "id": "P-TA-3.1-5",
+      "title": "Тесты и документация",
+      "description": "Написание юнит- и интеграционных тестов для API, настройка автоматической документации FastAPI (Swagger/ReDoc) и создание README.",
+      "dependencies": [
+        "P-TA-3.1-1",
+        "P-TA-3.1-2",
+        "P-TA-3.1-3"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-TESTING-008",
+        "SKILL-DOCS-009"
+      ]
+    },
+    {
+      "id": "P-TA-3.2-1",
+      "title": "Базовая структура и модели данных",
+      "description": "Создание SQLAlchemy моделей для задач (Task), инициализация базы данных SQLite, настройка сессии.",
+      "dependencies": [],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-SQLALCHEMY-001",
+        "SKILL-SQL-003"
+      ]
+    },
+    {
+      "id": "P-TA-3.2-2",
+      "title": "Репозиторий для операций с задачами",
+      "description": "Реализация репозитория с методами для создания, получения всех задач и удаления задачи по ID.",
+      "dependencies": [
+        "P-TA-3.2-1"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-SQLALCHEMY-001"
+      ]
+    },
+    {
+      "id": "P-TA-3.2-3",
+      "title": "Интеграция с основным API",
+      "description": "Создание FastAPI зависимостей для получения сессии базы данных и репозитория, предоставление их другим сервисам.",
+      "dependencies": [
+        "P-TA-3.2-1",
+        "P-TA-3.2-2"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-FASTAPI-002"
+      ]
+    },
+    {
+      "id": "P-TA-3.2-4",
+      "title": "Логирование и healthcheck",
+      "description": "Добавление логирования операций с базой данных и эндпоинта /health для проверки доступности БД.",
+      "dependencies": [
+        "P-TA-3.2-1"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-LOGGING-004"
+      ]
+    },
+    {
+      "id": "P-TA-3.2-5",
+      "title": "Тесты и документация",
+      "description": "Написание юнит-тестов для репозитория и моделей, создание README с описанием схемы базы данных.",
+      "dependencies": [
+        "P-TA-3.2-1",
+        "P-TA-3.2-2"
+      ],
+      "required_skills": [
+        "SKILL-PYTHON-001",
+        "SKILL-TESTING-005"
+      ]
+    }
+  ],
+  "queue": [
+    "P-TA-1.1-1",
+    "P-TA-1.2-1",
+    "P-TA-2.1-1",
+    "P-TA-3.1-1",
+    "P-TA-3.2-1",
+    "P-TA-1.1-2",
+    "P-TA-1.1-4",
+    "P-TA-1.2-2",
+    "P-TA-1.2-3",
+    "P-TA-2.1-2",
+    "P-TA-2.1-4",
+    "P-TA-3.1-2",
+    "P-TA-3.1-4",
+    "P-TA-3.2-2",
+    "P-TA-3.2-4",
+    "P-TA-1.1-3",
+    "P-TA-2.1-3",
+    "P-TA-2.1-5",
+    "P-TA-3.1-3",
+    "P-TA-3.2-3",
+    "P-TA-3.2-5",
+    "P-TA-1.1-5",
+    "P-TA-1.2-4",
+    "P-TA-3.1-5"
+  ]
+}

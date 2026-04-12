@@ -57,28 +57,50 @@ async def _call_llm(messages: list) -> str:
 
 
 def _parse_l2_response(assistant_message: str) -> Tuple[bool, Optional[dict]]:
-    """Парсит ответ LLM, определяя является ли он JSON L2."""
-    # Очищаем ответ от маркеров Markdown (```json ... ```), если они есть
-    cleaned = re.sub(r'^```json\s*|\s*```$', '', assistant_message.strip())
-    print(f"DEBUG _parse_l2_response: cleaned length {len(cleaned)}")
+    """
+    Пытается извлечь L2 из ответа LLM.
+    Возвращает (is_l2, l2_data). l2_data – словарь, если успешно.
+    Поддерживает два формата:
+    1. Прямой L2: {"title": "...", "description": "...", "requirements": [...], "technical_specs": {...}}
+    2. Завершённый диалог: {"completed": true, "l2": {...}}
+    """
+    # Очистка от маркеров Markdown (```json ... ```)
+    cleaned = re.sub(r'```json\s*', '', assistant_message)
+    cleaned = re.sub(r'```', '', cleaned)
+    cleaned = cleaned.strip()
     
-    # Попытка распарсить как JSON
-    try:
-        parsed = json.loads(cleaned)
-        print(f"DEBUG Parsed JSON response: {json.dumps(parsed, ensure_ascii=False)[:500]}")
-        logger.info(f"Parsed JSON response: {json.dumps(parsed, ensure_ascii=False)[:500]}")
-    except json.JSONDecodeError as e:
-        print(f"DEBUG Response is not valid JSON: {e}")
-        logger.info(f"Response is not valid JSON: {e}")
-        return False, None
-    
-    # Проверяем наличие обязательных полей title и description
-    if isinstance(parsed, dict) and "title" in parsed and "description" in parsed:
-        print(f"DEBUG Detected L2 with title: {parsed.get('title')}")
-        logger.info(f"Detected L2 with title: {parsed.get('title')}, description length: {len(parsed.get('description', ''))}")
-        logger.info(f"L2 keys: {list(parsed.keys())}")
-        return True, parsed
+    # Попытка найти JSON в тексте (если весь ответ не является JSON)
+    start = cleaned.find('{')
+    end = cleaned.rfind('}')
+    if start != -1 and end != -1 and start < end:
+        json_candidate = cleaned[start:end+1]
+        try:
+            data = json.loads(json_candidate)
+            
+            # Проверка формата 2: завершённый диалог с completed: true
+            if isinstance(data, dict) and data.get("completed") is True:
+                l2_data = data.get("l2")
+                if isinstance(l2_data, dict) and all(k in l2_data for k in ['title', 'description', 'requirements', 'technical_specs']):
+                    logger.info(f"Successfully parsed completed L2: {l2_data.get('title')}")
+                    print(f"DEBUG Detected completed L2 with title: {l2_data.get('title')}")
+                    return True, l2_data
+                else:
+                    logger.debug(f"Completed flag set but missing l2 or required fields: {data.keys()}")
+                    print(f"DEBUG Completed flag set but missing l2 or required fields. Keys: {data.keys()}")
+            
+            # Проверка формата 1: прямой L2
+            if all(k in data for k in ['title', 'description', 'requirements', 'technical_specs']):
+                logger.info(f"Successfully parsed L2: {data.get('title')}")
+                print(f"DEBUG Detected L2 with title: {data.get('title')}")
+                return True, data
+            else:
+                logger.debug(f"Missing required fields in JSON: {data.keys()}")
+                print(f"DEBUG JSON parsed but missing required fields. Keys: {data.keys()}")
+        except json.JSONDecodeError as e:
+            logger.debug(f"JSON decode error: {e}")
+            print(f"DEBUG JSON decode error: {e}")
     else:
-        print(f"DEBUG JSON parsed but missing title or description fields. Keys: {list(parsed.keys())}")
-        logger.info(f"JSON parsed but missing title or description fields. Keys: {list(parsed.keys())}")
-        return False, None
+        logger.debug("No JSON object found in response")
+        print(f"DEBUG No JSON object found in response, cleaned length {len(cleaned)}")
+    
+    return False, None

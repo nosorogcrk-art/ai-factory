@@ -1,6 +1,7 @@
 import os
 import logging
 import httpx
+import traceback
 from pathlib import Path
 from fastapi import FastAPI, HTTPException, BackgroundTasks
 import models
@@ -46,14 +47,28 @@ async def build(req: models.BuildRequest, background_tasks: BackgroundTasks):
     # Логируем в BR18
     background_tasks.add_task(log_to_br18, "INFO", 
                               f"Build request for task {req.task_id}, patches: {req.patch_ids}")
-    success, message = services.build_patches(req.task_id, req.patch_ids, req.check_skills, req.run_tests)
-    if not success:
+    
+    if not req.task_id:
+        raise HTTPException(status_code=400, detail="Missing 'task_id'")
+    if not req.patch_ids:
+        raise HTTPException(status_code=400, detail="Missing or empty 'patch_ids'")
+    
+    try:
+        files = await services.generate_code_from_patches(req.task_id, req.patch_ids)
+        logger.info(f"Generated {len(files)} files for task {req.task_id}")
+        background_tasks.add_task(log_to_br18, "INFO", 
+                                  f"Generated {len(files)} files for task {req.task_id}")
+        return models.BuildResponse(
+            status="ok", 
+            message=f"Generated {len(files)} files",
+            files=files
+        )
+    except Exception as e:
+        logger.error(f"Build failed: {e}")
+        logger.error(traceback.format_exc())
         background_tasks.add_task(log_to_br18, "ERROR", 
-                                  f"Build failed for task {req.task_id}: {message}")
-        raise HTTPException(status_code=500, detail=message)
-    background_tasks.add_task(log_to_br18, "INFO", 
-                              f"Build started for task {req.task_id}")
-    return models.BuildResponse(status="started", message=message)
+                                  f"Build failed for task {req.task_id}: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.post("/generate", response_model=models.GenerateResponse)

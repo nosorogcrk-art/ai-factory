@@ -24,15 +24,12 @@ async def test_run_code_audit_success():
 
 @pytest.mark.asyncio
 async def test_package_build_result_success():
-    mock_response = Mock()
-    mock_response.status_code = 200
-    mock_response.json.return_value = {"status": "success", "artifact_url": "/test.zip"}
-    
-    with patch("httpx.AsyncClient.post", new_callable=AsyncMock) as mock_post:
-        mock_post.return_value = mock_response
+    with patch("services.call_packager", new_callable=AsyncMock) as mock_call:
+        mock_call.return_value = "/path/to/archive.zip"
         from api import package_build_result
         result = await package_build_result([{"path": "test.py", "content": "print(1)"}])
-        assert result["status"] == "success"
+        assert result["status"] == "ok"
+        assert result["archive_path"] == "/path/to/archive.zip"
 
 @pytest.mark.asyncio
 async def test_create_rework_task():
@@ -59,9 +56,9 @@ async def test_check_and_build_queue_with_audit_passed():
     
     with patch.object(Path, 'exists', side_effect=exists_side_effect, autospec=True), \
          patch.object(Path, 'touch', side_effect=lambda *args, **kwargs: None), \
-         patch("builtins.open", mock_open(read_data='[{"container_id": "c1", "spec": {}}]')), \
+         patch("builtins.open", mock_open(read_data='{"queue": ["project1"]}')), \
          patch("httpx.AsyncClient.post", new_callable=AsyncMock) as mock_post:
-        # Первый вызов (build_from_queue) – успех с файлами
+        # Первый вызов (build) – успех с файлами
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {
@@ -73,7 +70,7 @@ async def test_check_and_build_queue_with_audit_passed():
         # У нас только один mock_post, он будет возвращать разные результаты при последовательных вызовах
         # Для упрощения: подменим функцию audit и package отдельно
         with patch("api.run_code_audit", new_callable=AsyncMock, return_value={"passed": True}), \
-             patch("api.package_build_result", new_callable=AsyncMock, return_value={"status": "success"}):
+             patch("api.package_build_result", new_callable=AsyncMock, return_value={"status": "ok", "archive_path": "/path/to/archive.zip"}):
             from api import check_and_build_queue
             result = await check_and_build_queue()
             # Должен быть success, потому что очередь есть и не обработана
@@ -92,7 +89,7 @@ async def test_check_and_build_queue_with_audit_failed():
     
     with patch.object(Path, 'exists', side_effect=exists_side_effect, autospec=True), \
          patch.object(Path, 'touch', side_effect=lambda *args, **kwargs: None), \
-         patch("builtins.open", mock_open(read_data='[{"container_id": "c1", "spec": {}}]')), \
+         patch("builtins.open", mock_open(read_data='{"queue": ["project1"]}')), \
          patch("httpx.AsyncClient.post", new_callable=AsyncMock) as mock_post:
         mock_response = Mock()
         mock_response.status_code = 200

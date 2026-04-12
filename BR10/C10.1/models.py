@@ -12,6 +12,7 @@ class BuildRequest(BaseModel):
 class BuildResponse(BaseModel):
     status: str
     message: str
+    files: Optional[List[Dict[str, str]]] = None
 
 
 class GenerateRequest(BaseModel):

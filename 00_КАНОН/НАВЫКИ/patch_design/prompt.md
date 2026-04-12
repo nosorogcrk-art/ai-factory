@@ -44,4 +44,47 @@
   ]
 }
 
+Пример для простого REST API:
+L2: {
+  "title": "HelloWorldTest REST API",
+  "description": "Простой REST API на FastAPI",
+  "requirements": ["GET /hello возвращает JSON"],
+  "technical_specs": {"stack": "Python 3.12, FastAPI", "database": "не требуется"}
+}
+Контейнер: {"id": "C-HW-1.1", "name": "API Gateway", "description": "Обработка HTTP-запросов, маршрутизация, валидация и возврат JSON-ответов для эндпоинтов.", "port": 8000}
+
+Ожидаемый вывод:
+{
+  "patches": [
+    {
+      "id": "P-HW-1.1-1",
+      "title": "Базовая структура FastAPI приложения",
+      "description": "Создание FastAPI приложения с эндпоинтом /hello, возвращающим JSON.",
+      "dependencies": [],
+      "required_skills": ["SKILL-PYTHON-001", "SKILL-FASTAPI-002"]
+    },
+    {
+      "id": "P-HW-1.1-2",
+      "title": "Добавление валидации запросов",
+      "description": "Добавление Pydantic моделей для валидации входных данных.",
+      "dependencies": ["P-HW-1.1-1"],
+      "required_skills": ["SKILL-PYTHON-001", "SKILL-PYDANTIC-003"]
+    },
+    {
+      "id": "P-HW-1.1-3",
+      "title": "Логирование и healthcheck",
+      "description": "Добавление логирования и эндпоинта /health.",
+      "dependencies": ["P-HW-1.1-1"],
+      "required_skills": ["SKILL-PYTHON-001", "SKILL-LOGGING-004"]
+    },
+    {
+      "id": "P-HW-1.1-4",
+      "title": "Тесты и документация",
+      "description": "Написание юнит-тестов и README.",
+      "dependencies": ["P-HW-1.1-1", "P-HW-1.1-2"],
+      "required_skills": ["SKILL-PYTHON-001", "SKILL-TESTING-005"]
+    }
+  ]
+}
+
 Возвращай **только JSON**. Никаких пояснений.
